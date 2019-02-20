@@ -1,0 +1,51 @@
+.ant-modal-mask {
+  z-index: 999;
+}
+
+.ant-modal-wrap {
+  z-index: 999;
+}
+
+.ant-checkbox-wrapper {
+  margin: 3px 0;
+}
+
+.admin-action-username {
+  font-size: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #d4d4d4;
+  padding-bottom: 10px;
+}
+
+.admin-action-title {
+  font-size: 18px;
+}
+
+.admin-action-title i {
+  color: #1890ff;
+  font-size: 18px;
+}
+
+.admin-action-content {
+  margin: 0 30px 15px 25px;
+}
+
+.admin-action-content > p {
+  font-weight: bold;
+}
+
+.admin-action-button i {
+  color: #fff;
+}
+
+.switch-users-places-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.switch-users-places-container > * {
+  min-width: 400px;
+  width: calc(50% - 20px);
+  margin: 0 10px 20px 10px;
+}
