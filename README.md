@@ -1,2 +1,2 @@
 # faluche-troyenne-site
-Front end pour le site de présentation et d'inscription aux événements organisés par la Faluche Troyenne
+UI du site de présentation et de gestion des événements de l'association La Flute
