@@ -61,12 +61,6 @@ class Header extends React.Component {
             <Button onClick={this.props.gotoHome} className='button_header' type="primary" size='large'>FAQ</Button>
           </div>
           <div>
-            <Button onClick={this.props.gotoHome} className='button_header' type="primary" size='large'>Tournois</Button>
-          </div>
-          <div>
-            <Button onClick={this.props.gotoHome} className='button_header' type="primary" size='large'>Partenaires</Button>
-          </div>
-          <div>
             <Button onClick={this.props.gotoHome} className='button_header' type="primary" size='large'>Contact</Button>
           </div>
           <div className="a-intro-header__mainButton">

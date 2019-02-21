@@ -26,17 +26,17 @@ class LoginForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <FormItem>
-          {getFieldDecorator("name", {
+          {getFieldDecorator("email", {
             rules: [
               {
                 required: true,
-                message: "Veuillez saisir votre nom d'utilisateur"
+                message: "Veuillez saisir votre nom e-mail"
               }
             ]
           })(
             <Input
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)", marginLeft: "-3px" }} />}
-              placeholder="Nom d'utilisateur"
+              placeholder="E-mail"
               autoFocus={true}
             />
           )}

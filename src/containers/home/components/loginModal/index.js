@@ -61,6 +61,7 @@ class LoginModal extends React.Component {
           visible={this.props.isOpen}
           onCancel={this.props.onClose}
           footer={null}
+          mask={false}
         >
          {this.props.canLogin && (
           <div className="a-login-modal">
