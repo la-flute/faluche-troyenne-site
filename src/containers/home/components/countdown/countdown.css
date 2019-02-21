@@ -1,0 +1,54 @@
+.a-countdown {
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.a-countdown > div {
+  display: block;
+}
+
+.a-countdown h1, .a-countdown h2 {
+  margin: 0;
+  text-transform: uppercase;
+  font-family: 'ua2018-font', Impact, sans-serif;
+  letter-spacing: 2px;
+}
+
+.a-countdown h1 {
+  color: #14d9fa;
+  font-size: 90px;
+}
+
+.a-countdown h2 {
+  color: #fff;
+  font-size: 20px;
+}
+
+@media screen and (max-width: 700px) {
+  .a-countdown h1 {
+    font-size: 60px;
+  }
+
+  .a-countdown h2 {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .a-countdown h1 {
+    font-size: 50px;
+  }
+
+  .a-countdown h2 {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .a-countdown {
+    flex-direction: column;
+  }
+}

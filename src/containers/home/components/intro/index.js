@@ -2,20 +2,24 @@ import React from 'react'
 
 import './intro.css'
 
-import LoginForm from '../loginForm'
-
-import csgo from '../../../../assets/csgo.jpg'
-import hearthstone from '../../../../assets/hs.jpg'
-import lol from '../../../../assets/lol.jpg'
-import fortnite from '../../../../assets/fortnite.jpg'
-import smbu from '../../../../assets/smbu.jpg'
+import flute from '../../../../assets/flute.png'
+import quigon from '../../../../assets/quigon.jpeg'
+import kylo from '../../../../assets/kylo.png'
+import rey from '../../../../assets/rey.png'
+import vador from '../../../../assets/vader.png'
+import maul from '../../../../assets/maul.png'
+// import logo from '../../../assets/ua2018.png'
+// import csgo from '../../../assets/csgo.jpg'
+// import hearthstone from '../../../assets/hs.jpg'
+// import lol from '../../../assets/lol.jpg'
+// import fortnite from '../../../assets/fortnite.jpg'
+// import smbu from '../../../assets/smbu.jpg'
 
 const Intro = props => {
-  const imgs = [smbu, lol, csgo, fortnite, hearthstone].map(img => ({
+  const imgs = [vador, kylo].map(img => ({
     backgroundImage: `url(${img})`,
+    backgroundPosition: 'center'
   }))
-
-  imgs[1].backgroundPosition = 'right'
 
   return (
     <div className="a-intro">
@@ -23,12 +27,9 @@ const Intro = props => {
       <div className="a-intro__images">
         <div className="a-intro__images__image" style={imgs[0]} />
         <div className="a-intro__images__image" style={imgs[1]} />
-        <div className="a-intro__images__image" style={imgs[2]} />
-        <div className="a-intro__images__image" style={imgs[3]} />
-        <div className="a-intro__images__image" style={imgs[4]} />
       </div>
-      <div className="a-intro__login">
-        <LoginForm />
+      <div className="a-intro__logo">
+        <img src={flute} alt="" />
       </div>
     </div>
   )

@@ -54,9 +54,7 @@ class LoginForm extends React.Component {
             />
           )}
         </FormItem>
-        <div style={{ marginBottom: "5px", marginTop: "20px", fontSize: "0.9em" }}>
-          Pas de compte ? <a href="https://arena.utt.fr">Cliquez ici !</a>
-        </div>
+        
         <FormItem>
           <Button
             type="primary"
