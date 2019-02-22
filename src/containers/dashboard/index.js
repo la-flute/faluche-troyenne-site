@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import DashboardHome from './components/Accueil'
 import DashboardLoading from './components/Loading'
 import EditUser from './components/User/Edit'
-import Temp from './components/User/Temp'
+import ListUsers from './components/User/ListUsers'
 import Temp2 from './components/User/Temp2'
 import DashboardLayout from './layout'
 
@@ -42,50 +42,40 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const component = <Switch>
-      {this.state.render && (
-        <Route
-          path={baseUrl + 'home'}
-          exact
-          component={DashboardHome}
-        />
-      )}
+    const component = (
+      <Switch>
+        {this.state.render && (
+          <Route path={baseUrl + 'home'} exact component={DashboardHome} />
+        )}
 
-      {this.state.render && (
-        <Route
-          path={baseUrl + 'user'}
-          exact
-          component={EditUser}
-        />
-      )}
+        {this.state.render && (
+          <Route path={baseUrl + 'user'} exact component={EditUser} />
+        )}
 
-      {this.state.render && (
-        <Route
-          path={baseUrl + 'admin/temp'}
-          exact
-          component={Temp}
-        />
-      )}
-      {this.state.render && (
-        <Route
-          path={baseUrl + 'admin/temp2'}
-          exact
-          component={Temp2}
-        />
-      )}
+        {this.state.render && (
+          <Route path={baseUrl + '/list'} exact component={ListUsers} />
+        )}
 
-      {/* teams */}
+        {this.state.render && (
+          <Route path={baseUrl + 'admin/list'} exact component={EditUser} />
+        )}
+        {this.state.render && (
+          <Route path={baseUrl + 'admin/temp2'} exact component={Temp2} />
+        )}
 
-      {/*this.state.render && (
+        {/* teams */}
+
+        {/*this.state.render && (
         <Route path={baseUrl + 'joinTeam'} render={() => (
           !this.props.user.team
             ? <Spin /> 
             : <Redirect to={baseUrl} />
         )} />
         )*/}
-      {this.state.render && <Redirect from="*" to="/dashboard/home" />}
-      {!this.state.render && <DashboardLoading />}
-    </Switch>
+        {this.state.render && <Redirect from="*" to="/dashboard/home" />}
+        {!this.state.render && <DashboardLoading />}
+      </Switch>
+    )
     return (
       <DashboardLayout
         path={this.state.pathname}
@@ -102,7 +92,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  autoLogin: () => dispatch(autoLogin()),
+  autoLogin: () => dispatch(autoLogin())
 })
 
 export default connect(
