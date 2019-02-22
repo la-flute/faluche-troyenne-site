@@ -26,10 +26,12 @@ class LoginForm extends React.Component {
         this.props.login(values)
       }
     })
+    this.setState({resetPassword: false})
   }
 
   changePassword = () => {
-    this.setState({ resetPassword: true })
+    const {resetPassword} = this.state
+    this.setState({ resetPassword: !resetPassword })
   }
 
   render() {
@@ -37,7 +39,17 @@ class LoginForm extends React.Component {
     return (
       <div>
         {this.state.resetPassword ? (
-          <ForgotPassword />
+          <div><ForgotPassword />
+          <div
+              style={{
+                marginBottom: '5px',
+                marginTop: '20px',
+                fontSize: '0.9em'
+              }}
+            >
+              T'as missclick trouduc ? {' '}
+              <a onClick={this.changePassword}>Clique là !</a>
+            </div></div>
         ) : (
           <Form onSubmit={this.handleSubmit} className="login-form">
             <FormItem>
