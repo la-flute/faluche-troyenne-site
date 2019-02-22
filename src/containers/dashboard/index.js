@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
         render: this.props.user && this.props.user.email
       })
     })
-
+    console.log('MOUNT ', this.props)
     this.arrow = this.arrow.bind(this)
   }
 
@@ -42,6 +42,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
+    console.log(this.state.render)
     const component = (
       <Switch>
         {this.state.render && (
@@ -53,7 +54,7 @@ class Dashboard extends React.Component {
         )}
 
         {this.state.render && (
-          <Route path={baseUrl + '/list'} exact component={ListUsers} />
+          <Route path={baseUrl + 'list'} exact component={ListUsers} />
         )}
 
         {this.state.render && (

@@ -1,44 +1,60 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Spin } from 'antd'
-import { fetchUser } from '../../../../modules/user'
+import { listUsers } from '../../../../modules/user'
 import notPrepared from '../../assets/notprepared.jpg'
 
-class ListUsers extends React.Component {
+import { Table, Divider, Tag } from 'antd'
 
-  
+//DEFINE COLUMS
+const columns = [
+  {
+    title: 'Matricule',
+    dataIndex: 'name'
+  },
+  {
+    title: 'Ville',
+    dataIndex: 'town'
+  }
+]
+
+class ListUsers extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       matches: []
     }
-    this.props.fetchUser()
+
+    this.props.listUsers()
   }
-  
+
   render() {
-    const { user } = this.props
-    console.log('PROPS ', this.props)
-    if(!user) {
-      this.props.fetchUser()
+    const { users } = this.props
+    if (!users) {
       return <Spin />
     }
 
     return (
-      <div style={{ height: '100%'}}>
+      <div style={{ height: '100%' }}>
         <h1>Liste des inscrits</h1>
-
-        <img src={notPrepared} alt="" />
+        <Table
+          columns={columns}
+          dataSource={users}
+          rowKey="id"
+          locale={{ emptyText: 'Aucun utilisateur' }}
+          style={{ marginTop: '20px' }}
+        />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  user: state.user.user,
+  users: state.user.users
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchUser: () => dispatch(fetchUser()),
+  listUsers: () => dispatch(listUsers())
 })
 
 export default connect(
