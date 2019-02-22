@@ -1,94 +1,96 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Route, Redirect, Switch } from 'react-router'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 
-import Accueil from './components/Accueil'
-import UsersList from './components/Admin/UsersList'
-import Paids from './components/Admin/Paids'
-import Payment from './components/Orga/Payment'
+import DashboardHome from './components/Accueil'
+import DashboardLoading from './components/Loading'
+import EditUser from './components/User/Edit'
+import Temp from './components/User/Temp'
+import Temp2 from './components/User/Temp2'
 import DashboardLayout from './layout'
 
 import { autoLogin } from '../../modules/login'
-
 import './dashboard.css'
 
-class Dashboard extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      path: this.props.match.path,
-      pathname: this.props.location.pathname
-    }
-  }
+const baseUrl = process.env.REACT_APP_BASEURL + 'dashboard/'
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      path: nextProps.match.path,
-      pathname: nextProps.location.pathname
-    })
+class Dashboard extends React.Component {
+  constructor() {
+    super()
+
+    this.state = {
+      render: false
+    }
   }
 
   componentWillMount() {
-    this.props.autoLogin()
+    this.props.autoLogin().then(() => {
+      this.setState({
+        render: this.props.user && this.props.user.email
+      })
+    })
+
+    this.arrow = this.arrow.bind(this)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps !== this.props || nextState !== this.state ? true : false
+  arrow() {
+    return this.props.location &&
+      this.props.location.indexOf('/dashboard') > -1 &&
+      this.props.location !== '/dashboard'
+      ? '/dashboard'
+      : '/'
   }
 
   render() {
-    let component = null
-    let tab = this.props.location.split('/')
-    tab.splice(0,1) // remove first element because it's equal to ''
+    const component = <Switch>
+      {this.state.render && (
+        <Route
+          path={baseUrl + 'home'}
+          exact
+          component={DashboardHome}
+        />
+      )}
 
-    if(tab[0] !== 'dashboard') {
-      this.props.goToHome()
-    }
-    
-    if(tab[1] === 'home' && tab.length === 2) component = <Accueil />
+      {this.state.render && (
+        <Route
+          path={baseUrl + 'user'}
+          exact
+          component={EditUser}
+        />
+      )}
 
-    if(tab[1] === 'admin') {
-      let user = this.props.user
+      {this.state.render && (
+        <Route
+          path={baseUrl + 'admin/temp'}
+          exact
+          component={Temp}
+        />
+      )}
+      {this.state.render && (
+        <Route
+          path={baseUrl + 'admin/temp2'}
+          exact
+          component={Temp2}
+        />
+      )}
 
-      if(user) {
-        if(user.permission && user.permission.admin) {
-          if(tab[2] === 'users') component = <UsersList />
-          if(tab[2] === 'paids') component = <Paids />
-        }
-        else {
-          this.props.goToHome()
-        }
-      }
-    }
+      {/* teams */}
 
-
-    if(tab[1] === 'orga') {
-      let user = this.props.user
-
-      if(user) {
-        if(user.permission) {
-          if(user.permission.permission.includes('payment') || user.permission.admin) {
-            if(tab[2] === 'payment') component = <Payment />
-          }
-          else {
-            this.props.goToHome()
-          }
-        }
-        else {
-          this.props.goToHome()
-        }
-      }
-    }
-    
-
-    if(component === null) {      
-      return null
-    }
-
+      {/*this.state.render && (
+        <Route path={baseUrl + 'joinTeam'} render={() => (
+          !this.props.user.team
+            ? <Spin /> 
+            : <Redirect to={baseUrl} />
+        )} />
+        )*/}
+      {this.state.render && <Redirect from="*" to="/dashboard/home" />}
+      {!this.state.render && <DashboardLoading />}
+    </Switch>
     return (
       <DashboardLayout
         path={this.state.pathname}
         component={component}
+        style={{ height: '100%' }}
       />
     )
   }
@@ -101,7 +103,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   autoLogin: () => dispatch(autoLogin()),
-  goToHome: () => dispatch(push('/dashboard/home'))
 })
 
 export default connect(

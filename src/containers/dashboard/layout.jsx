@@ -3,29 +3,22 @@ import { Layout } from 'antd'
 
 import LeftBar from './components/LeftBar'
 import TopBar from './components/TopBar'
-const { Content, Sider } = Layout
+const {
+  Content,
+} = Layout
 
 
 const DashboardLayout = props => {
   return (
-    <div className="App">
-      <Layout style={{ minHeight: '100vh' }}>
-        <TopBar sidebar={props.collapsed} />
-        <Layout>
-          <Sider width="250px">
-            <LeftBar/>
-          </Sider>
-          <Layout>
-            <Content style={{ margin: '0 16px' }}>
-              <div
-                style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                {props.component}
-              </div>
-            </Content>
-          </Layout>
-        </Layout>
+    <Layout style={{ width: '100%', height: '100%' }}>
+      <TopBar />
+      <Layout style={{ width: '100%', height: '100%' }}>
+        <LeftBar/>
+        <Content style={{ margin: 20, padding: 24, background: '#fff', minHeight: 360 }}>
+          {props.component}
+        </Content>
       </Layout>
-    </div>
+    </Layout>
   )
 }
 

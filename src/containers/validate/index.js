@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
   validate: token => {
     return dispatch(validate(token)).then(() => {
       setTimeout(() => {
-        dispatch(push('/dashboard'))
+        dispatch(push('/dashboard/home'))
       }, 1000)
     })
   }

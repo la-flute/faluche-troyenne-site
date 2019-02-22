@@ -1,7 +1,7 @@
 import axios from '../lib/axios'
 import errorToString from '../lib/errorToString'
 import { actions as notifActions } from 'redux-notifications'
-import { logout, SET_TOKEN } from './login'
+import { logout } from './login'
 
 export const SET_USER = 'user/SET_USER'
 
