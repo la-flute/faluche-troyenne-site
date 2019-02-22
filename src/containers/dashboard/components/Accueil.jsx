@@ -5,27 +5,6 @@ import moment from 'moment';
 import { fetchMatches } from '../../../modules/matches'
 import { fetchUser } from '../../../modules/user'
 
-const colorResult = (result) => {
-  switch (result) {
-    case "L":
-      return { color: "red" }
-    case "W":
-      return { color: "green" }
-    default:
-      return
-  }
-}
-
-const getTeam = (team) => {
-  const labelResult = team.result ? team.result.toUpperCase()[0] : null
-  const name = team.participant ?
-    <p style={{ fontWeight: team.result === 'win' ? 'bold' : null }}>{team.participant.name}</p>
-    : <p>A définir</p>
-  const result = team.result ? <p style={colorResult(labelResult)}>{labelResult}</p> : ""
-
-  return <div style={{ display: 'flex', justifyContent: 'space-between' }}>{name} {result}</div>
-}
-
 class Accueil extends React.Component {
 
   
@@ -46,34 +25,6 @@ class Accueil extends React.Component {
   componentDidUpdate(prevProps) { 
     if (prevProps.user !== this.props.user) {
       this.fetchMatches()
-    }
-  }
-
-  getMatches() {
-    const { matches } = this.props
-    if (matches.length > 0) {
-      return matches.map((m,i) => (
-        <Card
-        title={`Match ${i+1}`}
-        key={i}
-        style={{ width: 300, margin: '1rem' }}
-        extra={m.scheduled_datetime ? moment(m.scheduled_datetime).format('DD/MM HH:mm') : ''}>
-          {m.opponents.map(team => getTeam(team))}
-          {m.private_note && (
-            <React.Fragment>
-              <Divider />
-              Note: {m.private_note}
-            </React.Fragment>
-          )}
-        </Card>
-      ))
-    }
-  }
-
-  fetchMatches() {
-    const { user, matches, fetchMatches } = this.props
-    if (!matches.length && user && user.team && user.team.spotlight) {
-      fetchMatches(user.team.spotlight.toornamentID, user.team.toornamentID)
     }
   }
 
@@ -124,7 +75,7 @@ class Accueil extends React.Component {
         <h2>Mes matchs</h2>
 
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {this.getMatches()}
+
         </div>
       </div>
     )
