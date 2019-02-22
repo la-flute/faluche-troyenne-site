@@ -28,12 +28,9 @@ export const fetchUser = () => {
     if (!authToken || authToken.length === 0) {
       return
     }
-
     try {
       const res = await axios.get('user', { headers: { 'X-Token': authToken } })
-      
-      dispatch({ type: SET_USER, payload: res.data.user })
-      dispatch({ type: SET_TOKEN, payload: res.data.token })
+      dispatch({ type: SET_USER, payload: res.data })
 
     } catch (err) {
       dispatch(logout())
