@@ -4,7 +4,6 @@ import { push } from 'react-router-redux'
 
 import './validate.css'
 
-import Header from '../../components/header'
 
 import { validate } from '../../modules/register'
 
@@ -18,7 +17,6 @@ const Validate = props => {
 
   return (
     <div>
-      <Header arrow="/" />
       <div className="a-validate">Validation en cours</div>
     </div>
   )
