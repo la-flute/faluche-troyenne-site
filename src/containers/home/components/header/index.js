@@ -80,7 +80,7 @@ class Header extends React.Component {
               </Button>
             </div>
             <div className="a-intro-header__mainButton" style={{ paddingBottom: '3px' }}>
-              <Button onClick={this.mainButton} raised>{mainButtonText}</Button>
+              <Button onClick={this.mainButton}>{mainButtonText}</Button>
             </div>
           </div>
 
@@ -118,7 +118,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   gotoHome: () => dispatch(push('/')),
-  gotoInformations: () => dispatch(push('/informations')),
   gotoFAQ: () => dispatch(push('/faq')),
   gotoTournaments: () => dispatch(push('/tournaments')),
   gotoPartners: () => dispatch(push('/partners')),

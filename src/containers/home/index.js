@@ -10,11 +10,7 @@ import Countdown from './components/countdown'
 import Informations from './components/informations'
 import Category from './components/category'
 import Footer from './components/footer'
-// import Social from './components/social'
-// import Spotlights from './components/spotlights'
-// import Partners from './components/partners'
 import LoginModal from './components/loginModal'
-// import ContactModal from './components/contactModal'
 import ForgotModal from './components/forgotModal'
 
 import { fetchCanLogin } from '../../modules/canLogin'
@@ -117,7 +113,7 @@ class Home extends React.Component {
 
         <main className="a-home">
           <div className="a-home__content">
-            <Countdown date={new Date('December 7, 2018 17:00:00')}/>
+            <Countdown date={new Date('May 3, 2019 18:00:00')}/>
             <Category id="informations">Informations</Category>
             <Informations />
           </div>

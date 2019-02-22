@@ -6,13 +6,11 @@ import { push } from 'react-router-redux'
 import './reset.css'
 
 import Button from '../../components/button'
-import Header from '../../components/header'
 
 import { resetPassword } from '../../modules/forgot'
 
 const Reset = props => (
   <div>
-    <Header arrow="/" />
     <Form
       defaultValues={{
         token: props.match.params.token

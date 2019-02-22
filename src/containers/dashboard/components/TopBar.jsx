@@ -1,9 +1,9 @@
 import React from 'react'
-import Logo_UA from '../logo_ua_2018_hex.png'
 import { connect } from 'react-redux'
 import { Layout, Menu, Icon } from 'antd'
 import { fetchUser } from '../../../modules/user'
 import { logout } from '../../../modules/login'
+import flute from '../../../../src/assets/flute.png'
 const { Header } = Layout
 
 class TopBar extends React.Component {
@@ -14,17 +14,13 @@ class TopBar extends React.Component {
   }
 
   render() {
-    const { user } = this.props
 
     return (
       <Header className="header">
         <div className="logo">
-          <img src={Logo_UA} alt="" />
-          <span>UTT Arena</span>
+          <img src={flute} alt="" />
+          <span>WET 3</span>
         </div>
-        {user &&
-          <div style={{ position: 'absolute', left: '260px', color: '#fff' }}>{user.name} (Place : {user.place})</div>
-        }
         
         <Menu
           theme="dark"
