@@ -15,7 +15,7 @@ class LeftBar extends React.Component {
 
   static getDerivedStateFromProps(props, state) {
     let tab = props.location.split('/dashboard/')
-    if (state.current !== tab[1]) {
+    if (tab[1] && state.current !== tab[1]) {
       const tab2 = tab[1].split('/')
       let openKeys = []
       if (tab2.length > 1) {

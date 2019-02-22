@@ -43,7 +43,7 @@ export const tryLogin = user => {
       const res = await axios.put('user/login', user)
 
       dispatch(saveToken(res.data.token))
-      dispatch(push('/dashboard'))
+      dispatch(push('/dashboard/home'))
       dispatch(
         notifActions.notifSend({
           message: 'Connexion validée',
