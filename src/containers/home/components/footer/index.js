@@ -20,7 +20,7 @@ class Footer extends React.Component {
               </a>
             </div>
             <div style={{ marginTop: '5px' }}>
-              <Button raised={true} onClick={this.props.openContactModal}>Nous contacter</Button>
+              <Button onClick={this.props.openContactModal}>Nous contacter</Button>
             </div>
           </div>
     )

@@ -80,7 +80,7 @@ class Header extends React.Component {
               </Button>
             </div>
             <div className="a-intro-header__mainButton" style={{ paddingBottom: '3px' }}>
-              <Button onClick={this.mainButton} raised>{mainButtonText}</Button>
+              <Button onClick={this.mainButton}>{mainButtonText}</Button>
             </div>
           </div>
 
