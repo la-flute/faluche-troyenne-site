@@ -59,11 +59,6 @@ class UsersList extends React.Component {
       displayInfo
     })
   }
-
-  getTournamentNameById = (id) => {
-    const spotlight = this.props.spotlights.find(spotlight => spotlight.id === id)
-    return spotlight ? spotlight.shortName : id
-  }
   
   render() {
     let { users } = this.props
@@ -93,7 +88,6 @@ class UsersList extends React.Component {
         ...user,
         fullname: `${user.name} (${user.firstname} ${user.lastname})`,
         role,
-        spotlight: this.getTournamentNameById(user.spotlightId),
       }
     })
     

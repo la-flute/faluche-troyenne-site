@@ -1,21 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Text } from 'react-form'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { actions as notifActions } from 'redux-notifications'
 
 import './loginModal.css'
 
-import {Modal, Button, Form, Icon, Input, Checkbox} from 'antd'
+import {Modal} from 'antd'
 
 import { register } from '../../../../modules/register'
 import { tryLogin } from '../../../../modules/login'
 import { fetchUser } from '../../../../modules/user'
-import Select from '../../../../components/select'
 import LoginForm from '../loginForm'
 import RegisterForm from '../registerForm/registerForm'
 
-const FormItem = Form.Item
 
 class LoginModal extends React.Component {
   constructor() {
@@ -41,8 +38,6 @@ class LoginModal extends React.Component {
   submit(user) {
     if(!this.state.accepted) return this.props.noAcceptation() 
     if(user.password !== user.password2) return this.props.passwordMismatch()
-    if(!user.gender) user.gender = 'N/A'
-    else user.gender = user.gender.value
     this.setState({
       loading: true
     })
@@ -54,7 +49,6 @@ class LoginModal extends React.Component {
 
 
   render() {
-    const genderOptions = [{ label: 'Homme', value: 'M' }, { label: 'Femme', value: 'F' }]
     return (
       <Modal
           title="Basic Modal"

@@ -118,7 +118,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   gotoHome: () => dispatch(push('/')),
-  gotoInformations: () => dispatch(push('/informations')),
   gotoFAQ: () => dispatch(push('/faq')),
   gotoTournaments: () => dispatch(push('/tournaments')),
   gotoPartners: () => dispatch(push('/partners')),

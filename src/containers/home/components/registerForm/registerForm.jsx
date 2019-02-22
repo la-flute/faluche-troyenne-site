@@ -1,13 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { Form, Input, Select, Button } from 'antd'
+import { Form, Input, Button } from 'antd'
 
 import { register } from '../../../../modules/register'
 import { tryLogin } from '../../../../modules/login'
 import { fetchUser } from '../../../../modules/user'
 
-const { Option } = Select
 const FormItem = Form.Item
 
 class RegisterForm extends React.Component {

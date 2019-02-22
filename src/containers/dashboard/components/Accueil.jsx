@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Divider, Card, Spin } from 'antd'
-import moment from 'moment';
-import { fetchMatches } from '../../../modules/matches'
 import { fetchUser } from '../../../modules/user'
 
 class Accueil extends React.Component {
@@ -18,16 +16,6 @@ class Accueil extends React.Component {
     props.fetchUser()
   }
   
-  componentDidMount() {
-    this.fetchMatches()
-  }
-
-  componentDidUpdate(prevProps) { 
-    if (prevProps.user !== this.props.user) {
-      this.fetchMatches()
-    }
-  }
-
   render() {
     const { user } = this.props
 
@@ -66,8 +54,6 @@ class Accueil extends React.Component {
           {user.role ? <div>Rôle : <strong>{user.role}</strong></div> : ''}
           <div>A payé : <strong>{user.paid ? 'Oui' : 'Non'}</strong></div>
           <div>Place : <strong>{user.place ? user.place : 'Aucune'}{user.plusone ? ' (Visiteur)' : ''}</strong></div>
-          {user.team && user.team.spotlight ? <div>Tournoi : <strong>{user.team.spotlight.name}</strong></div> : ''}
-          {user.team && !user.team.soloTeam ? <div>Équipe : <strong>{user.team.name}</strong></div> : ''}
         </Card>
 
         <Divider />
@@ -83,13 +69,11 @@ class Accueil extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  matches: state.matches.matches,
   user: state.user.user,
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchUser: () => dispatch(fetchUser()),
-  fetchMatches: (spotlightID, participantID) => dispatch(fetchMatches(spotlightID, participantID)),
 })
 
 export default connect(

@@ -2,9 +2,7 @@ import axios from '../lib/axios'
 import errorToString from '../lib/errorToString'
 import { push } from 'react-router-redux'
 import { actions as notifActions } from 'redux-notifications'
-import { fetchUser, SET_USER, SET_PRICES } from './user'
-import { SET_TEAMS } from './teams'
-import { SET_SPOTLIGHTS } from './spotlights'
+import { fetchUser, SET_USER } from './user'
 
 export const SET_TOKEN = 'login/SET_TOKEN'
 
@@ -26,10 +24,10 @@ export default (state = initialState, action) => {
 
 export const autoLogin = () => {
   return async dispatch => {
-    if (localStorage.hasOwnProperty('arena-2018-token')) {
+    if (localStorage.hasOwnProperty('flute-token')) {
       dispatch({
         type: SET_TOKEN,
-        payload: localStorage.getItem('arena-2018-token')
+        payload: localStorage.getItem('flute-token')
       })
 
       return dispatch(fetchUser())
@@ -71,7 +69,7 @@ export const saveToken = token => {
       payload: token
     })
 
-    localStorage.setItem('arena-2018-token', token)
+    localStorage.setItem('flute-token', token)
   }
 }
 
@@ -79,11 +77,8 @@ export const logout = () => {
   return async dispatch => {
     dispatch({ type: SET_TOKEN, payload: null })
     dispatch({ type: SET_USER, payload: null })
-    dispatch({ type: SET_SPOTLIGHTS, payload: null })
-    dispatch({ type: SET_TEAMS, payload: null })
-    dispatch({ type: SET_PRICES, payload: null })
 
-    localStorage.removeItem('arena-2018-token')
+    localStorage.removeItem('flute-token')
 
     return dispatch(push('/'))
   }

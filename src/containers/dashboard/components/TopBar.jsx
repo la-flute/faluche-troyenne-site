@@ -1,5 +1,4 @@
 import React from 'react'
-import Logo_UA from '../logo_ua_2018_hex.png'
 import { connect } from 'react-redux'
 import { Layout, Menu, Icon } from 'antd'
 import { fetchUser } from '../../../modules/user'
@@ -19,8 +18,7 @@ class TopBar extends React.Component {
     return (
       <Header className="header">
         <div className="logo">
-          <img src={Logo_UA} alt="" />
-          <span>UTT Arena</span>
+          <span>UTT Arena (oupa)</span>
         </div>
         {user &&
           <div style={{ position: 'absolute', left: '260px', color: '#fff' }}>{user.name} (Place : {user.place})</div>
