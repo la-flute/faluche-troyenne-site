@@ -67,7 +67,7 @@ export const listUsers = () => {
   }
 }
 
-export const editUser = newUserData => {
+export const sendInfos = data => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
 
@@ -75,24 +75,12 @@ export const editUser = newUserData => {
       return
     }
 
-    if (newUserData.password !== newUserData.password2) {
-      return dispatch(
-        notifActions.notifSend({
-          message: errorToString('PASSWORD_MISMATCH'),
-          kind: 'danger',
-          dismissAfter: 2000
-        })
-      )
-    }
-
     try {
-      const res = await axios.put('user', newUserData, {
-        headers: { 'X-Token': authToken }
-      })
+      const res = await axios.put('user', data, { headers: { 'X-Token': authToken } })
 
       dispatch({
         type: SET_USER,
-        payload: res.data.user
+        payload: res.data
       })
 
       dispatch(
