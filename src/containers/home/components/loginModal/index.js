@@ -64,7 +64,6 @@ class LoginModal extends React.Component {
                 <Tab>Connexion</Tab>
                 <Tab>Inscription</Tab>
               </TabList>
-
               <TabPanel>
                 <LoginForm />
               </TabPanel>

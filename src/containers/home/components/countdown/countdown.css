@@ -13,12 +13,11 @@
 .a-countdown h1, .a-countdown h2 {
   margin: 0;
   text-transform: uppercase;
-  font-family: 'ua2018-font', Impact, sans-serif;
   letter-spacing: 2px;
 }
 
 .a-countdown h1 {
-  color: #14d9fa;
+  color: white;
   font-size: 90px;
 }
 
