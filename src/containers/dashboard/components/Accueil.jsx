@@ -5,26 +5,7 @@ import moment from 'moment';
 import { fetchMatches } from '../../../modules/matches'
 import { fetchUser } from '../../../modules/user'
 
-const colorResult = (result) => {
-  switch (result) {
-    case "L":
-      return { color: "red" }
-    case "W":
-      return { color: "green" }
-    default:
-      return
-  }
-}
 
-const getTeam = (team) => {
-  const labelResult = team.result ? team.result.toUpperCase()[0] : null
-  const name = team.participant ?
-    <p style={{ fontWeight: team.result === 'win' ? 'bold' : null }}>{team.participant.name}</p>
-    : <p>A définir</p>
-  const result = team.result ? <p style={colorResult(labelResult)}>{labelResult}</p> : ""
-
-  return <div style={{ display: 'flex', justifyContent: 'space-between' }}>{name} {result}</div>
-}
 
 class Accueil extends React.Component {
 

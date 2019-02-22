@@ -11,6 +11,8 @@ import SetPlaces from '../dashboard/setPlaces'
 
 const AsyncPizza = asyncComponent(() => import('../../components/pizza'))
 const Dashboard = asyncComponent(() => import('../dashboard'))
+const Validate = asyncComponent(()=> import('../validate'))
+const Reset = asyncComponent(()=> import('../reset'))
 
 const App = props => (
   <div>
@@ -20,6 +22,10 @@ const App = props => (
       <Route path={process.env.REACT_APP_BASEURL} exact component={Home} />
       <Route path={process.env.REACT_APP_BASEURL + 'dashboard/home'} exact component={Dashboard} />
 
+      <Route path={process.env.REACT_APP_BASEURL + 'valid/:token'} exact component={Validate} />
+      <Route path={process.env.REACT_APP_BASEURL + 'reset/:resetToken'} exact component={Reset} />
+
+      
       <Route path={process.env.REACT_APP_BASEURL + 'dashboard/admin/users'} exact component={Dashboard} />
       <Route path={process.env.REACT_APP_BASEURL + 'dashboard/admin/paids'} exact component={Dashboard} />
       <Route path={process.env.REACT_APP_BASEURL + 'dashboard/admin/spotlights/:id'} exact component={Dashboard} />
