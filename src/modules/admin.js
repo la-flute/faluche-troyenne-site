@@ -142,64 +142,6 @@ export const validatePayment = (userId) => {
   }
 }
 
-export const fetchChartData = () => {
-  return async (dispatch, getState) => {
-    const authToken = getState().login.token
-
-    if (!authToken || authToken.length === 0) {
-      return
-    }
-
-    try {
-      const res = await axios.post(`admin/chart`, {
-        start: '2018-10-16',
-        end: moment().format('YYYY-MM-DD'),
-        step: 'day',
-        mode: 'daily',
-      }, { headers: { 'X-Token': authToken } })
-      const res2 = await axios.post(`admin/chart`, {
-        start: '2018-10-16',
-        end: moment().format('YYYY-MM-DD'),
-        step: 'day',
-        mode: 'cumul',
-      }, { headers: { 'X-Token': authToken } })
-
-      dispatch({ type: SET_CHARTDATA, payload: { daily: res.data, cumul: res2.data} })
-    } catch (err) {
-      console.log(err)
-      dispatch(
-        notifActions.notifSend({
-          message: errorToString(err.response.data.error),
-          kind: 'danger',
-          dismissAfter: 2000
-      }))
-    }
-  }
-}
-
-export const fetchCounts = () => {
-  return async (dispatch, getState) => {
-    const authToken = getState().login.token
-
-    if (!authToken || authToken.length === 0) {
-      return
-    }
-
-    try {
-      const res = await axios.get('/admin/paids', { headers: { 'X-Token': authToken } })
-
-      dispatch({ type: SET_COUNTS, payload: res.data })
-    } catch (err) {
-      dispatch(
-        notifActions.notifSend({
-          message: errorToString(err.response.data.error),
-          kind: 'danger',
-          dismissAfter: 2000
-        })
-      )
-    }
-  }
-}
 
 export const setAdmin = (id) => {
   return async (dispatch, getState) => {

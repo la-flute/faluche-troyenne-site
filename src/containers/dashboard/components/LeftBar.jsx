@@ -123,7 +123,7 @@ class LeftBar extends React.Component {
               </Link>
             </Menu.Item>
             <Menu.Item key="admin/bedrooms">
-              <Link to={'/dashboard/admin/temp2'}>Gestion des chambres</Link>
+              <Link to={'/dashboard/admin/bedrooms'}>Gestion des chambres</Link>
             </Menu.Item>
             <Menu.Item key="admin/finduser">
               <Link to={'/dashboard/admin/temp2'}>

@@ -6,7 +6,8 @@ import DashboardHome from './components/Accueil'
 import DashboardLoading from './components/Loading'
 import EditUser from './components/User/Edit'
 import ListUsers from './components/User/ListUsers'
-import Temp2 from './components/User/Temp2'
+import Bedrooms from './components/User/Bedrooms'
+import AdminBedrooms from './components/Admin/AdminBedrooms'
 import DashboardLayout from './layout'
 
 import { autoLogin } from '../../modules/login'
@@ -57,11 +58,9 @@ class Dashboard extends React.Component {
         )}
 
         {this.state.render && (
-          <Route path={baseUrl + 'admin/list'} exact component={EditUser} />
+          <Route path={baseUrl + 'user/bedrooms'} exact component={Bedrooms} />
         )}
-        {this.state.render && (
-          <Route path={baseUrl + 'admin/temp2'} exact component={Temp2} />
-        )}
+
 
         {/* teams */}
 
@@ -72,6 +71,16 @@ class Dashboard extends React.Component {
             : <Redirect to={baseUrl} />
         )} />
         )*/}
+
+
+        {/* admin */}
+
+        {this.state.render && (
+          <Route path={baseUrl + 'admin/list'} exact component={EditUser} />
+        )}
+        {this.state.render && (
+          <Route path={baseUrl + 'admin/bedrooms'} exact component={AdminBedrooms} />
+        )}
         {this.state.render && <Redirect from="*" to="/dashboard/home" />}
         {!this.state.render && <DashboardLoading />}
       </Switch>
