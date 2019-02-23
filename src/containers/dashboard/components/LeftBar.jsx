@@ -71,7 +71,7 @@ class LeftBar extends React.Component {
                 <span className="nav-text">Mes infos</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="inscrits">
+            <Menu.Item key="list">
               <Link to={'/dashboard/list'}>
                 <Icon type="user" />
                 <span className="nav-text">Liste des inscrits</span>

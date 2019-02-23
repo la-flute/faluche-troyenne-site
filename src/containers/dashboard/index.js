@@ -42,7 +42,6 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log(this.state.render)
     const component = (
       <Switch>
         {this.state.render && (
@@ -50,7 +49,7 @@ class Dashboard extends React.Component {
         )}
 
         {this.state.render && (
-          <Route path={baseUrl + 'user'} exact component={EditUser} />
+          <Route path={baseUrl + 'infos'} exact component={EditUser} />
         )}
 
         {this.state.render && (
