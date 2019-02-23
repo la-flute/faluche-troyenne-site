@@ -9,6 +9,7 @@ import ListUsers from './components/User/ListUsers'
 import Bedrooms from './components/User/Bedrooms'
 import Teams from './components/User/Teams'
 import AdminBedrooms from './components/Admin/AdminBedrooms'
+import AdminTeams from './components/Admin/AdminTeams'
 import DashboardLayout from './layout'
 
 import { autoLogin } from '../../modules/login'
@@ -67,17 +68,6 @@ class Dashboard extends React.Component {
         )}
 
 
-        {/* teams */}
-
-        {/*this.state.render && (
-        <Route path={baseUrl + 'joinTeam'} render={() => (
-          !this.props.user.team
-            ? <Spin /> 
-            : <Redirect to={baseUrl} />
-        )} />
-        )*/}
-
-
         {/* admin */}
 
         {this.state.render && (
@@ -86,6 +76,12 @@ class Dashboard extends React.Component {
         {this.state.render && (
           <Route path={baseUrl + 'admin/bedrooms'} exact component={AdminBedrooms} />
         )}
+        {this.state.render && (
+          <Route path={baseUrl + 'admin/teams'} exact component={AdminTeams} />
+        )}
+
+
+
         {this.state.render && <Redirect from="*" to="/dashboard/home" />}
         {!this.state.render && <DashboardLoading />}
       </Switch>

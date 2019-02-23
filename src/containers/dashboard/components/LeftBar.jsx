@@ -131,6 +131,9 @@ class LeftBar extends React.Component {
             <Menu.Item key="admin/bedrooms">
               <Link to={'/dashboard/admin/bedrooms'}>Gestion des chambres</Link>
             </Menu.Item>
+            <Menu.Item key="admin/teams">
+              <Link to={'/dashboard/admin/teams'}>Gestion des équipes</Link>
+            </Menu.Item>
             <Menu.Item key="admin/finduser">
               <Link to={'/dashboard/admin/temp2'}>
                 Rechercher un utilisateur

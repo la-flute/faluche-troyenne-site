@@ -3,15 +3,15 @@ import { Table, Spin, Divider, Button } from 'antd'
 import { connect } from 'react-redux'
 
 import AdminBar from './AdminBar'
-import BedroomsListActions from './components/BedroomsListActions'
-import CreateBedroomModal from './components/CreateBedroomModal'
-import { fetchBedrooms, addBedroom } from '../../../../modules/bedrooms'
+import TeamsListActions from './components/TeamsListActions'
+import CreateTeamModal from './components/CreateTeamModal'
+import { fetchTeams, addTeam } from '../../../../modules/teams'
 
-class AdminBedrooms extends React.Component {
+class AdminTeams extends React.Component {
   constructor(props) {
     super(props)
     this.state = { modal: false }
-    this.props.fetchBedrooms()
+    this.props.fetchTeams()
   }
 
   openModal = () => {
@@ -22,14 +22,14 @@ class AdminBedrooms extends React.Component {
     this.setState({ modal: false })
   }
 
-  createBedroom = () => {
+  createTeam = () => {
     const form = this.formRef.props.form
     form.validateFields((err, values) => {
       if (err) {
         return
       }
 
-      this.props.addBedroom(values)
+      this.props.addTeam(values)
       form.resetFields()
       this.setState({ modal: false })
     })
@@ -39,55 +39,50 @@ class AdminBedrooms extends React.Component {
     this.formRef = formRef
   }
   render() {
-    let { bedrooms } = this.props
-    if (!bedrooms) return <Spin />
+    let { teams } = this.props
+    if (!teams) return <Spin />
     let columns = [
       {
-        title: 'Numéro',
-        dataIndex: 'number'
+        title: 'Nom',
+        dataIndex: 'name'
       },
       {
-        title: 'Étage',
-        dataIndex: 'floor'
-      },
-      {
-        title: 'Occupation',
-        dataIndex: 'state'
+        title: 'Utilisateurs',
+        dataIndex: 'numberUsers'
       },
       {
         title: 'Actions',
         dataIndex: 'id',
         render: id => (
-          <BedroomsListActions bedroomId={id} bedrooms={this.props.bedrooms} />
+          <TeamsListActions teamId={id} teams={this.props.teams} />
         )
       }
     ]
-    const rows = bedrooms.map(bedroom => {
+    const rows = teams.map(team => {
       return {
-        id: bedroom.id,
-        number: bedroom.number,
-        floor: bedroom.floor,
-        state: `${bedroom.users.length}/${bedroom.places}`
+        id: team.id,
+        name: team.name,
+        numberUsers: team.users.length
       }
     }).sort((a, b) => {
-      if(a.number > b.number) return 1
-      if(a.number < b.number) return -1
+      if(a.name > b.name) return 1
+      if(a.name < b.name) return -1
       return 0
     })
     return (
       <React.Fragment>
         <AdminBar />
         <Divider />
-        <h1>Chambres</h1>
+        <h1>Équipes</h1>
         <Button type='primary' onClick={this.openModal}>
-          Ajouter une chambre
+          Ajouter une équipe
         </Button>
 
-        <CreateBedroomModal
+        <CreateTeamModal
           wrappedComponentRef={this.saveFormRef}
           visible={this.state.modal}
           onCancel={this.closeModal}
-          onCreate={this.createBedroom}
+          onCreate={this.createTeam}
         />
 
         <Table
@@ -103,15 +98,15 @@ class AdminBedrooms extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  bedrooms: state.bedrooms.bedrooms
+  teams: state.teams.teams
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchBedrooms: () => dispatch(fetchBedrooms()),
-  addBedroom: (data) => dispatch(addBedroom(data))
+  fetchTeams: () => dispatch(fetchTeams()),
+  addTeam: (data) => dispatch(addTeam(data))
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AdminBedrooms)
+)(AdminTeams)
