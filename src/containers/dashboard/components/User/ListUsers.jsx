@@ -9,13 +9,29 @@ import { Table, Divider, Tag } from 'antd'
 //DEFINE COLUMS
 const columns = [
   {
-    title: 'Matricule',
-    dataIndex: 'name'
+    title: 'Nom',
+    dataIndex: 'lastName'
+  },
+  {
+    title: 'Prénom',
+    dataIndex: 'firstName'
+  },
+  {
+    title: 'Surnom',
+    dataIndex: 'nickName'
+  },
+  {
+    title: 'Filière',
+    dataIndex: 'studies'
   },
   {
     title: 'Ville',
     dataIndex: 'town'
-  }
+  },
+  {
+    title: 'Type',
+    dataIndex: 'folklore'
+  },
 ]
 
 class ListUsers extends React.Component {
