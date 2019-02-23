@@ -65,26 +65,26 @@ class LeftBar extends React.Component {
               </span>
             }
           >
-            <Menu.Item key="infos">
-              <Link to={'/dashboard/infos'}>
+            <Menu.Item key="user/infos">
+              <Link to={'/dashboard/user/infos'}>
                 <Icon type="file" />
-                <span className="nav-text">Mes infos</span>
+                <span className="nav-text">La fiche</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="inscrits">
-              <Link to={'/dashboard/list'}>
+            <Menu.Item key="user/list">
+              <Link to={'/dashboard/user/list'}>
                 <Icon type="user" />
                 <span className="nav-text">Liste des inscrits</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="paiement">
-              <Link to={'/dashboard/pay'}>
+            <Menu.Item key="user/pay">
+              <Link to={'/dashboard/user/pay'}>
                 <Icon type="user" />
                 <span className="nav-text">Payer</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="chambre">
-              <Link to={'/dashboard/bedrooms'}>
+            <Menu.Item key="user/bedrooms">
+              <Link to={'/dashboard/user/bedrooms'}>
                 <Icon type="user" />
                 <span className="nav-text">Chambre</span>
               </Link>
