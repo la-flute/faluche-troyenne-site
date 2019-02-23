@@ -10,9 +10,6 @@ import {
 const Panel = Collapse.Panel
 
 class Bedrooms extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   render() {
     let { bedrooms, user } = this.props
@@ -25,7 +22,6 @@ class Bedrooms extends React.Component {
       if (a.number < b.number) return -1
       return 0
     })
-    console.log(bedrooms)
     return (
       <div>
         <h1>Liste des chambres</h1>

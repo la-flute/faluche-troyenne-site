@@ -1,7 +1,6 @@
 import axios from '../lib/axios'
 import errorToString from '../lib/errorToString'
 import { actions as notifActions } from 'redux-notifications'
-import moment from 'moment'
 
 export const SET_USERS = 'admin/SET_USERS'
 export const SET_COUNTS = 'admin/SET_COUNTS'

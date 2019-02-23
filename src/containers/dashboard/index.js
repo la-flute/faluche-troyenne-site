@@ -7,6 +7,7 @@ import DashboardLoading from './components/Loading'
 import EditUser from './components/User/Edit'
 import ListUsers from './components/User/ListUsers'
 import Bedrooms from './components/User/Bedrooms'
+import Teams from './components/User/Teams'
 import AdminBedrooms from './components/Admin/AdminBedrooms'
 import DashboardLayout from './layout'
 
@@ -59,6 +60,10 @@ class Dashboard extends React.Component {
 
         {this.state.render && (
           <Route path={baseUrl + 'user/bedrooms'} exact component={Bedrooms} />
+        )}
+
+        {this.state.render && (
+          <Route path={baseUrl + 'user/teams'} exact component={Teams} />
         )}
 
 

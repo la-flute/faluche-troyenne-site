@@ -4,10 +4,6 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 class AdminBar extends React.Component {
-  constructor(props) {
-    super(props)
-    
-  }
 
   render() {
     return (

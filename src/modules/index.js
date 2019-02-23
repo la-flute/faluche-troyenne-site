@@ -10,6 +10,7 @@ import forgot from './forgot'
 import admin from './admin'
 import validate from './validate'
 import bedrooms from './bedrooms'
+import teams from './teams'
 
 export default combineReducers({
   routing: routerReducer,
@@ -22,5 +23,6 @@ export default combineReducers({
   forgot,
   admin,
   validate,
-  bedrooms
+  bedrooms,
+  teams
 })

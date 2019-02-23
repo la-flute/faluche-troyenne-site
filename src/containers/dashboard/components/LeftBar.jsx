@@ -89,6 +89,12 @@ class LeftBar extends React.Component {
                 <span className="nav-text">Chambre</span>
               </Link>
             </Menu.Item>
+            <Menu.Item key="user/teams">
+              <Link to={'/dashboard/user/teams'}>
+                <Icon type="user" />
+                <span className="nav-text">Équipe</span>
+              </Link>
+            </Menu.Item>
             
           </SubMenu>
 
