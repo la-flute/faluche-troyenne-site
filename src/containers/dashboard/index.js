@@ -10,6 +10,7 @@ import Bedrooms from './components/User/Bedrooms'
 import Teams from './components/User/Teams'
 import AdminBedrooms from './components/Admin/AdminBedrooms'
 import AdminTeams from './components/Admin/AdminTeams'
+import AdminPrices from './components/Admin/AdminPrices'
 import DashboardLayout from './layout'
 
 import { autoLogin } from '../../modules/login'
@@ -78,6 +79,9 @@ class Dashboard extends React.Component {
         )}
         {this.state.render && (
           <Route path={baseUrl + 'admin/teams'} exact component={AdminTeams} />
+        )}
+        {this.state.render && (
+          <Route path={baseUrl + 'admin/prices'} exact component={AdminPrices} />
         )}
 
 
