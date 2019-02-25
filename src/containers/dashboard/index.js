@@ -7,6 +7,8 @@ import DashboardLoading from './components/Loading'
 import EditUser from './components/User/Edit'
 import ListUsers from './components/User/ListUsers'
 import Pay from './components/User/Pay'
+import PaymentValidate from './components/User/PaymentValidate'
+import PaymentError from './components/User/PaymentError'
 import Bedrooms from './components/User/Bedrooms'
 import Teams from './components/User/Teams'
 import AdminBedrooms from './components/Admin/AdminBedrooms'
@@ -55,6 +57,14 @@ class Dashboard extends React.Component {
 
         {this.state.render && user && !user.order && (
           <Route path={baseUrl + 'user/pay'} exact component={Pay} />
+        )}
+
+        {this.state.render && (
+          <Route path={baseUrl + 'user/pay/validate'} exact component={PaymentValidate} />
+        )}
+
+        {this.state.render && (
+          <Route path={baseUrl + 'user/pay/error'} exact component={PaymentError} />
         )}
 
         {this.state.render && (
