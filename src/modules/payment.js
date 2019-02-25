@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
   }
 }
 
-export const payment = basket => {
+export const sendBasket = basket => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
 

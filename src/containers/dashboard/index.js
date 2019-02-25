@@ -6,6 +6,7 @@ import DashboardHome from './components/Accueil'
 import DashboardLoading from './components/Loading'
 import EditUser from './components/User/Edit'
 import ListUsers from './components/User/ListUsers'
+import Pay from './components/User/Pay'
 import Bedrooms from './components/User/Bedrooms'
 import Teams from './components/User/Teams'
 import AdminBedrooms from './components/Admin/AdminBedrooms'
@@ -33,19 +34,11 @@ class Dashboard extends React.Component {
         render: this.props.user && this.props.user.email
       })
     })
-    console.log('MOUNT ', this.props)
-    this.arrow = this.arrow.bind(this)
   }
 
-  arrow() {
-    return this.props.location &&
-      this.props.location.indexOf('/dashboard') > -1 &&
-      this.props.location !== '/dashboard'
-      ? '/dashboard'
-      : '/'
-  }
 
   render() {
+    const { user } = this.props
     const component = (
       <Switch>
         {this.state.render && (
@@ -58,6 +51,10 @@ class Dashboard extends React.Component {
 
         {this.state.render && (
           <Route path={baseUrl + 'user/list'} exact component={ListUsers} />
+        )}
+
+        {this.state.render && user && !user.order && (
+          <Route path={baseUrl + 'user/pay'} exact component={Pay} />
         )}
 
         {this.state.render && (
