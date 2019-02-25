@@ -26,7 +26,7 @@ export const sendBasket = basket => {
 
       console.log(res) //TODO remove
       if (res.status === 200) {
-        window.location = res.body.url // eslint-disable-line no-restricted-globals
+        window.location = res.data.url // eslint-disable-line no-restricted-globals
       }
     } catch (err) {
       console.log(err)
