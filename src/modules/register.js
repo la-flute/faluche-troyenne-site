@@ -24,7 +24,7 @@ export const register = user => {
 
       dispatch(
         notifActions.notifSend({
-          message: 'Inscription réussie',
+          message: 'Inscription réussie. Vérifie tes mails pour activer ton compte',
           dismissAfter: 2000
         })
       )

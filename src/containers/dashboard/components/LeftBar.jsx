@@ -124,7 +124,7 @@ class LeftBar extends React.Component {
             }
           >
             <Menu.Item key="admin/validate">
-              <Link to={'/dashboard/admin/temp'}>
+              <Link to={'/dashboard/admin/validate'}>
                 Validation des inscriptions
               </Link>
             </Menu.Item>
