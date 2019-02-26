@@ -57,24 +57,20 @@
   flex: 1;
   flex-basis: 100%;
   max-width: 100%;
-  height: 20%;
   background-size: cover;
 }
 
-.a-intro__images__image:nth-child(5) {
-  background-position: center center;
-}
-.a-intro__images__image:nth-child(3) {
-  background-position: center 20%;
-}
 .a-intro__images__image:nth-child(1) {
   background-position: center 20%;
 }
-.a-intro__images__image:nth-child(4) {
-  background-position: center 15%;
-}
 .a-intro__images__image:nth-child(2) {
   background-position: center 10%;
+}
+.a-intro__images__image:nth-child(3) {
+  background-position: center 80%;
+}
+.a-intro__images__image:nth-child(4) {
+  background-position: center 30%;
 }
 
 @media (min-width: 996px) {
@@ -90,22 +86,22 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-position: center center;
   }
 
-  .a-intro__images__image:nth-child(5) {
-    clip-path: polygon(0 0, 30% 0, 10% 100%, 0% 100%);
-  }
-  .a-intro__images__image:nth-child(3) {
-    clip-path: polygon(50% 0, 30% 0, 10% 100%, 30% 100%);
-  }
   .a-intro__images__image:nth-child(1) {
-    clip-path: polygon(50% 0, 70% 0, 50% 100%, 30% 100%);
-  }
-  .a-intro__images__image:nth-child(4) {
-    clip-path: polygon(90% 0, 70% 0, 50% 100%, 70% 100%);
+    clip-path: polygon(100% 0, 60% 0, 50% 50%, 100% 70%);
+    background-position: center center;
   }
   .a-intro__images__image:nth-child(2) {
-    clip-path: polygon(90% 0, 100% 0, 100% 100%, 70% 100%);
+    clip-path: polygon(0 100%, 70% 100%, 50% 50%, 0 30%);
+    background-position: -250px 200px;
+  }
+  .a-intro__images__image:nth-child(3) {
+    clip-path: polygon(0 0, 60% 0, 50% 50%, 0 30%);
+    background-position: center center;
+  }
+  .a-intro__images__image:nth-child(4) {
+    clip-path: polygon(100% 100%, 40% 100%, 50% 50%, 100% 70%);
+    background-position: center 190px;
   }
 }

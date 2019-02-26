@@ -16,8 +16,11 @@ class Pay extends React.Component {
     this.props.fetchPrice()
   }
 
-  toggleAlcool = () => {
-    this.setState({ alcool: !this.state.alcool })
+  selectAlcool = () => {
+    this.setState({ alcool: true })
+  }
+  selectNotAlcool = () => {
+    this.setState({ alcool: false })
   }
   toggleBedroom = () => {
     this.setState({ bedroom: !this.state.bedroom })
@@ -92,7 +95,7 @@ class Pay extends React.Component {
           <ListItem
             price={price.value}
             active={this.state.alcool}
-            onClick={this.toggleAlcool}
+            onClick={this.selectAlcool}
           >
             <h3>Weekend Complet Bacchus</h3>
             <span>Inclus les repas, l'alcool et la bonne ambiance</span>
@@ -100,7 +103,7 @@ class Pay extends React.Component {
           <ListItem
             price={price.value - bacchusTroue}
             active={!this.state.alcool}
-            onClick={this.toggleAlcool}
+            onClick={this.selectNotAlcool}
           >
             <h3>Weekend Complet Bacchus Troué</h3>
             <span>Inclus les repas, le soft et la bonne ambiance</span>
