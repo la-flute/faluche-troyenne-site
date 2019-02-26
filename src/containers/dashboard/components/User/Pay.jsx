@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Divider, Spin, Button } from 'antd'
+import { Link } from 'react-router-dom'
 import { fetchPrice } from '../../../../modules/prices'
 import { sendBasket } from '../../../../modules/payment'
 import ListItem from './components/list-item'
@@ -30,7 +31,29 @@ class Pay extends React.Component {
   }
 
   render() {
-    const { price, bacchusTroue, bedroomPrice } = this.props
+    const { price, bacchusTroue, bedroomPrice, user } = this.props
+    if (!user.town)
+      return (
+        <React.Fragment>
+          <h1>Profil incomplet !</h1>
+          <p>
+            Vous devez remplir{' '}
+            <Link to={{ pathname: `/dashboard/user/infos` }}>la fiche</Link>{' '}
+            pour pouvoir accéder au paiement.
+          </p>
+        </React.Fragment>
+      )
+    if (!user.attestation)
+      return (
+        <React.Fragment>
+          <h1>Attestation non validée !</h1>
+          <p>
+            Vous devez valider{' '}
+            <Link to={{ pathname: `/dashboard/user/attestation` }}>l'attestation sur l'honneur</Link>{' '}
+            pour pouvoir accéder au paiement.
+          </p>
+        </React.Fragment>
+      )
     if (!price) {
       this.props.fetchPrice()
       return <Spin />
@@ -53,9 +76,9 @@ class Pay extends React.Component {
             </strong>
           </p>
           <p>
-            Camille Garnier
+            Capucine Jager-Ba
             <br />
-            33 rue de la trinité
+            7 rue Colbert
             <br />
             10000 Troyes
             <br />
@@ -107,6 +130,7 @@ class Pay extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  user: state.user.user,
   price: state.prices.price,
   bacchusTroue: state.prices.bacchusTroue,
   bedroomPrice: state.prices.bedroomPrice
