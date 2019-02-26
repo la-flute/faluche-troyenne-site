@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import DashboardHome from './components/Accueil'
 import DashboardLoading from './components/Loading'
 import EditUser from './components/User/Edit'
+import UserInfos from './components/User/Infos'
 import AttestationUser from './components/User/Attestation'
 import ListUsers from './components/User/ListUsers'
 import Pay from './components/User/Pay'
@@ -48,8 +49,12 @@ class Dashboard extends React.Component {
           <Route path={baseUrl + 'home'} exact component={DashboardHome} />
         )}
 
-        {this.state.render && (
+        {this.state.render && !user.town && (
           <Route path={baseUrl + 'user/infos'} exact component={EditUser} />
+        )}
+
+        {this.state.render && user.town && (
+          <Route path={baseUrl + 'user/infos'} exact component={UserInfos} />
         )}
 
         {this.state.render && (

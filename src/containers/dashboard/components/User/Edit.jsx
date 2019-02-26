@@ -1,5 +1,15 @@
 import React from 'react'
-import { Form, Input, Tooltip, Icon, Button, Radio, Spin, Modal, DatePicker } from 'antd'
+import {
+  Form,
+  Input,
+  Tooltip,
+  Icon,
+  Button,
+  Radio,
+  Spin,
+  Modal,
+  DatePicker
+} from 'antd'
 import { fetchUser, sendInfos } from '../../../../modules/user'
 import { connect } from 'react-redux'
 import moment from 'moment'
@@ -7,21 +17,29 @@ import moment from 'moment'
 const { confirm } = Modal
 const dateFormat = 'DD/MM/YYYY'
 class Edit extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      folklore: ''
+    }
+  }
   handleSubmit = e => {
     e.preventDefault()
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        values.isMajeur = moment(values.isMajeur).isBefore(moment('03/05/2001', dateFormat))
+        values.isMajeur = moment(values.isMajeur).isBefore(
+          moment('03/05/2001', dateFormat)
+        )
         this.showConfirm(values)
       }
     })
   }
 
-  showConfirm = (values) => {
+  showConfirm = values => {
     confirm({
       title: 'Êtes-vous sûr de ces informations ?',
       content:
-        'En cas d\'erreur, vous ne pourrez pas modifier ce formulaire, et vous devrez contacter l\'orga',
+        "En cas d'erreur, vous ne pourrez pas modifier ce formulaire, et vous devrez contacter l'orga",
       onOk: () => {
         console.log(values)
         this.props.sendInfos(values)
@@ -96,21 +114,6 @@ class Edit extends React.Component {
             initialValue: user.firstName
           })(<Input />)}
         </Form.Item>
-        <Form.Item
-          {...formItemLayout}
-          label={
-            <span>
-              Surnom&nbsp;
-              <Tooltip title='Surnom de fal'>
-                <Icon type='question-circle-o' />
-              </Tooltip>
-            </span>
-          }
-        >
-          {getFieldDecorator('nickName')(
-            <Input placeholder='Pour les faluchards' />
-          )}
-        </Form.Item>
         <Form.Item {...formItemLayout} label='Téléphone'>
           {getFieldDecorator('phone', {
             rules: [
@@ -121,16 +124,17 @@ class Edit extends React.Component {
             ]
           })(<Input placeholder='0633063306' />)}
         </Form.Item>
-        <Form.Item
-          {...formItemLayout}
-          label="Date d'anniversaire"
-        >
+        <Form.Item {...formItemLayout} label="Date d'anniversaire">
           {getFieldDecorator('isMajeur', {
-            rules: [{ type: 'object', required: true, message: 'Vous devez renseigner votre date d\'anniversaire !' }],
+            rules: [
+              {
+                type: 'object',
+                required: true,
+                message: "Vous devez renseigner votre date d'anniversaire !"
+              }
+            ],
             initialValue: moment('01/01/1995', dateFormat)
-          })(
-            <DatePicker format={dateFormat}/>
-          )}
+          })(<DatePicker format={dateFormat} />)}
         </Form.Item>
         <Form.Item
           {...formItemLayout}
@@ -201,7 +205,9 @@ class Edit extends React.Component {
               }
             ]
           })(
-            <Radio.Group>
+            <Radio.Group
+              onChange={e => this.setState({ folklore: e.target.value })}
+            >
               <Radio value='faluchard'>Faluchard</Radio>
               <Radio value='impetrant'>Impétrant</Radio>
               <Radio value='sympathisant'>Sympathisant</Radio>
@@ -209,6 +215,24 @@ class Edit extends React.Component {
             </Radio.Group>
           )}
         </Form.Item>
+        {(this.state.folklore === 'faluchard' ||
+          this.state.folklore === 'autre') && (
+          <Form.Item
+            {...formItemLayout}
+            label={
+              <span>
+                Surnom&nbsp;
+                <Tooltip title='Surnom de fal'>
+                  <Icon type='question-circle-o' />
+                </Tooltip>
+              </span>
+            }
+          >
+            {getFieldDecorator('nickName')(
+              <Input placeholder='Pour les faluchards' />
+            )}
+          </Form.Item>
+        )}
         <Form.Item {...formItemLayout} label={<span>Allergies</span>}>
           {getFieldDecorator('allergies')(
             <Input placeholder='Arachide, glutène, ...' />
@@ -307,7 +331,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchUser: () => dispatch(fetchUser()),
-  sendInfos: (data) => dispatch(sendInfos(data))
+  sendInfos: data => dispatch(sendInfos(data))
 })
 
 export default connect(

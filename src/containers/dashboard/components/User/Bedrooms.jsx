@@ -10,7 +10,6 @@ import {
 const Panel = Collapse.Panel
 
 class Bedrooms extends React.Component {
-
   render() {
     let { bedrooms, user } = this.props
     if (!bedrooms || !user) {
@@ -54,15 +53,21 @@ class Bedrooms extends React.Component {
                       }`}</span>
                     )}
                   />
-                  {!full && !user.bedroomId && <Divider />}
-                  {!full && !user.bedroomId && (
-                    <Button
-                      type='primary'
-                      onClick={() => this.props.joinBedroom(bedroom.id)}
-                    >
-                      Rejoindre cette chambre
-                    </Button>
-                  )}
+                  {!full &&
+                    !user.bedroomId &&
+                    user.order &&
+                    user.order.bedroom && <Divider />}
+                  {!full &&
+                    !user.bedroomId &&
+                    user.order &&
+                    user.order.bedroom && (
+                      <Button
+                        type='primary'
+                        onClick={() => this.props.joinBedroom(bedroom.id)}
+                      >
+                        Rejoindre cette chambre
+                      </Button>
+                    )}
                   {user.bedroomId && bedroom.id === user.bedroomId && (
                     <Divider />
                   )}
