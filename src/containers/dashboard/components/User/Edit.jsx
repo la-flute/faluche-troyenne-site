@@ -8,13 +8,15 @@ import {
   Radio,
   Spin,
   Modal,
-  DatePicker
+  DatePicker,
+  Select
 } from 'antd'
-import { fetchUser, sendInfos } from '../../../../modules/user'
+import { fetchUser, sendInfos, listUsers } from '../../../../modules/user'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
 const { confirm } = Modal
+const { Option } = Select
 const dateFormat = 'DD/MM/YYYY'
 class Edit extends React.Component {
   constructor(props) {
@@ -22,6 +24,8 @@ class Edit extends React.Component {
     this.state = {
       folklore: ''
     }
+    this.props.listUsers()
+    this.props.fetchUser()
   }
   handleSubmit = e => {
     e.preventDefault()
@@ -49,12 +53,11 @@ class Edit extends React.Component {
   }
 
   render() {
-    const { user } = this.props
-    if (!user) {
-      this.props.fetchUser()
+    const { user, users } = this.props
+    if (!user || !users) {
       return <Spin />
     }
-
+    let referents = users.filter(u => u.folklore && u.folklore === 'faluchard')
     const { getFieldDecorator } = this.props.form
 
     const formItemLayout = {
@@ -228,8 +231,55 @@ class Edit extends React.Component {
               </span>
             }
           >
-            {getFieldDecorator('nickName')(
-              <Input placeholder='Pour les faluchards' />
+            {getFieldDecorator('nickName')(<Input />)}
+          </Form.Item>
+        )}
+        {(this.state.folklore === 'impetrant' ||
+          this.state.folklore === 'sympathisant') && (
+          <Form.Item
+            {...formItemLayout}
+            label={
+              <span>
+                Référent&nbsp;
+                <Tooltip title='Votre référent (Faluchard) dans le congrès'>
+                  <Icon type='question-circle-o' />
+                </Tooltip>
+              </span>
+            }
+          >
+            {getFieldDecorator('referentId', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Vous devez choisir un référent !'
+                }
+              ]
+            })(
+              <Select
+                showSearch
+                style={{ width: 400 }}
+                notFoundContent="Aucun faluchard d'enregistré pour le moment"
+                placeholder='Sélectionnez un Faluchard'
+                optionFilterProp='children'
+                filterOption={(input, option) => {
+                  const us = users.find(u => u.id === option.props.value)
+                  if(!us) return false
+                  let test = `${us.lastName}${us.firstName}${us.nickName ? us.nickName : ''}${us.town}`
+                  return test
+                    .toLowerCase()
+                    .indexOf(input.toLowerCase()) >= 0
+                }}
+              >
+                {referents.map(ref => (
+                  <Option
+                    key={ref.id}
+                    value={ref.id}
+                  >
+                    {ref.lastName}. {ref.firstName} "{ref.nickName}" ({ref.town}
+                    )
+                  </Option>
+                ))}
+              </Select>
             )}
           </Form.Item>
         )}
@@ -272,6 +322,56 @@ class Edit extends React.Component {
               <Radio value='autre'>Autre</Radio>
             </Radio.Group>
           )}
+        </Form.Item>
+        <Form.Item
+          label={
+            <span>
+              Référent extérieur&nbsp;
+              <Tooltip title='Personne à contacter en cas de problème'>
+                <Icon type='question-circle-o' />
+              </Tooltip>
+            </span>
+          }
+          {...formItemLayout}
+        >
+          <Form.Item
+            style={{
+              display: 'inline-block',
+              width: 'calc(50% - 12px)',
+              marginRight: '20px'
+            }}
+          >
+            {getFieldDecorator('referent_lastName', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Vous devez fournir un nom !'
+                }
+              ]
+            })(<Input placeholder='Nom du référent' />)}
+          </Form.Item>
+          <Form.Item
+            style={{ display: 'inline-block', width: 'calc(50% - 12px)' }}
+          >
+            {getFieldDecorator('referent_firstName', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Vous devez fournir un prénom !'
+                }
+              ]
+            })(<Input placeholder='Prénom du référent' />)}
+          </Form.Item>
+        </Form.Item>
+        <Form.Item {...formItemLayout} label=' '>
+          {getFieldDecorator('referent_phone', {
+            rules: [
+              {
+                required: true,
+                message: 'Vous devez entrer un numéro pour votre référent !'
+              }
+            ]
+          })(<Input placeholder='Téléphone du référent' />)}
         </Form.Item>
         <Form.Item
           {...formItemLayout}
@@ -326,12 +426,14 @@ class Edit extends React.Component {
 const WrappedEdit = Form.create({ name: 'register' })(Edit)
 
 const mapStateToProps = state => ({
-  user: state.user.user
+  user: state.user.user,
+  users: state.user.users
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchUser: () => dispatch(fetchUser()),
-  sendInfos: data => dispatch(sendInfos(data))
+  sendInfos: data => dispatch(sendInfos(data)),
+  listUsers: () => dispatch(listUsers())
 })
 
 export default connect(

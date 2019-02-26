@@ -2,9 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Spin } from 'antd'
 import { listUsers } from '../../../../modules/user'
-import notPrepared from '../../assets/notprepared.jpg'
 
-import { Table, Divider, Tag } from 'antd'
+import { Table } from 'antd'
 
 //DEFINE COLUMS
 const columns = [
@@ -31,7 +30,7 @@ const columns = [
   {
     title: 'Type',
     dataIndex: 'folklore'
-  },
+  }
 ]
 
 class ListUsers extends React.Component {
@@ -40,7 +39,6 @@ class ListUsers extends React.Component {
     this.state = {
       matches: []
     }
-
     this.props.listUsers()
   }
 
@@ -49,14 +47,13 @@ class ListUsers extends React.Component {
     if (!users) {
       return <Spin />
     }
-
     return (
       <div style={{ height: '100%' }}>
         <h1>Liste des inscrits</h1>
         <Table
           columns={columns}
           dataSource={users}
-          rowKey="id"
+          rowKey='id'
           locale={{ emptyText: 'Aucun utilisateur' }}
           style={{ marginTop: '20px' }}
         />
