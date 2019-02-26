@@ -50,63 +50,9 @@ class Header extends React.Component {
 
     return (
       <header className="a-intro-header">
-        <nav className="a-intro-header__nav__desktop">
-          <div>
-            <Button onClick={this.props.gotoHome} className='button_header' type="primary" size='large'>Accueil</Button>
-          </div>
-          <div>
-            <Button onClick={this.props.gotoHome} className='button_header' type="primary" size='large'>Informations</Button>
-          </div>
-          <div>
-            <Button onClick={this.props.gotoHome} className='button_header' type="primary" size='large'>FAQ</Button>
-          </div>
-          <div>
-            <Button onClick={this.props.gotoHome} className='button_header' type="primary" size='large'>Contact</Button>
-          </div>
-          <div className="a-intro-header__mainButton">
-            <Button onClick={this.mainButton} className='button_header' type="primary" size='large'>{mainButtonText}</Button>
-          </div>
-        </nav>
-        
-        <nav className="a-intro-header__nav__mobile">
-          <div className="a-intro-header__nav__mobile__topbar">
-            <div style={{ paddingBottom: '3px' }}>
-              <Button onClick={this.toggleMobileMenu}>
-                <div className={"a-intro-header__hamburger" + (this.state.mobileMenu ? " active" : "")}>
-                  <div className="a-intro-header__hamburger__segment"></div>
-                  <div className="a-intro-header__hamburger__segment"></div>
-                  <div className="a-intro-header__hamburger__segment"></div>
-                </div>
-              </Button>
-            </div>
-            <div className="a-intro-header__mainButton" style={{ paddingBottom: '3px' }}>
-              <Button onClick={this.mainButton}>{mainButtonText}</Button>
-            </div>
-          </div>
-
-          <div className={"a-intro-header__nav__mobile__content" + (this.state.mobileMenu ? " active" : "")}>
-            <div>
-              <Button onClick={this.props.gotoHome}>Accueil</Button>
-            </div>
-            <div>
-              <Button onClick={this.props.gotoInformations}>Informations</Button>
-            </div>
-            <div>
-              <Button onClick={this.props.gotoFAQ}>FAQ</Button>
-            </div>
-            <div>
-              <Button onClick={this.props.gotoTournaments}>Tournois</Button>
-            </div>
-            <div>
-              <Button onClick={this.props.gotoPartners}>Partenaires</Button>
-            </div>
-            <div>
-              <Button onClick={this.props.openContactModal}>Contact</Button>
-            </div>
-          </div>
-
-          <div onClick={this.closeMobileMenu} className={"a-intro-header__nav__mobile__overlay" + (this.state.mobileMenu ? " active" : "")}></div>
-        </nav>
+        <div className="a-intro-header__mainButton">
+          <Button onClick={this.mainButton} className='button_header' type="primary" size='large'>{mainButtonText}</Button>
+        </div>
       </header>
     )
   }
