@@ -69,94 +69,67 @@ class AdminValid extends React.Component {
     }
 
     // Get users fullname, role and spotlight
-    users = users.map(user => {
-      let role = ''
-      if(user.permission && user.permission.admin) {
-        role = 'Admin'
-      }
-      else if(user.permission && user.permission.respo) {
-        role = `Respo`
-      }
-      else if(user.permission && user.permission.permission) {
-        role = `Orga`
-      }
-      else {
-        role = 'Joueur'
-      }
+    // users = users.map(user => {
+    //   let role = ''
+    //   if(user.permission && user.permission.admin) {
+    //     role = 'Admin'
+    //   }
+    //   else if(user.permission && user.permission.respo) {
+    //     role = `Respo`
+    //   }
+    //   else if(user.permission && user.permission.permission) {
+    //     role = `Orga`
+    //   }
+    //   else {
+    //     role = 'Joueur'
+    //   }
 
-      return {
-        ...user,
-        fullname: `${user.name} (${user.firstname} ${user.lastname})`,
-        role,
-      }
-    })
+    //   return {
+    //     ...user,
+    //     fullname: `${user.name} (${user.firstname} ${user.lastname})`,
+    //     role,
+    //   }
+    // })
     
-    // Get different teams, emails, spotlights and places
-    let teams = []
-    let emails = []
-    let spotlights = []
-    let places = []
-    users.forEach(user => {
-      if(!teams.includes(user.team) && user.spotlight !== '/') {
-        teams.push(user.team)
-      }
-      
-      if(!emails.includes(user.email)) {
-        emails.push(user.email)
-      }
-      
-      if(!spotlights.includes(user.spotlight) && user.spotlight !== '/') {
-        spotlights.push(user.spotlight)
-      }
-
-      if(!places.includes(user.place) && user.place !== '') {
-        places.push(user.place)
-      }
-    })
-    // Sort teams and places
-    teams.sort((team1, team2) => team1.toLowerCase() > team2.toLowerCase())
-    emails.sort((email1, email2) => email1.toLowerCase() > email2.toLowerCase())
-    spotlights.sort()
-    places.sort()
 
     // Apply filters
-    let rows = users
-    Object.keys(search).forEach(key => {
-      if(search[key].length > 0) {
-        rows = rows.filter(user => {
-          let included = false
+    // let rows = users
+    // Object.keys(search).forEach(key => {
+    //   if(search[key].length > 0) {
+    //     rows = rows.filter(user => {
+    //       let included = false
 
-          search[key].forEach(searchValue => {
-            if(typeof user[key] === 'string') {
-              if(searchValue === ' ' && user[key] === '') {
-                included = true
-              }
-              else if(user[key].toLowerCase().includes(searchValue.toLowerCase())) {
-                included = true
-              }
-            }
-            else if(typeof user[key] === 'boolean' && (user[key] ? 'true' : 'false') === searchValue) {
-              included = true
-            }
-            else if(user[key] === searchValue) {
-              included = true
-            }
-          })
+    //       search[key].forEach(searchValue => {
+    //         if(typeof user[key] === 'string') {
+    //           if(searchValue === ' ' && user[key] === '') {
+    //             included = true
+    //           }
+    //           else if(user[key].toLowerCase().includes(searchValue.toLowerCase())) {
+    //             included = true
+    //           }
+    //         }
+    //         else if(typeof user[key] === 'boolean' && (user[key] ? 'true' : 'false') === searchValue) {
+    //           included = true
+    //         }
+    //         else if(user[key] === searchValue) {
+    //           included = true
+    //         }
+    //       })
   
-          return included
-        })
-      }
-    })
+    //       return included
+    //     })
+    //   }
+    // })
 
     // Apply column filters
     let columns = [
       {
-        title: 'Utilisateur',
-        dataIndex: 'fullname'
+        title: 'Nom',
+        dataIndex: 'lastName'
       },
       {
-        title: 'E-mail',
-        dataIndex: 'email'
+        title: 'Prénom',
+        dataIndex: 'firstName'
       },
       {
         title: 'Rôle',
