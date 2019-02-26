@@ -85,6 +85,11 @@ class Edit extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
+        <h1>La Fiche</h1>
+        <p>
+          Merci de répondre à toutes les questions sérieusement. Une fois
+          envoyé, les informations ne pourront être modifiés.
+        </p>
         <Form.Item
           {...formItemLayout}
           label={
@@ -263,18 +268,15 @@ class Edit extends React.Component {
                 optionFilterProp='children'
                 filterOption={(input, option) => {
                   const us = users.find(u => u.id === option.props.value)
-                  if(!us) return false
-                  let test = `${us.lastName}${us.firstName}${us.nickName ? us.nickName : ''}${us.town}`
-                  return test
-                    .toLowerCase()
-                    .indexOf(input.toLowerCase()) >= 0
+                  if (!us) return false
+                  let test = `${us.lastName}${us.firstName}${
+                    us.nickName ? us.nickName : ''
+                  }${us.town}`
+                  return test.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }}
               >
                 {referents.map(ref => (
-                  <Option
-                    key={ref.id}
-                    value={ref.id}
-                  >
+                  <Option key={ref.id} value={ref.id}>
                     {ref.lastName}. {ref.firstName} "{ref.nickName}" ({ref.town}
                     )
                   </Option>
@@ -285,7 +287,7 @@ class Edit extends React.Component {
         )}
         <Form.Item {...formItemLayout} label={<span>Allergies</span>}>
           {getFieldDecorator('allergies')(
-            <Input placeholder='Arachide, glutène, ...' />
+            <Input placeholder='Arachide, gluten, ...' />
           )}
         </Form.Item>
         <Form.Item {...formItemLayout} label={<span>Médicaments</span>}>
