@@ -1,5 +1,15 @@
 import React from 'react'
-import { Icon, Table, Select, Button, Spin, Checkbox, Input, Tooltip, Card } from 'antd'
+import {
+  Icon,
+  Table,
+  Select,
+  Button,
+  Spin,
+  Checkbox,
+  Input,
+  Tooltip,
+  Card
+} from 'antd'
 import { connect } from 'react-redux'
 
 import AdminBar from './AdminBar'
@@ -14,12 +24,7 @@ class AdminValid extends React.Component {
 
     this.state = {
       search: {
-        fullname: [],
-        email: [],
-        role: [],
-        team: [],
-        spotlight: [],
-        place: [],
+        town: [],
         paid: [],
         scanned: []
       },
@@ -38,7 +43,7 @@ class AdminValid extends React.Component {
     })
   }
 
-  clearSearch = (searchField) => {
+  clearSearch = searchField => {
     let search = this.state.search
     search[searchField] = []
 
@@ -47,10 +52,10 @@ class AdminValid extends React.Component {
     })
   }
 
-  displayInfoChanged = (displayInfo) => {
+  displayInfoChanged = displayInfo => {
     // Unset hidden filters
     this.state.displayInfo.forEach(key => {
-      if(!displayInfo.includes(key)) {
+      if (!displayInfo.includes(key)) {
         this.clearSearch(key)
       }
     })
@@ -59,7 +64,7 @@ class AdminValid extends React.Component {
       displayInfo
     })
   }
-  
+
   render() {
     let { users } = this.props
     const { search } = this.state
@@ -90,10 +95,9 @@ class AdminValid extends React.Component {
     //     role,
     //   }
     // })
-    
 
     // Apply filters
-    // let rows = users
+    let rows = users
     // Object.keys(search).forEach(key => {
     //   if(search[key].length > 0) {
     //     rows = rows.filter(user => {
@@ -115,7 +119,7 @@ class AdminValid extends React.Component {
     //           included = true
     //         }
     //       })
-  
+
     //       return included
     //     })
     //   }
@@ -132,40 +136,30 @@ class AdminValid extends React.Component {
         dataIndex: 'firstName'
       },
       {
-        title: 'Rôle',
-        dataIndex: 'role'
+        title: 'Filière',
+        dataIndex: 'studies'
       },
       {
-        title: 'Équipe',
-        dataIndex: 'team'
-      },
-      {
-        title: 'Tournoi',
-        dataIndex: 'spotlight'
-      },
-      {
-        title: 'Place',
-        dataIndex: 'place'
+        title: 'Ville',
+        dataIndex: 'town'
       },
       {
         title: 'A payé',
         dataIndex: 'paid',
-        render: (paid) => {return paid ? <Icon type="check" /> : <Icon type="close" />}
-      },
-      {
-        title: 'Scanné',
-        dataIndex: 'scanned',
-        render: (scanned) => {return scanned ? <Icon type="check" /> : <Icon type="close" />}
-      },
-      {
-        title: 'Actions',
-        dataIndex: 'id',
-        render: (id) => <UserListActions userId={id} users={this.props.users} />
+        render: paid => {
+          return paid ? <Icon type="check" /> : <Icon type="close" />
+        }
       }
     ]
 
     columns = columns.filter(col => {
-      if(col.dataIndex === 'fullname' || col.dataIndex === 'id' || (this.state.displayInfo ? this.state.displayInfo.includes(col.dataIndex) : false)) {
+      if (
+        col.dataIndex === 'town' ||
+        col.dataIndex === 'lastName' ||
+        (this.state.displayInfo
+          ? this.state.displayInfo.includes(col.dataIndex)
+          : false)
+      ) {
         return true
       }
 
@@ -174,27 +168,19 @@ class AdminValid extends React.Component {
 
     return (
       <React.Fragment>
-        <AdminBar/>
-        
-        <Card
-          title="Affichage"
-          style={{ marginTop: '20px' }}
-        >
-          <Checkbox.Group onChange={this.displayInfoChanged} defaultValue={this.state.displayInfo}>
-            <Checkbox value="email">E-mail</Checkbox>
-            <Checkbox value="role">Rôle</Checkbox>
-            <Checkbox value="team">Équipe</Checkbox>
-            <Checkbox value="spotlight">Tournoi</Checkbox>
-            <Checkbox value="place">Place</Checkbox>
+        <AdminBar />
+
+        <Card title="Affichage" style={{ marginTop: '20px' }}>
+          <Checkbox.Group
+            onChange={this.displayInfoChanged}
+            defaultValue={this.state.displayInfo}
+          >
             <Checkbox value="paid">A payé</Checkbox>
             <Checkbox value="scanned">Scanné</Checkbox>
           </Checkbox.Group>
         </Card>
 
-        <Card
-          title="Filtres"
-          style={{ marginTop: '20px' }}
-        >
+        {/* <Card title="Filtres" style={{ marginTop: '20px' }}>
           <InputGroup compact>
             <Select
               mode="tags"
@@ -203,14 +189,24 @@ class AdminValid extends React.Component {
               onChange={v => this.setSearch('fullname', v)}
               style={{ width: '250px' }}
             >
-              {users.map((user, i) => <Select.Option value={user.fullname} key={i}>{user.fullname}</Select.Option>)}
+              {users.map((user, i) => (
+                <Select.Option value={user.fullname} key={i}>
+                  {user.fullname}
+                </Select.Option>
+              ))}
             </Select>
             <Tooltip title="Réinitialiser" placement="right">
-              <Button type="primary" style={{ paddingRight: '10px', paddingLeft: '10px' }} onClick={() => this.clearSearch('fullname')}><Icon type="close"></Icon></Button>
+              <Button
+                type="primary"
+                style={{ paddingRight: '10px', paddingLeft: '10px' }}
+                onClick={() => this.clearSearch('fullname')}
+              >
+                <Icon type="close" />
+              </Button>
             </Tooltip>
           </InputGroup>
 
-          {this.state.displayInfo.includes('email') &&
+          {this.state.displayInfo.includes('email') && (
             <InputGroup compact style={{ marginTop: '10px' }}>
               <Select
                 mode="tags"
@@ -219,15 +215,25 @@ class AdminValid extends React.Component {
                 onChange={v => this.setSearch('email', v)}
                 style={{ width: '250px' }}
               >
-                {emails.map((email, i) => <Select.Option value={email} key={i}>{email}</Select.Option>)}
+                {emails.map((email, i) => (
+                  <Select.Option value={email} key={i}>
+                    {email}
+                  </Select.Option>
+                ))}
               </Select>
               <Tooltip title="Réinitialiser" placement="right">
-                <Button type="primary" style={{ paddingRight: '10px', paddingLeft: '10px' }} onClick={() => this.clearSearch('email')}><Icon type="close"></Icon></Button>
+                <Button
+                  type="primary"
+                  style={{ paddingRight: '10px', paddingLeft: '10px' }}
+                  onClick={() => this.clearSearch('email')}
+                >
+                  <Icon type="close" />
+                </Button>
               </Tooltip>
             </InputGroup>
-          }
+          )}
 
-          {this.state.displayInfo.includes('role') &&
+          {this.state.displayInfo.includes('role') && (
             <Checkbox.Group
               onChange={v => this.setSearch('role', v)}
               defaultValue={[]}
@@ -239,9 +245,9 @@ class AdminValid extends React.Component {
               <Checkbox value="orga">Orga</Checkbox>
               <Checkbox value="joueur">Joueur</Checkbox>
             </Checkbox.Group>
-          }
+          )}
 
-          {this.state.displayInfo.includes('team') &&
+          {this.state.displayInfo.includes('team') && (
             <InputGroup compact style={{ marginTop: '10px' }}>
               <Select
                 mode="tags"
@@ -251,15 +257,25 @@ class AdminValid extends React.Component {
                 style={{ width: '250px' }}
               >
                 <Select.Option value="/">(Aucune)</Select.Option>
-                {teams.map((team, i) => <Select.Option value={team} key={i}>{team}</Select.Option>)}
+                {teams.map((team, i) => (
+                  <Select.Option value={team} key={i}>
+                    {team}
+                  </Select.Option>
+                ))}
               </Select>
               <Tooltip title="Réinitialiser" placement="right">
-                <Button type="primary" style={{ paddingRight: '10px', paddingLeft: '10px' }} onClick={() => this.clearSearch('team')}><Icon type="close"></Icon></Button>
+                <Button
+                  type="primary"
+                  style={{ paddingRight: '10px', paddingLeft: '10px' }}
+                  onClick={() => this.clearSearch('team')}
+                >
+                  <Icon type="close" />
+                </Button>
               </Tooltip>
             </InputGroup>
-          }
+          )}
 
-          {this.state.displayInfo.includes('spotlight') &&
+          {this.state.displayInfo.includes('spotlight') && (
             <InputGroup compact style={{ marginTop: '10px' }}>
               <Select
                 mode="tags"
@@ -269,15 +285,25 @@ class AdminValid extends React.Component {
                 style={{ width: '250px' }}
               >
                 <Select.Option value="/">(Aucun)</Select.Option>
-                {spotlights.map((spotlight, i) => <Select.Option value={spotlight} key={i}>{spotlight}</Select.Option>)}
+                {spotlights.map((spotlight, i) => (
+                  <Select.Option value={spotlight} key={i}>
+                    {spotlight}
+                  </Select.Option>
+                ))}
               </Select>
               <Tooltip title="Réinitialiser" placement="right">
-                <Button type="primary" style={{ paddingRight: '10px', paddingLeft: '10px' }} onClick={() => this.clearSearch('spotlight')}><Icon type="close"></Icon></Button>
+                <Button
+                  type="primary"
+                  style={{ paddingRight: '10px', paddingLeft: '10px' }}
+                  onClick={() => this.clearSearch('spotlight')}
+                >
+                  <Icon type="close" />
+                </Button>
               </Tooltip>
             </InputGroup>
-          }
+          )}
 
-          {this.state.displayInfo.includes('place') &&
+          {this.state.displayInfo.includes('place') && (
             <InputGroup compact style={{ marginTop: '10px' }}>
               <Select
                 mode="tags"
@@ -287,15 +313,25 @@ class AdminValid extends React.Component {
                 style={{ width: '150px' }}
               >
                 <Select.Option value=" ">(Aucune)</Select.Option>
-                {places.map((place, i) => <Select.Option value={place} key={i}>{place}</Select.Option>)}
+                {places.map((place, i) => (
+                  <Select.Option value={place} key={i}>
+                    {place}
+                  </Select.Option>
+                ))}
               </Select>
               <Tooltip title="Réinitialiser" placement="right">
-                <Button type="primary" style={{ paddingRight: '10px', paddingLeft: '10px' }} onClick={() => this.clearSearch('place')}><Icon type="close"></Icon></Button>
+                <Button
+                  type="primary"
+                  style={{ paddingRight: '10px', paddingLeft: '10px' }}
+                  onClick={() => this.clearSearch('place')}
+                >
+                  <Icon type="close" />
+                </Button>
               </Tooltip>
             </InputGroup>
-          }
+          )}
 
-          {this.state.displayInfo.includes('paid') &&
+          {this.state.displayInfo.includes('paid') && (
             <Checkbox.Group
               onChange={v => this.setSearch('paid', v)}
               defaultValue={[]}
@@ -305,9 +341,9 @@ class AdminValid extends React.Component {
               <Checkbox value="true">Payé</Checkbox>
               <Checkbox value="false">Non payé</Checkbox>
             </Checkbox.Group>
-          }
+          )}
 
-          {this.state.displayInfo.includes('scanned') &&
+          {this.state.displayInfo.includes('scanned') && (
             <Checkbox.Group
               onChange={v => this.setSearch('scanned', v)}
               defaultValue={[]}
@@ -317,12 +353,14 @@ class AdminValid extends React.Component {
               <Checkbox value="true">Scanné</Checkbox>
               <Checkbox value="false">Non scanné</Checkbox>
             </Checkbox.Group>
-          }
+          )}
         </Card>
 
         <p style={{ marginTop: '20px' }}>
-          <strong>{rows.length} résultat{rows.length > 1 ? 's' : ''}</strong>
-        </p>
+          <strong>
+            {rows.length} résultat{rows.length > 1 ? 's' : ''}
+          </strong>
+        </p> */}
 
         <Table
           columns={columns}
@@ -337,7 +375,7 @@ class AdminValid extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.admin.users,
+  users: state.admin.users
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -345,5 +383,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps)(AdminValid)
+  mapStateToProps,
+  mapDispatchToProps
+)(AdminValid)
