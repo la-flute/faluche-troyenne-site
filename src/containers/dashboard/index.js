@@ -16,7 +16,9 @@ import Teams from './components/User/Teams'
 import AdminBedrooms from './components/Admin/AdminBedrooms'
 import AdminTeams from './components/Admin/AdminTeams'
 import AdminPrices from './components/Admin/AdminPrices'
+import AdminValid from './components/Admin/AdminValid'
 import DashboardLayout from './layout'
+
 
 import { autoLogin } from '../../modules/login'
 import './dashboard.css'
@@ -89,7 +91,7 @@ class Dashboard extends React.Component {
         {/* admin */}
 
         {this.state.render && (
-          <Route path={baseUrl + 'admin/list'} exact component={EditUser} />
+          <Route path={baseUrl + 'admin/validate'} exact component={AdminValid} />
         )}
         {this.state.render && (
           <Route path={baseUrl + 'admin/bedrooms'} exact component={AdminBedrooms} />

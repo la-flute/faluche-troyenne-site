@@ -8,7 +8,7 @@ import { fetchUsers } from '../../../../modules/admin'
 
 const InputGroup = Input.Group
 
-class UsersList extends React.Component {
+class AdminValid extends React.Component {
   constructor(props) {
     super(props)
 
@@ -365,7 +365,6 @@ class UsersList extends React.Component {
 
 const mapStateToProps = state => ({
   users: state.admin.users,
-  spotlights: state.spotlights.spotlights
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -374,4 +373,4 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps)(UsersList)
+    mapDispatchToProps)(AdminValid)
