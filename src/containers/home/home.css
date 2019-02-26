@@ -1,15 +1,16 @@
 .a-home {
-  background-color: #365DA8;
+  background-color: rgb(32, 67, 133);
   background-size: 100% 100%;
 }
 
-.a-home-bg{
-  display:flex;
-  flex-direction:column;
+.a-home-bg {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
 
 .a-home__content {
+  background-color: #365da8;
   margin: 0 auto;
   padding: 40px 20px;
   color: #fff;
@@ -45,6 +46,8 @@
   height: 150px;
   padding: 20px;
   color: #fff;
+  background-color: rgb(24, 50, 97);
+  width: 100%;
 }
 
 .a-home__content.a-home__footer > div {

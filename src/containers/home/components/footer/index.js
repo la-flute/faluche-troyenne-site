@@ -6,7 +6,7 @@ class Footer extends React.Component {
     return (
         <div className="a-home__content a-home__footer">
             <div>
-              © UTT Net Group
+              © La Flute
               <a href="/mentions-legales">Mentions légales</a>
             </div>
             <div>
