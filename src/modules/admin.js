@@ -91,7 +91,7 @@ export const fetchUsers = () => {
     }
 
     try {
-      const res = await axios.get('admin/users', { headers: { 'X-Token': authToken } })
+      const res = await axios.get('admin/list', { headers: { 'X-Token': authToken } })
 
       dispatch({ type: SET_USERS, payload: res.data })
     } catch (err) {
