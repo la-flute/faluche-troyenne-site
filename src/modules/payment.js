@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
   }
 }
 
-export const payment = basket => {
+export const sendBasket = basket => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
 
@@ -20,12 +20,16 @@ export const payment = basket => {
     }
 
     try {
-      const res = await axios.post('user/pay', basket, { headers: { 'X-Token': authToken } })
+      const res = await axios.post('user/pay', basket, {
+        headers: { 'X-Token': authToken }
+      })
 
-      if (res.status === 200 && !res.body.error) {
-        location.href = res.body.url // eslint-disable-line no-restricted-globals
+      console.log(res) //TODO remove
+      if (res.status === 200) {
+        window.location = res.data.url // eslint-disable-line no-restricted-globals
       }
     } catch (err) {
+      console.log(err)
       dispatch(
         notifActions.notifSend({
           message: errorToString(err.response.data.error),
