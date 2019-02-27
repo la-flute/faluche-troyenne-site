@@ -8,6 +8,7 @@ export const SET_COUNTS = 'admin/SET_COUNTS'
 export const SET_CHARTDATA = 'admin/SET_CHARTDATA'
 export const SET_USER_ADMIN = 'admin/SET_USER_ADMIN'
 export const SET_USER_PAID = 'admin/SET_USER_PAID'
+export const SET_USER_UNPAID = 'admin/SET_USER_UNPAID'
 export const REMOVE_USER_ADMIN = 'admin/REMOVE_USER_ADMIN'
 export const SET_USER_PLACE = 'admin/SET_USER_PLACE'
 export const SET_USER_RESPO = 'admin/SET_USER_RESPO'
@@ -61,14 +62,22 @@ export default (state = initialState, action) => {
         ...state,
         users
       }
-    case SET_USER_PAID:
-      userId = action.payload
-      index = users.findIndex(u => u.id === userId)
-      users[index].paid = 1
-      return {
-        ...state,
-        users
-      }
+      case SET_USER_PAID:
+        userId = action.payload
+        index = users.findIndex(u => u.id === userId)
+        users[index].paid = true
+        return {
+          ...state,
+          users
+        }
+      case SET_USER_UNPAID:
+        userId = action.payload
+        index = users.findIndex(u => u.id === userId)
+        users[index].paid = false
+        return {
+          ...state,
+          users
+        }
     case SET_USER_RESPO:
       index = users.findIndex(u => u.id === action.payload.id)
       users[index].permission.respo = action.payload.respo.toString()
@@ -140,27 +149,16 @@ export const fetchUsersRoles = () => {
   }
 }
 
-export const validatePayment = userId => {
+export const validatePayment = (userId, alcool, bedroom) => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
 
     if (!authToken || authToken.length === 0) {
       return
     }
-    dispatch(
-      notifActions.notifSend({
-        message: 'Demande de paiement reçue, merci de patienter...',
-        kind: 'warning',
-        dismissAfter: 2000
-      })
-    )
     try {
-      const res = await axios.post(
-        `admin/forcepay`,
-        { userId },
-        { headers: { 'X-Token': authToken } }
-      )
-      if (res.status === 200) {
+      const res = await axios.post(`admin/forcepay`, { userId, alcool, bedroom }, { headers: { 'X-Token': authToken } })
+      if(res.status === 200) {
         dispatch({ type: SET_USER_PAID, payload: userId })
         dispatch(
           notifActions.notifSend({
@@ -182,7 +180,38 @@ export const validatePayment = userId => {
   }
 }
 
-export const setAdmin = id => {
+export const unvalidatePayment = (userId) => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.delete(`admin/forcepay/${userId}`, { headers: { 'X-Token': authToken } })
+      if(res.status === 200) {
+        dispatch({ type: SET_USER_UNPAID, payload: userId })
+        dispatch(
+          notifActions.notifSend({
+            message: 'Paiement supprimé',
+            kind: 'warning',
+            dismissAfter: 2000
+        }))
+      }
+    } catch (err) {
+      console.log(err)
+      dispatch(
+        notifActions.notifSend({
+          message: errorToString(err.response.data.error),
+          kind: 'danger',
+          dismissAfter: 2000
+      }))
+    }
+  }
+}
+
+
+export const setAdmin = (id) => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
 
@@ -209,7 +238,7 @@ export const setAdmin = id => {
       console.log(err)
       dispatch(
         notifActions.notifSend({
-          message: 'Une erreur est survenue',
+          message: errorToString(err.response.data.error),
           kind: 'danger',
           dismissAfter: 2000
         })
@@ -245,7 +274,7 @@ export const removeAdmin = id => {
       console.log(err)
       dispatch(
         notifActions.notifSend({
-          message: 'Une erreur est survenue',
+          message: errorToString(err.response.data.error),
           kind: 'danger',
           dismissAfter: 2000
         })
@@ -281,7 +310,7 @@ export const setRespo = (id, respo) => {
       console.log(err)
       dispatch(
         notifActions.notifSend({
-          message: 'Une erreur est survenue',
+          message: errorToString(err.response.data.error),
           kind: 'danger',
           dismissAfter: 2000
         })
@@ -317,7 +346,7 @@ export const setPermission = (id, permission) => {
       console.log(err)
       dispatch(
         notifActions.notifSend({
-          message: 'Une erreur est survenue',
+          message: errorToString(err.response.data.error),
           kind: 'danger',
           dismissAfter: 2000
         })

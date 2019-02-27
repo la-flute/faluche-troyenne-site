@@ -100,36 +100,51 @@ class Dashboard extends React.Component {
         )}
 
         {/* admin */}
-
-        {this.state.render && (
-          <Route
-            path={baseUrl + 'admin/validate'}
-            exact
-            component={AdminValid}
-          />
-        )}
-        {this.state.render && (
-          <Route
-            path={baseUrl + 'admin/bedrooms'}
-            exact
-            component={AdminBedrooms}
-          />
-        )}
-        {this.state.render && (
-          <Route path={baseUrl + 'admin/teams'} exact component={AdminTeams} />
-        )}
-        {this.state.render && (
-          <Route
-            path={baseUrl + 'admin/prices'}
-            exact
-            component={AdminPrices}
-          />
-        )}
-        {this.state.render && (
+        {this.state.render &&
+          user &&
+          user.permission &&
+          user.permission.admin && (
+            <Route
+              path={baseUrl + 'admin/validate'}
+              exact
+              component={AdminValid}
+            />
+          )}
+        {this.state.render &&
+          user &&
+          user.permission &&
+          user.permission.admin && (
+            <Route
+              path={baseUrl + 'admin/bedrooms'}
+              exact
+              component={AdminBedrooms}
+            />
+          )}
+        {this.state.render &&
+          user &&
+          user.permission &&
+          user.permission.admin && (
+            <Route
+              path={baseUrl + 'admin/teams'}
+              exact
+              component={AdminTeams}
+            />
+          )}
+        {this.state.render &&
+          user &&
+          user.permission &&
+          user.permission.admin && (
+            <Route
+              path={baseUrl + 'admin/prices'}
+              exact
+              component={AdminPrices}
+            />
+          )}
+          {this.state.render && user && user.permission && user.permission.admin && (
           <Route path={baseUrl + 'admin/define'} exact component={AdminRoles} />
         )}
 
-        {this.state.render && <Redirect from="*" to="/dashboard/home" />}
+        {this.state.render && <Redirect from='*' to='/dashboard/home' />}
         {!this.state.render && <DashboardLoading />}
       </Switch>
     )
