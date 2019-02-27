@@ -3,9 +3,13 @@ import { Icon, Tooltip, Modal, Button, Checkbox } from 'antd'
 import { connect } from 'react-redux'
 import {
   setAdmin,
+  setOrga,
+  setTreso,
+  setRedac,
   removeAdmin,
-  setPermission,
-  setRespo
+  removeOrga,
+  removeTreso,
+  removeRedac,
 } from '../../../../../modules/admin'
 import Respo from './Respo'
 
@@ -75,9 +79,12 @@ class UserListActions extends React.Component {
 
     let userIsAdmin = user.permission && user.permission.admin
     let userIsOrga = user.permission && user.permission.bureau
-    console.log(user.permission && user.permission.bureau)
     let userIsTreso = user.permission && user.permission.treso
     let userIsRedac = user.permission && user.permission.write
+    console.log('Admin : ', userIsAdmin)
+    console.log('Orga : ', userIsOrga)
+    console.log('Treso : ', userIsTreso)
+    console.log('Redac : ', userIsRedac)
 
     return (
       <React.Fragment>
@@ -162,7 +169,7 @@ class UserListActions extends React.Component {
                 <Icon type="tool" /> Rôles
               </h2>
               <div className="admin-action-content">
-                {userIsOrga ? (
+                {!userIsOrga || userIsOrga === null ? (
                   <Tooltip placement="right" title="Définir comme orga">
                     <Button
                       type="primary"
@@ -195,7 +202,7 @@ class UserListActions extends React.Component {
                     </Button>
                   </Tooltip>
                 )}
-                {userIsTreso ? (
+                {!userIsTreso || userIsTreso === null ? (
                   <Tooltip placement="right" title="Définir comme tréso">
                     <Button
                       type="primary"
@@ -228,7 +235,7 @@ class UserListActions extends React.Component {
                     </Button>
                   </Tooltip>
                 )}
-                {userIsRedac ? (
+                {!userIsRedac || userIsRedac === null ? (
                   <Tooltip placement="right" title="Définir comme tréso">
                     <Button
                       type="primary"
@@ -241,7 +248,7 @@ class UserListActions extends React.Component {
                       }
                       style={{ marginTop: '10px' }}
                     >
-                      Définir trésorier
+                      Définir rédacteur
                     </Button>
                   </Tooltip>
                 ) : (
@@ -257,7 +264,7 @@ class UserListActions extends React.Component {
                       }
                       style={{ marginTop: '10px' }}
                     >
-                      Retirer trésorier
+                      Retirer rédacteur
                     </Button>
                   </Tooltip>
                 )} 
@@ -289,9 +296,14 @@ class UserListActions extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
   setAdmin: id => dispatch(setAdmin(id)),
+  setOrga: id => dispatch(setOrga(id)),
+  setTreso: id => dispatch(setTreso(id)),
+  setRedac: id => dispatch(setRedac(id)),
+
   removeAdmin: id => dispatch(removeAdmin(id)),
-  setPermission: (id, permission) => dispatch(setPermission(id, permission)),
-  setRespo: (id, respo) => dispatch(setRespo(id, respo))
+  removeOrga: id => dispatch(removeOrga(id)),
+  removeTreso: id => dispatch(removeTreso(id)),
+  removeRedac: id => dispatch(removeRedac(id)),
 })
 
 export default connect(

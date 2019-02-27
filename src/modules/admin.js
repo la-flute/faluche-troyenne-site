@@ -6,10 +6,19 @@ export const SET_USERS = 'admin/SET_USERS'
 export const SET_USERS_ROLES = 'admin/SET_USERS_ROLES'
 export const SET_COUNTS = 'admin/SET_COUNTS'
 export const SET_CHARTDATA = 'admin/SET_CHARTDATA'
+
 export const SET_USER_ADMIN = 'admin/SET_USER_ADMIN'
+export const SET_USER_ORGA = 'admin/SET_USER_ORGA'
+export const SET_USER_TRESO = 'admin/SET_USER_TRESO'
+export const SET_USER_WRITE = 'admin/SET_USER_WRITE'
+
+export const REMOVE_USER_ADMIN = 'admin/REMOVE_USER_ADMIN'
+export const REMOVE_USER_ORGA = 'admin/REMOVE_USER_ORGA'
+export const REMOVE_USER_TRESO = 'admin/REMOVE_USER_TRESO'
+export const REMOVE_USER_WRITE = 'admin/REMOVE_USER_WRITE'
+
 export const SET_USER_PAID = 'admin/SET_USER_PAID'
 export const SET_USER_UNPAID = 'admin/SET_USER_UNPAID'
-export const REMOVE_USER_ADMIN = 'admin/REMOVE_USER_ADMIN'
 export const SET_USER_PLACE = 'admin/SET_USER_PLACE'
 export const SET_USER_RESPO = 'admin/SET_USER_RESPO'
 export const SET_USER_PERMISSION = 'admin/SET_USER_PERMISSION'
@@ -46,6 +55,7 @@ export default (state = initialState, action) => {
         ...state,
         chartData: action.payload
       }
+
     case SET_USER_ADMIN:
       userId = action.payload
       index = users.findIndex(u => u.id === userId)
@@ -62,22 +72,74 @@ export default (state = initialState, action) => {
         ...state,
         users
       }
-      case SET_USER_PAID:
-        userId = action.payload
-        index = users.findIndex(u => u.id === userId)
-        users[index].paid = true
-        return {
-          ...state,
-          users
-        }
-      case SET_USER_UNPAID:
-        userId = action.payload
-        index = users.findIndex(u => u.id === userId)
-        users[index].paid = false
-        return {
-          ...state,
-          users
-        }
+
+    case SET_USER_ORGA:
+      userId = action.payload
+      index = users.findIndex(u => u.id === userId)
+      users[index].permission.bureau = true
+      return {
+        ...state,
+        users
+      }
+    case REMOVE_USER_ORGA:
+      userId = action.payload
+      index = users.findIndex(u => u.id === userId)
+      users[index].permission.bureau = false
+      return {
+        ...state,
+        users
+      }
+
+    case SET_USER_TRESO:
+      userId = action.payload
+      index = users.findIndex(u => u.id === userId)
+      users[index].permission.treso = true
+      return {
+        ...state,
+        users
+      }
+    case REMOVE_USER_TRESO:
+      userId = action.payload
+      index = users.findIndex(u => u.id === userId)
+      users[index].permission.treso = false
+      return {
+        ...state,
+        users
+      }
+
+    case SET_USER_WRITE:
+      userId = action.payload
+      index = users.findIndex(u => u.id === userId)
+      users[index].permission.write = true
+      return {
+        ...state,
+        users
+      }
+    case REMOVE_USER_WRITE:
+      userId = action.payload
+      index = users.findIndex(u => u.id === userId)
+      users[index].permission.write = false
+      return {
+        ...state,
+        users
+      }
+
+    case SET_USER_PAID:
+      userId = action.payload
+      index = users.findIndex(u => u.id === userId)
+      users[index].paid = true
+      return {
+        ...state,
+        users
+      }
+    case SET_USER_UNPAID:
+      userId = action.payload
+      index = users.findIndex(u => u.id === userId)
+      users[index].paid = false
+      return {
+        ...state,
+        users
+      }
     case SET_USER_RESPO:
       index = users.findIndex(u => u.id === action.payload.id)
       users[index].permission.respo = action.payload.respo.toString()
@@ -157,8 +219,12 @@ export const validatePayment = (userId, alcool, bedroom) => {
       return
     }
     try {
-      const res = await axios.post(`admin/forcepay`, { userId, alcool, bedroom }, { headers: { 'X-Token': authToken } })
-      if(res.status === 200) {
+      const res = await axios.post(
+        `admin/forcepay`,
+        { userId, alcool, bedroom },
+        { headers: { 'X-Token': authToken } }
+      )
+      if (res.status === 200) {
         dispatch({ type: SET_USER_PAID, payload: userId })
         dispatch(
           notifActions.notifSend({
@@ -180,7 +246,7 @@ export const validatePayment = (userId, alcool, bedroom) => {
   }
 }
 
-export const unvalidatePayment = (userId) => {
+export const unvalidatePayment = userId => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
 
@@ -188,15 +254,18 @@ export const unvalidatePayment = (userId) => {
       return
     }
     try {
-      const res = await axios.delete(`admin/forcepay/${userId}`, { headers: { 'X-Token': authToken } })
-      if(res.status === 200) {
+      const res = await axios.delete(`admin/forcepay/${userId}`, {
+        headers: { 'X-Token': authToken }
+      })
+      if (res.status === 200) {
         dispatch({ type: SET_USER_UNPAID, payload: userId })
         dispatch(
           notifActions.notifSend({
             message: 'Paiement supprimé',
             kind: 'warning',
             dismissAfter: 2000
-        }))
+          })
+        )
       }
     } catch (err) {
       console.log(err)
@@ -205,13 +274,13 @@ export const unvalidatePayment = (userId) => {
           message: errorToString(err.response.data.error),
           kind: 'danger',
           dismissAfter: 2000
-      }))
+        })
+      )
     }
   }
 }
 
-
-export const setAdmin = (id) => {
+export const setAdmin = id => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
 
@@ -283,7 +352,7 @@ export const removeAdmin = id => {
   }
 }
 
-export const setRespo = (id, respo) => {
+export const setOrga = id => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
 
@@ -292,16 +361,16 @@ export const setRespo = (id, respo) => {
     }
     try {
       const res = await axios.put(
-        `/admin/setRespo/${id}`,
-        { respo },
+        `/admin/setOrga/${id}`,
+        { orga: true },
         { headers: { 'X-Token': authToken } }
       )
-
+        console.log(res)
       if (res.status === 200) {
-        dispatch({ type: SET_USER_RESPO, payload: { id, respo } })
+        dispatch({ type: SET_USER_ORGA, payload: id })
         dispatch(
           notifActions.notifSend({
-            message: "Les permissions de l'utilisateur ont été modifiées",
+            message: "L'utilisateur est maintenant organisateur",
             dismissAfter: 2000
           })
         )
@@ -319,7 +388,7 @@ export const setRespo = (id, respo) => {
   }
 }
 
-export const setPermission = (id, permission) => {
+export const removeOrga = id => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
 
@@ -328,16 +397,160 @@ export const setPermission = (id, permission) => {
     }
     try {
       const res = await axios.put(
-        `/admin/setPermission/${id}`,
-        { permission },
+        `/admin/setOrga/${id}`,
+        { orga: false },
         { headers: { 'X-Token': authToken } }
       )
 
       if (res.status === 200) {
-        dispatch({ type: SET_USER_PERMISSION, payload: { id, permission } })
+        dispatch({ type: REMOVE_USER_ORGA, payload: id })
         dispatch(
           notifActions.notifSend({
-            message: "Les permissions de l'utilisateur ont été modifiées",
+            message: "L'utilisateur n'est maintenant plus organisateur",
+            dismissAfter: 2000
+          })
+        )
+      }
+    } catch (err) {
+      console.log(err)
+      dispatch(
+        notifActions.notifSend({
+          message: errorToString(err.response.data.error),
+          kind: 'danger',
+          dismissAfter: 2000
+        })
+      )
+    }
+  }
+}
+
+export const setTreso = id => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.put(
+        `/admin/setTreso/${id}`,
+        { treso: true },
+        { headers: { 'X-Token': authToken } }
+      )
+
+      if (res.status === 200) {
+        dispatch({ type: SET_USER_TRESO, payload: id })
+        dispatch(
+          notifActions.notifSend({
+            message: "L'utilisateur est maintenant trésorier",
+            dismissAfter: 2000
+          })
+        )
+      }
+    } catch (err) {
+      console.log(err)
+      dispatch(
+        notifActions.notifSend({
+          message: errorToString(err.response.data.error),
+          kind: 'danger',
+          dismissAfter: 2000
+        })
+      )
+    }
+  }
+}
+
+export const removeTreso = id => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.put(
+        `/admin/setTreso/${id}`,
+        { treso: false },
+        { headers: { 'X-Token': authToken } }
+      )
+
+      if (res.status === 200) {
+        dispatch({ type: REMOVE_USER_TRESO, payload: id })
+        dispatch(
+          notifActions.notifSend({
+            message: "L'utilisateur n'est maintenant plus trésorier",
+            dismissAfter: 2000
+          })
+        )
+      }
+    } catch (err) {
+      console.log(err)
+      dispatch(
+        notifActions.notifSend({
+          message: errorToString(err.response.data.error),
+          kind: 'danger',
+          dismissAfter: 2000
+        })
+      )
+    }
+  }
+}
+
+export const setRedac = id => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.put(
+        `/admin/setRedac/${id}`,
+        { write: true },
+        { headers: { 'X-Token': authToken } }
+      )
+
+      if (res.status === 200) {
+        dispatch({ type: SET_USER_WRITE, payload: id })
+        dispatch(
+          notifActions.notifSend({
+            message: "L'utilisateur est maintenant rédacteur",
+            dismissAfter: 2000
+          })
+        )
+      }
+    } catch (err) {
+      console.log(err)
+      dispatch(
+        notifActions.notifSend({
+          message: errorToString(err.response.data.error),
+          kind: 'danger',
+          dismissAfter: 2000
+        })
+      )
+    }
+  }
+}
+
+export const removeRedac = id => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.put(
+        `/admin/setRedac/${id}`,
+        { write: false },
+        { headers: { 'X-Token': authToken } }
+      )
+
+      if (res.status === 200) {
+        dispatch({ type: REMOVE_USER_WRITE, payload: id })
+        dispatch(
+          notifActions.notifSend({
+            message: "L'utilisateur n'est maintenant plus rédacteur",
             dismissAfter: 2000
           })
         )
