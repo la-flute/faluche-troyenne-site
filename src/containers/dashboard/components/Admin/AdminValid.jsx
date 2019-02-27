@@ -11,7 +11,8 @@ class AdminValid extends React.Component {
     super(props)
 
     this.state = {
-      showPaid: true
+      showPaid: true,
+      showFiche: true
     }
 
     this.props.fetchUsers()
@@ -59,6 +60,19 @@ class AdminValid extends React.Component {
         }
       })
     }
+    if (this.state.showFiche) {
+      columns.push({
+        title: 'Fiche',
+        dataIndex: 'trajet',
+        render: trajet => {
+          return trajet ? (
+            <Icon type='check' style={{ color: 'green' }} />
+          ) : (
+            <Icon type='close' style={{ color: 'red' }} />
+          )
+        }
+      })
+    }
     columns.push({
       title: 'Actions',
       dataIndex: 'id',
@@ -75,7 +89,12 @@ class AdminValid extends React.Component {
           >
             A payé
           </Checkbox>
-          <Checkbox value='scanned'>Scanné</Checkbox>
+          <Checkbox
+            checked={this.state.showFiche}
+            onChange={() => this.setState({ showFiche: !this.state.showFiche })}
+          >
+            Fiche
+          </Checkbox>
         </Card>
         <Table
           columns={columns}

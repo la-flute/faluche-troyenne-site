@@ -70,14 +70,19 @@ class UserListActions extends React.Component {
             <Radio value='bedroom'>Chambre</Radio>
           </Radio.Group>
         </Modal>
-        {!user.paid && (
+        {!user.paid && user.town && (
           <Tooltip placement='top' title='Valider le paiement'>
             <a
               onClick={() => this.setState({ modal: true })}
               style={{ fontSize: '18px' }}
             >
-              <Icon type='check-circle' />
+              <Icon type='euro' />
             </a>
+          </Tooltip>
+        )}
+        {!user.paid && !user.town && (
+          <Tooltip placement='top' title="La personne n'a pas remplit sa fiche">
+            <Icon type='euro' style={{ fontSize: '18px', color: 'gray' }} />
           </Tooltip>
         )}
         {user.paid && (
@@ -92,7 +97,7 @@ class UserListActions extends React.Component {
               }
               style={{ fontSize: '18px', color: 'red' }}
             >
-              <Icon type='close-circle' />
+              <Icon type='euro' />
             </a>
           </Tooltip>
         )}
