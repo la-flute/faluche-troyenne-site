@@ -153,19 +153,19 @@ class AdminValid extends React.Component {
       }
     ]
 
-    columns = columns.filter(col => {
-      if (
-        col.dataIndex === 'town' ||
-        col.dataIndex === 'lastName' ||
-        (this.state.displayInfo
-          ? this.state.displayInfo.includes(col.dataIndex)
-          : false)
-      ) {
-        return true
-      }
+    // columns = columns.filter(col => {
+    //   if (
+    //     col.dataIndex === 'town' ||
+    //     col.dataIndex === 'lastName' ||
+    //     (this.state.displayInfo
+    //       ? this.state.displayInfo.includes(col.dataIndex)
+    //       : false)
+    //   ) {
+    //     return true
+    //   }
 
-      return false
-    })
+    //   return false
+    // })
 
     return (
       <React.Fragment>
