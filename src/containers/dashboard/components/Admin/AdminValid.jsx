@@ -98,6 +98,7 @@ class AdminValid extends React.Component {
 
     // Apply filters
     let rows = users
+    console.log(users)
     // Object.keys(search).forEach(key => {
     //   if(search[key].length > 0) {
     //     rows = rows.filter(user => {
