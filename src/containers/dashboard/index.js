@@ -19,7 +19,6 @@ import AdminPrices from './components/Admin/AdminPrices'
 import AdminValid from './components/Admin/AdminValid'
 import DashboardLayout from './layout'
 
-
 import { autoLogin } from '../../modules/login'
 import './dashboard.css'
 
@@ -42,7 +41,6 @@ class Dashboard extends React.Component {
     })
   }
 
-
   render() {
     const { user } = this.props
     const component = (
@@ -60,7 +58,11 @@ class Dashboard extends React.Component {
         )}
 
         {this.state.render && (
-          <Route path={baseUrl + 'user/attestation'} exact component={AttestationUser} />
+          <Route
+            path={baseUrl + 'user/attestation'}
+            exact
+            component={AttestationUser}
+          />
         )}
 
         {this.state.render && (
@@ -72,11 +74,19 @@ class Dashboard extends React.Component {
         )}
 
         {this.state.render && (
-          <Route path={baseUrl + 'user/pay/validate'} exact component={PaymentValidate} />
+          <Route
+            path={baseUrl + 'user/pay/validate'}
+            exact
+            component={PaymentValidate}
+          />
         )}
 
         {this.state.render && (
-          <Route path={baseUrl + 'user/pay/error'} exact component={PaymentError} />
+          <Route
+            path={baseUrl + 'user/pay/error'}
+            exact
+            component={PaymentError}
+          />
         )}
 
         {this.state.render && (
@@ -87,25 +97,49 @@ class Dashboard extends React.Component {
           <Route path={baseUrl + 'user/teams'} exact component={Teams} />
         )}
 
-
         {/* admin */}
+        {this.state.render &&
+          user &&
+          user.permission &&
+          user.permission.admin && (
+            <Route
+              path={baseUrl + 'admin/validate'}
+              exact
+              component={AdminValid}
+            />
+          )}
+        {this.state.render &&
+          user &&
+          user.permission &&
+          user.permission.admin && (
+            <Route
+              path={baseUrl + 'admin/bedrooms'}
+              exact
+              component={AdminBedrooms}
+            />
+          )}
+        {this.state.render &&
+          user &&
+          user.permission &&
+          user.permission.admin && (
+            <Route
+              path={baseUrl + 'admin/teams'}
+              exact
+              component={AdminTeams}
+            />
+          )}
+        {this.state.render &&
+          user &&
+          user.permission &&
+          user.permission.admin && (
+            <Route
+              path={baseUrl + 'admin/prices'}
+              exact
+              component={AdminPrices}
+            />
+          )}
 
-        {this.state.render && (
-          <Route path={baseUrl + 'admin/validate'} exact component={AdminValid} />
-        )}
-        {this.state.render && (
-          <Route path={baseUrl + 'admin/bedrooms'} exact component={AdminBedrooms} />
-        )}
-        {this.state.render && (
-          <Route path={baseUrl + 'admin/teams'} exact component={AdminTeams} />
-        )}
-        {this.state.render && (
-          <Route path={baseUrl + 'admin/prices'} exact component={AdminPrices} />
-        )}
-
-
-
-        {this.state.render && <Redirect from="*" to="/dashboard/home" />}
+        {this.state.render && <Redirect from='*' to='/dashboard/home' />}
         {!this.state.render && <DashboardLoading />}
       </Switch>
     )

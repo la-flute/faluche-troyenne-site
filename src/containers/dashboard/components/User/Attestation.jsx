@@ -21,7 +21,7 @@ class Edit extends React.Component {
       if (err) {
         return
       }
-      if (values.nbr !== 10) this.props.errorNotif()
+      if (values.nbr !== 10) this.props.errorNotif(Math.abs(values.nbr - 10))
       else this.props.sendAttestation()
       form.resetFields()
       this.setState({ visible: false })
@@ -114,10 +114,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchUser: () => dispatch(fetchUser()),
-  errorNotif: () =>
+  errorNotif: nbr =>
     dispatch(
       notifActions.notifSend({
-        message: `Raté, ça fait quelques secs en plus`,
+        message: `Raté, ça fait ${nbr} secs en plus`,
         kind: 'danger',
         dismissAfter: 2000
       })
