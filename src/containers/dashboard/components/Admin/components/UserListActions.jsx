@@ -1,12 +1,18 @@
 import React from 'react'
 import { Icon, Tooltip, Modal, Button, Checkbox } from 'antd'
 import { connect } from 'react-redux'
-import { setAdmin, removeAdmin, setPermission, setRespo } from '../../../../../modules/admin'
+import {
+  setAdmin,
+  removeAdmin,
+  setPermission,
+  setRespo
+} from '../../../../../modules/admin'
 import Respo from './Respo'
 
 import '../admin.css'
 
 const CheckboxGroup = Checkbox.Group
+const confirm = Modal.confirm
 
 class UserListActions extends React.Component {
   constructor(props) {
@@ -22,20 +28,6 @@ class UserListActions extends React.Component {
     }
   }
 
-  setAdmin = () => {
-    this.props.setAdmin(this.props.userId)
-    this.setState({
-      setAdminModalVisible: false
-    })
-  }
-
-  removeAdmin = () => {
-    this.props.removeAdmin(this.props.userId)
-    this.setState({
-      removeAdminModalVisible: false
-    })
-  }
-
   openMainModal = () => {
     this.setState({
       mainModalVisible: true
@@ -48,31 +40,14 @@ class UserListActions extends React.Component {
     })
   }
 
-  openSetAdminModal = () => {
-    this.setState({
-      mainModalVisible: false,
-      setAdminModalVisible: true
-    })
-  }
-
-  closeSetAdminModal = () => {
-    this.setState({
-      mainModalVisible: true,
-      setAdminModalVisible: false
-    })
-  }
-
-  openRemoveAdminModal = () => {
-    this.setState({
-      mainModalVisible: false,
-      removeAdminModalVisible: true
-    })
-  }
-
-  closeRemoveAdminModal = () => {
-    this.setState({
-      mainModalVisible: true,
-      removeAdminModalVisible: false
+  showConfirm = (title, content, callback) => {
+    confirm({
+      title,
+      content,
+      onOk() {
+        callback()
+      },
+      onCancel() {}
     })
   }
 
@@ -90,75 +65,19 @@ class UserListActions extends React.Component {
     })
   }
 
-  openRespoModal = () => {
-    this.setState({
-      respoModalVisible: true,
-      mainModalVisible: false
-    })
-  }
-
-  closeRespoModal = () => {
-    this.setState({
-      respoModalVisible: false,
-      mainModalVisible: true
-    })
-  }
-
-  setPermission = () => {
-    this.props.setPermission(this.props.userId, this.state.checkedPermission)
-    
-    this.setState({
-      permissionModalVisible: false
-    })
-  }
-
-  setRespo = () => {
-    this.props.setRespo(this.props.userId, this.state.checkedRespo)
-    
-    this.setState({
-      respoModalVisible: false
-    })
-  }
-
-  setCheckedPermission = (checked) => {
-    this.setState({
-      checkedPermission: checked
-    })
-  }
-
-  setCheckedRespo = (checked) => {
-    this.setState({
-      checkedRespo: checked
-    })
-  }
-
   render() {
     const { users, userId } = this.props
     const user = users.find(u => u.id === userId)
-
+    console.log('USER : ', user)
     if (!user) {
       return null
     }
 
     let userIsAdmin = user.permission && user.permission.admin
-
-    let userPermission = []
-    if (user.permission && user.permission.permission) {
-      const permissions = user.permission.permission.split(',')
-      
-      permissions.forEach(permission => {
-        userPermission.push(permission)
-      })
-    }
-
-    let userRespo = []
-    if (user.permission && user.permission.respo) {
-      const respo = user.permission.respo.split(',')
-      
-      respo.forEach(respo => {
-        userRespo.push(respo)
-      })
-    }
+    let userIsOrga = user.permission && user.permission.bureau
+    console.log(user.permission && user.permission.bureau)
+    let userIsTreso = user.permission && user.permission.treso
+    let userIsRedac = user.permission && user.permission.write
 
     return (
       <React.Fragment>
@@ -168,18 +87,22 @@ class UserListActions extends React.Component {
           </a>
         </Tooltip>
 
+        {/* MODAL PRINCIPALE */}
         <Modal
           title="Actions"
           visible={this.state.mainModalVisible}
           footer={
-            <Button type="primary" onClick={this.closeMainModal}>Ok</Button>
+            <Button type="primary" onClick={this.closeMainModal}>
+              Ok
+            </Button>
           }
           onCancel={this.closeMainModal}
         >
           <h1 className="admin-action-username">
-            {`${user.name} (${user.firstname} ${user.lastname})`}
+            {`Gestion des permissions de ${user.firstName} ${user.lastName}`}
           </h1>
-          
+
+          {/* DROITS ADMINISTRATEURS */}
           <h2 className="admin-action-title">
             <Icon type="crown" /> Administrateur
           </h2>
@@ -188,10 +111,16 @@ class UserListActions extends React.Component {
               <Tooltip placement="right" title="Rendre administrateur">
                 <Button
                   type="primary"
-                  onClick={this.openSetAdminModal}
+                  onClick={() =>
+                    this.showConfirm(
+                      `Définir cet utilisateur comme administrateur ?`,
+                      `Cela lui donnera les pleins pouvoir sur le site et son contenu. Fais pas l'con Philippe !`,
+                      () => this.props.setAdmin(this.props.userId)
+                    )
+                  }
                   className="admin-action-button"
                 >
-                  <Icon type="arrow-up" />
+                  Définir administrateur
                 </Button>
               </Tooltip>
             ) : (
@@ -202,94 +131,139 @@ class UserListActions extends React.Component {
                 >
                   <Button
                     type="danger"
-                    onClick={this.openRemoveAdminModal}
+                    onClick={() =>
+                      this.showConfirm(
+                        `Retirer cet utilisateur des administrateur ?`,
+                        `Cela lui retirera les droits administrateurs. Fais pas l'con Philippe !`,
+                        () => this.props.removeAdmin(this.props.userId)
+                      )
+                    }
                     className="admin-action-button"
-                    style={{ backgroundColor: '#ff0000', borderColor: '#ff0000' }}
+                    style={{
+                      backgroundColor: '#ff0000',
+                      borderColor: '#ff0000'
+                    }}
                   >
-                    <Icon type="arrow-down" />
+                    Retirer administrateur
                   </Button>
                 </Tooltip>
                 <p style={{ marginTop: '10px' }}>
-                  L'utilisateur étant administrateur, toutes les permissions lui sont accordées.
+                  L'utilisateur étant administrateur, toutes les permissions lui
+                  sont accordées.
                 </p>
               </React.Fragment>
             )}
           </div>
 
-          {!userIsAdmin &&
+          {/* AUTRES DROITS */}
+          {!userIsAdmin && (
             <React.Fragment>
               <h2 className="admin-action-title">
-                <Icon type="tool" /> Permissions
+                <Icon type="tool" /> Rôles
               </h2>
               <div className="admin-action-content">
-                <CheckboxGroup onChange={this.setCheckedPermission} defaultValue={userPermission}>
-                  <Checkbox value="validate">Valider l'entrée</Checkbox><br />
-                  <Checkbox value="payment">Valider les paiements</Checkbox>
-                </CheckboxGroup>
-                <br />
-                <Tooltip placement="right" title="Modifier les permissions">
-                  <Button
-                    type="primary"
-                    onClick={this.openPermissionModal}
-                    className="admin-action-button"
-                    style={{ marginTop: '10px' }}
-                  >
-                    <Icon type="save" />
-                  </Button>
-                </Tooltip>
-              </div>
-
-              <h2 className="admin-action-title">
-                <Icon type="safety" /> Responsable
-              </h2>
-              <div className="admin-action-content">
-                <Respo defaultCheckedRespo={userRespo} checkedRespo={(checked) => this.setCheckedRespo(checked)} />
-                <br />
-                <Tooltip placement="right" title="Modifier les permissions de tournoi">
-                  <Button
-                    type="primary"
-                    onClick={this.openRespoModal}
-                    className="admin-action-button"
-                    style={{ marginTop: '10px' }}
-                  >
-                    <Icon type="save" />
-                  </Button>
-                </Tooltip>
+                {userIsOrga ? (
+                  <Tooltip placement="right" title="Définir comme orga">
+                    <Button
+                      type="primary"
+                      onClick={() =>
+                        this.showConfirm(
+                          `Ajouter cet utilisateur comme organisateur ?`,
+                          `Cela lui donnera les droits organisateur. Fais pas l'con Philippe !`,
+                          () => this.props.setOrga(this.props.userId)
+                        )
+                      }
+                      style={{ marginTop: '10px' }}
+                    >
+                      Définir organisateur
+                    </Button>
+                  </Tooltip>
+                ) : (
+                  <Tooltip placement="right" title="Retirer orga">
+                    <Button
+                      type="primary"
+                      onClick={() =>
+                        this.showConfirm(
+                          `Retirer cet utilisateur des organisateurs ?`,
+                          `Cela lui retirera les droits organisateur. Fais pas l'con Philippe !`,
+                          () => this.props.removeOrga(this.props.userId)
+                        )
+                      }
+                      style={{ marginTop: '10px' }}
+                    >
+                      Retirer organisateur
+                    </Button>
+                  </Tooltip>
+                )}
+                {userIsTreso ? (
+                  <Tooltip placement="right" title="Définir comme tréso">
+                    <Button
+                      type="primary"
+                      onClick={() =>
+                        this.showConfirm(
+                          `Ajouter cet utilisateur comme trésorier ?`,
+                          `Cela lui donnera les droits trésorier. Fais pas l'con Philippe !`,
+                          () => this.props.setTreso(this.props.userId)
+                        )
+                      }
+                      style={{ marginTop: '10px' }}
+                    >
+                      Définir trésorier
+                    </Button>
+                  </Tooltip>
+                ) : (
+                  <Tooltip placement="right" title="Retirer orga">
+                    <Button
+                      type="primary"
+                      onClick={() =>
+                        this.showConfirm(
+                          `Retirer cet utilisateur des trésoriers ?`,
+                          `Cela lui retirera les droits trésorier. Fais pas l'con Philippe !`,
+                          () => this.props.removeTreso(this.props.userId)
+                        )
+                      }
+                      style={{ marginTop: '10px' }}
+                    >
+                      Retirer trésorier
+                    </Button>
+                  </Tooltip>
+                )}
+                {userIsRedac ? (
+                  <Tooltip placement="right" title="Définir comme tréso">
+                    <Button
+                      type="primary"
+                      onClick={() =>
+                        this.showConfirm(
+                          `Ajouter cet utilisateur comme rédacteur ?`,
+                          `Cela lui donnera les droits rédacteur. Fais pas l'con Philippe !`,
+                          () => this.props.setRedac(this.props.userId)
+                        )
+                      }
+                      style={{ marginTop: '10px' }}
+                    >
+                      Définir trésorier
+                    </Button>
+                  </Tooltip>
+                ) : (
+                  <Tooltip placement="right" title="Retirer orga">
+                    <Button
+                      type="primary"
+                      onClick={() =>
+                        this.showConfirm(
+                          `Retirer cet utilisateur des rédacteurs ?`,
+                          `Cela lui retirera les droits rédacteur. Fais pas l'con Philippe !`,
+                          () => this.props.removeRedac(this.props.userId)
+                        )
+                      }
+                      style={{ marginTop: '10px' }}
+                    >
+                      Retirer trésorier
+                    </Button>
+                  </Tooltip>
+                )} 
               </div>
             </React.Fragment>
-          }
-        </Modal>
-
-        <Modal
-          title="Êtes vous sûr ?"
-          visible={this.state.setAdminModalVisible}
-          onOk={this.setAdmin}
-          onCancel={this.closeSetAdminModal}
-          cancelText="Annuler"
-          okText="Ok"
-        >
-          <h3>Rendre administrateur</h3>
-          <p>
-            <strong>
-              Utilisateur : {`${user.name} (${user.firstname} ${user.lastname})`}
-            </strong>
-          </p>
-        </Modal>
-
-        <Modal
-          title="Êtes vous sûr ?"
-          visible={this.state.removeAdminModalVisible}
-          onOk={this.removeAdmin}
-          onCancel={this.closeRemoveAdminModal}
-          cancelText="Annuler"
-          okText="Ok"
-        >
-          <h3>Enlever le rang d'administrateur</h3>
-          <p>
-            <strong>
-              Utilisateur : {`${user.name} (${user.firstname} ${user.lastname})`}
-            </strong>
-          </p>
+          )}
         </Modal>
 
         <Modal
@@ -303,23 +277,8 @@ class UserListActions extends React.Component {
           <h3>Modifier les permissions</h3>
           <p>
             <strong>
-              Utilisateur : {`${user.name} (${user.firstname} ${user.lastname})`}
-            </strong>
-          </p>
-        </Modal>
-
-        <Modal
-          title="Êtes vous sûr ?"
-          visible={this.state.respoModalVisible}
-          onOk={this.setRespo}
-          onCancel={this.closeRespoModal}
-          cancelText="Annuler"
-          okText="Ok"
-        >
-          <h3>Modifier les permissions de tournoi</h3>
-          <p>
-            <strong>
-              Utilisateur : {`${user.name} (${user.firstname} ${user.lastname})`}
+              Utilisateur :{' '}
+              {`${user.name} (${user.firstname} ${user.lastname})`}
             </strong>
           </p>
         </Modal>
