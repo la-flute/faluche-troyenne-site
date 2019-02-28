@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Spin, Divider, Button, Icon } from 'antd'
+import { Table, Spin, Divider, Button } from 'antd'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
@@ -29,7 +29,6 @@ class AdminPrices extends React.Component {
       if (err) {
         return
       }
-      console.log(values)
       const price = {
         ...values,
         start: values.date[0].format(),

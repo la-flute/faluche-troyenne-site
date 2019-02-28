@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Form, Input, InputNumber, DatePicker, Radio } from 'antd'
+import { Modal, Form, Input, InputNumber, DatePicker } from 'antd'
 
 const { RangePicker } = DatePicker
 const CreatePriceModal = Form.create({ name: 'create_price_modal' })(
