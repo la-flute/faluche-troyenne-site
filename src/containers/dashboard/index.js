@@ -17,6 +17,8 @@ import AdminBedrooms from './components/Admin/AdminBedrooms'
 import AdminTeams from './components/Admin/AdminTeams'
 import AdminPrices from './components/Admin/AdminPrices'
 import AdminValid from './components/Admin/AdminValid'
+import AdminRoles from './components/Admin/AdminRoles'
+
 import DashboardLayout from './layout'
 import TargetView from './components/Target/View'
 
@@ -145,6 +147,9 @@ class Dashboard extends React.Component {
               component={AdminPrices}
             />
           )}
+          {this.state.render && user && user.permission && user.permission.admin && (
+          <Route path={baseUrl + 'admin/define'} exact component={AdminRoles} />
+        )}
 
         {this.state.render && <Redirect from='*' to='/dashboard/home' />}
         {!this.state.render && <DashboardLoading />}
