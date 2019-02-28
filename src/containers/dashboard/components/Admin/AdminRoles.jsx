@@ -51,16 +51,16 @@ class AdminRoles extends React.Component {
       let role = ''
       console.log(user)
       if(user.permission && user.permission.admin) {
-        role = 'Admin'
+        role += 'Admin'
       }
-      else if(user.permission && user.permission.treso) {
-        role = `Tréso`
+      if(user.permission && user.permission.treso) {
+        role += ` Tréso`
       }
-      else if(user.permission && user.permission.bureau) {
-        role = `Bureau`
+      if(user.permission && user.permission.bureau) {
+        role += ` Bureau`
       }
-      else if(user.permission && user.permission.write){
-        role = 'Rédacteur'
+      if(user.permission && user.permission.write){
+        role += ' Rédacteur'
       }
 
       return {
@@ -68,6 +68,9 @@ class AdminRoles extends React.Component {
         role,
       }
     })
+    if (!users) {
+      return <Spin />
+    }
      let rows = users
       console.log(rows)
     return(

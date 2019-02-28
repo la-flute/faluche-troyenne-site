@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Tooltip, Modal, Button, Checkbox } from 'antd'
+import { Icon, Tooltip, Modal, Button, Checkbox, Spin } from 'antd'
 import { connect } from 'react-redux'
 import {
   setAdmin,
@@ -74,9 +74,8 @@ class UserListActions extends React.Component {
     const user = users.find(u => u.id === userId)
     console.log('USER : ', user)
     if (!user) {
-      return null
+      return <Spin />
     }
-
     let userIsAdmin = user.permission && user.permission.admin
     let userIsOrga = user.permission && user.permission.bureau
     let userIsTreso = user.permission && user.permission.treso
