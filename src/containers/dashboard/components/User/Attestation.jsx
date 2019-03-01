@@ -37,6 +37,10 @@ class Edit extends React.Component {
       this.props.fetchUser()
       return <Spin />
     }
+    const now = new Date()
+    const day = now.getDate()
+    const month = now.getMonth() + 1
+    const year = now.getFullYear()
     return (
       <React.Fragment>
         <AttestationModal
@@ -72,7 +76,7 @@ class Edit extends React.Component {
         </p>
         <p>
           Je suis informé(e) que La Flute se réserve le droit de faire appliquer
-          l'encaissement du dépôt de garantie de 199.99€ à titre de caution pour
+          l'encaissement du dépôt de garantie de 133€ à titre de caution pour
           les dégâts causés au matériel et à la mise en application éventuelle
           de mon assurance de responsabilité civile.
         </p>
@@ -87,7 +91,7 @@ class Edit extends React.Component {
         <p>Lu et approuvé</p>
         <p>
           <strong>
-            {user.firstName} {user.lastName}
+            {user.firstName} {user.lastName} le {day}/{month}/{year}
           </strong>
         </p>
         {!user.attestation ? (

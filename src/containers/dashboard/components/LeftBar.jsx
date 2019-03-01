@@ -109,7 +109,7 @@ class LeftBar extends React.Component {
           )}
 
           {/* MENU ORGA */}
-          {user && user.permission && <SubMenu
+          {/* {user && user.permission && <SubMenu
             key='orga'
             title={
               <span>
@@ -121,7 +121,7 @@ class LeftBar extends React.Component {
             <Menu.Item key='orga/incoming'>
               <Link to={'/dashboard/admin/incoming'}>Valider les arrivées</Link>
             </Menu.Item>
-          </SubMenu>}
+          </SubMenu>} */}
 
           {/* MENU ADMIN */}
           {user && user.permission && user.permission.admin && (
