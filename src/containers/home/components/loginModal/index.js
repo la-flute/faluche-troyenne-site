@@ -51,7 +51,7 @@ class LoginModal extends React.Component {
   render() {
     return (
       <Modal
-          title="Basic Modal"
+          title="Connexion"
           visible={this.props.isOpen}
           onCancel={this.props.onClose}
           footer={null}

@@ -137,23 +137,19 @@ class LeftBar extends React.Component {
           )}
 
           {/* MENU ORGA */}
-          {user && user.permission && (
-            <SubMenu
-              key='orga'
-              title={
-                <span>
-                  <Icon type='setting' />
-                  <span>Organisateur</span>
-                </span>
-              }
-            >
-              <Menu.Item key='orga/incoming'>
-                <Link to={'/dashboard/admin/incoming'}>
-                  Valider les arrivées
-                </Link>
-              </Menu.Item>
-            </SubMenu>
-          )}
+          {/* {user && user.permission && <SubMenu
+            key='orga'
+            title={
+              <span>
+                <Icon type='setting' />
+                <span>Organisateur</span>
+              </span>
+            }
+          >
+            <Menu.Item key='orga/incoming'>
+              <Link to={'/dashboard/admin/incoming'}>Valider les arrivées</Link>
+            </Menu.Item>
+          </SubMenu>} */}
 
           {/* MENU ADMIN */}
           {user && user.permission && user.permission.admin && (
@@ -182,19 +178,19 @@ class LeftBar extends React.Component {
               <Menu.Item key='admin/prices'>
                 <Link to={'/dashboard/admin/prices'}>Gestion des paliers</Link>
               </Menu.Item>
-              <Menu.Item key='admin/finduser'>
+              {/* <Menu.Item key='admin/finduser'>
                 <Link to={'/dashboard/admin/temp2'}>
                   Rechercher un utilisateur
                 </Link>
-              </Menu.Item>
-              <Menu.Item key='admin/mail'>
+              </Menu.Item> */}
+              {/* <Menu.Item key='admin/mail'>
                 <Link to={'/dashboard/admin/mail'}>Envoyer un mail</Link>
-              </Menu.Item>
-              <Menu.Item key='admin/settings'>
+              </Menu.Item> */}
+              {/* <Menu.Item key='admin/settings'>
                 <Link to={'/dashboard/admin/settings'}>
                   Panneau d'administration
                 </Link>
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item key='admin/define'>
                 <Link to={'/dashboard/admin/define'}>
                   Gestion des administrateurs
