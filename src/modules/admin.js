@@ -22,6 +22,9 @@ export const SET_USER_UNPAID = 'admin/SET_USER_UNPAID'
 export const SET_USER_PLACE = 'admin/SET_USER_PLACE'
 export const SET_USER_RESPO = 'admin/SET_USER_RESPO'
 export const SET_USER_PERMISSION = 'admin/SET_USER_PERMISSION'
+export const SET_USER_VALID = 'admin/SET_USER_VALID'
+export const SET_USER_UNVALID = 'admin/SET_USER_UNVALID'
+
 
 const initialState = {
   users: [],
@@ -154,6 +157,22 @@ export default (state = initialState, action) => {
         ...state,
         users
       }
+    case SET_USER_VALID:
+      userId = action.payload
+      index = users.findIndex(u => u.id === userId)
+      users[index].validated = true
+      return {
+        ...state,
+        users
+      }
+      case SET_USER_UNVALID:
+      userId = action.payload
+      index = users.findIndex(u => u.id === userId)
+      users[index].validated = false
+      return {
+        ...state,
+        users
+      }
     default:
       return state
   }
@@ -280,6 +299,76 @@ export const unvalidatePayment = userId => {
   }
 }
 
+export const validateUser = userId => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.post(
+        `admin/validate`,
+        { userId },
+        { headers: { 'X-Token': authToken } }
+      )
+      if (res.status === 200) {
+        dispatch({ type: SET_USER_VALID, payload: userId })
+        dispatch(
+          notifActions.notifSend({
+            message: 'Participant validé',
+            dismissAfter: 2000
+          })
+        )
+      }
+    } catch (err) {
+      console.log(err)
+      dispatch(
+        notifActions.notifSend({
+          message: errorToString(err.response.data.error),
+          kind: 'danger',
+          dismissAfter: 2000
+        })
+      )
+    }
+  }
+}
+export const unvalidateUser = userId => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.post(
+        `admin/unvalidate`,
+        { userId },
+        { headers: { 'X-Token': authToken } }
+      )
+      if (res.status === 200) {
+        dispatch({ type: SET_USER_UNVALID, payload: userId })
+        dispatch(
+          notifActions.notifSend({
+            message: 'Participant annulé',
+            kind: 'warning',
+            dismissAfter: 2000
+          })
+        )
+      }
+    } catch (err) {
+      console.log(err)
+      dispatch(
+        notifActions.notifSend({
+          message: errorToString(err.response.data.error),
+          kind: 'danger',
+          dismissAfter: 2000
+        })
+      )
+    }
+  }
+}
+
 export const setAdmin = id => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
@@ -365,7 +454,7 @@ export const setOrga = id => {
         { orga: true },
         { headers: { 'X-Token': authToken } }
       )
-        console.log(res)
+      console.log(res)
       if (res.status === 200) {
         dispatch({ type: SET_USER_ORGA, payload: id })
         dispatch(
