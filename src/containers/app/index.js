@@ -7,7 +7,7 @@ import 'antd/dist/antd.css'
 import Home from '../home'
 import asyncComponent from '../../components/async'
 
-const Dashboard = asyncComponent(() => import('../dashboard'))
+const Dashboard = asyncComponent(() => import('../dashboard/Dashboard'))
 const Validate = asyncComponent(()=> import('../validate'))
 const Reset = asyncComponent(()=> import('../reset'))
 

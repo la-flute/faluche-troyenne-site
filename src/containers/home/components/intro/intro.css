@@ -67,7 +67,7 @@
   background-position: center 10%;
 }
 .a-intro__images__image:nth-child(3) {
-  background-position: center 80%;
+  background-position: center;
 }
 .a-intro__images__image:nth-child(4) {
   background-position: center 30%;

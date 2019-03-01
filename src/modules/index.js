@@ -12,6 +12,7 @@ import validate from './validate'
 import bedrooms from './bedrooms'
 import teams from './teams'
 import prices from './prices'
+import tinder from './tinder'
 
 export default combineReducers({
   routing: routerReducer,
@@ -26,5 +27,6 @@ export default combineReducers({
   validate,
   bedrooms,
   teams,
-  prices
+  prices,
+  tinder
 })
