@@ -108,20 +108,52 @@ class LeftBar extends React.Component {
             </SubMenu>
           )}
 
+          {/* MENU TINDER */}
+          {user && user.town && (
+            <SubMenu
+              key='tinder'
+              title={
+                <span>
+                  <Icon type='heart' />
+                  <span>Tinder</span>
+                </span>
+              }
+            >
+              <Menu.Item key='tinder/profile'>
+                <Link to={'/dashboard/tinder/profile'}>
+                  <Icon type='edit' />
+                  <span className='nav-text'>Modifier mon profile</span>
+                </Link>
+              </Menu.Item>
+              {user && user.image && (
+                <Menu.Item key='tinder/view'>
+                  <Link to={'/dashboard/tinder/view'}>
+                    <Icon type='contacts' />
+                    <span className='nav-text'>Voir les profiles</span>
+                  </Link>
+                </Menu.Item>
+              )}
+            </SubMenu>
+          )}
+
           {/* MENU ORGA */}
-          {user && user.permission && <SubMenu
-            key='orga'
-            title={
-              <span>
-                <Icon type='setting' />
-                <span>Organisateur</span>
-              </span>
-            }
-          >
-            <Menu.Item key='orga/incoming'>
-              <Link to={'/dashboard/admin/incoming'}>Valider les arrivées</Link>
-            </Menu.Item>
-          </SubMenu>}
+          {user && user.permission && (
+            <SubMenu
+              key='orga'
+              title={
+                <span>
+                  <Icon type='setting' />
+                  <span>Organisateur</span>
+                </span>
+              }
+            >
+              <Menu.Item key='orga/incoming'>
+                <Link to={'/dashboard/admin/incoming'}>
+                  Valider les arrivées
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+          )}
 
           {/* MENU ADMIN */}
           {user && user.permission && user.permission.admin && (

@@ -10,7 +10,7 @@ import '../admin.css'
 
 const confirm = Modal.confirm
 
-class UserListActions extends React.Component {
+class ValidationListActions extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -115,4 +115,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(UserListActions)
+)(ValidationListActions)
