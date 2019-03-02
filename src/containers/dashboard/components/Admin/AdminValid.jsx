@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import AdminBar from './AdminBar'
 import ValidationListActions from './components/ValidationListActions'
+import ValidUser from './components/ValidUser' 
 import { fetchUsers } from '../../../../modules/admin'
 
 class AdminValid extends React.Component {
@@ -74,9 +75,14 @@ class AdminValid extends React.Component {
       })
     }
     columns.push({
-      title: 'Actions',
+      title: 'Forcer paiement',
       dataIndex: 'id',
       render: id => <ValidationListActions userId={id} users={users} />
+    })
+    columns.push({
+      title: 'Valider le dossier',
+      dataIndex: 'id',
+      render: id => <ValidUser userId={id} users={users} />
     })
     return (
       <React.Fragment>
