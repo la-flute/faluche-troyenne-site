@@ -109,7 +109,7 @@ class LeftBar extends React.Component {
           )}
 
           {/* MENU TINDER */}
-          {user && user.town && (
+          {user && (
             <SubMenu
               key='tinder'
               title={
@@ -119,12 +119,12 @@ class LeftBar extends React.Component {
                 </span>
               }
             >
-              <Menu.Item key='tinder/profile'>
+              {user.town && <Menu.Item key='tinder/profile'>
                 <Link to={'/dashboard/tinder/profile'}>
                   <Icon type='edit' />
                   <span className='nav-text'>Modifier mon profile</span>
                 </Link>
-              </Menu.Item>
+              </Menu.Item>}
               {user && user.image && (
                 <Menu.Item key='tinder/view'>
                   <Link to={'/dashboard/tinder/view'}>
@@ -133,6 +133,20 @@ class LeftBar extends React.Component {
                   </Link>
                 </Menu.Item>
               )}
+              {user && user.image && (
+                <Menu.Item key='tinder/matchs'>
+                  <Link to={'/dashboard/tinder/matchs'}>
+                    <Icon type='heart' />
+                    <span className='nav-text'>Voir mes matchs</span>
+                  </Link>
+                </Menu.Item>
+              )}
+              <Menu.Item key='tinder/top'>
+                <Link to={'/dashboard/tinder/top'}>
+                  <Icon type='star' />
+                  <span className='nav-text'>Classement</span>
+                </Link>
+              </Menu.Item>
             </SubMenu>
           )}
 

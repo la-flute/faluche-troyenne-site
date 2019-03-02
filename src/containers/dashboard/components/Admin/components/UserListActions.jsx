@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Tooltip, Modal, Button, Checkbox, Spin } from 'antd'
+import { Icon, Tooltip, Modal, Button, Spin } from 'antd'
 import { connect } from 'react-redux'
 import {
   setAdmin,
@@ -11,11 +11,9 @@ import {
   removeTreso,
   removeRedac,
 } from '../../../../../modules/admin'
-import Respo from './Respo'
 
 import '../admin.css'
 
-const CheckboxGroup = Checkbox.Group
 const confirm = Modal.confirm
 
 class UserListActions extends React.Component {

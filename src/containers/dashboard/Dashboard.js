@@ -16,6 +16,8 @@ import Teams from './components/User/Teams'
 
 import TinderProfile from './components/Tinder/Profile'
 import TinderView from './components/Tinder/View'
+import TopTinder from './components/Tinder/TopTinder'
+import Match from './components/Tinder/Match'
 
 import AdminBedrooms from './components/Admin/AdminBedrooms'
 import AdminTeams from './components/Admin/AdminTeams'
@@ -113,6 +115,12 @@ class Dashboard extends React.Component {
         )}
         {this.state.render && user.image && (
           <Route path={baseUrl + 'tinder/view'} exact component={TinderView} />
+        )}
+        {this.state.render && (
+          <Route path={baseUrl + 'tinder/top'} exact component={TopTinder} />
+        )}
+        {this.state.render && (
+          <Route path={baseUrl + 'tinder/matchs'} exact component={Match} />
         )}
 
         {/* admin */}

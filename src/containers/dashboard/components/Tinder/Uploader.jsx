@@ -24,7 +24,6 @@ class Uploader extends React.Component {
   }
 
   handleChange = e => {
-    console.log(e)
     if (e.file.status === 'removed') {
       this.props.deleteImage()
     }
@@ -54,7 +53,7 @@ class Uploader extends React.Component {
         uid: '-1',
         name: user.image,
         status: 'done',
-        url: `http://localhost:3000/api/v1/tinders/${user.id}/image`
+        url: `${process.env.REACT_APP_API}/tinders/${user.id}/image`
       })
     if (!user.image) fileList = []
     const uploadButton = (
@@ -66,7 +65,7 @@ class Uploader extends React.Component {
     return (
       <React.Fragment>
         <Upload
-          action='http://localhost:3000/api/v1/tinders/image' //TODO
+          action={`${process.env.REACT_APP_API}/tinders/image`}
           listType='picture-card'
           fileList={fileList}
           beforeUpload={this.beforeUpload}
