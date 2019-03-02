@@ -16,7 +16,7 @@ class View extends React.Component {
   }
 
   render() {
-    const { tinders, users } = this.props
+    const { tinders } = this.props
     const loaded = tinders.length > 0
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -75,7 +75,6 @@ class View extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.user.users,
   tinders: state.tinder.tinders
 })
 

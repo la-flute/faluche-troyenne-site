@@ -9,10 +9,6 @@ import {validateUser, unvalidateUser} from '../../../../../modules/admin'
 const confirm = Modal.confirm
 
 class ValidUser extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   showConfirm = (title, content, callback) => {
     confirm({
       title,

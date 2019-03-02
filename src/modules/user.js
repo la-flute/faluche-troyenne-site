@@ -149,7 +149,6 @@ export const sendAttestation = () => {
         {},
         { headers: { 'X-Token': authToken } }
       )
-      console.log(res)
       if (res.status === 200) {
         dispatch({
           type: SET_ATTESTATION
@@ -183,11 +182,9 @@ export const deleteImage = () => {
     }
 
     try {
-      console.log('deleete')
       const res = await axios.delete('tinders/image', {
         headers: { 'X-Token': authToken }
       })
-      console.log(res)
       if (res.status === 200) {
         dispatch({
           type: REMOVE_IMAGE
@@ -219,7 +216,7 @@ export const addImage = name => {
         type: ADD_IMAGE,
         payload: name
       })
-      dispatch(fetchUser())
+      setTimeout(() => dispatch(fetchUser()), 1000)
     } catch (err) {
       dispatch(
         notifActions.notifSend({

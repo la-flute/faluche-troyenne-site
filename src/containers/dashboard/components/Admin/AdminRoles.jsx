@@ -3,22 +3,21 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchUsersRoles } from '../../../../modules/admin'
 
-import { Spin, Table } from 'antd';
-import AdminBar from './AdminBar';
+import { Spin, Table } from 'antd'
+import AdminBar from './AdminBar'
 import UserListActions from './components/UserListActions'
 
 class AdminRoles extends React.Component {
   constructor(props) {
     super(props)
 
-    
     this.props.fetchUsersRoles()
   }
 
   render() {
-    let {users} = this.props
-    if(!users){
-      <Spin />
+    let { users } = this.props
+    if (!users) {
+      return <Spin />
     }
 
     // Apply column filters
@@ -42,7 +41,7 @@ class AdminRoles extends React.Component {
       {
         title: 'Actions',
         dataIndex: 'id',
-        render: (id) => <UserListActions userId={id} users={this.props.users} />
+        render: id => <UserListActions userId={id} users={this.props.users} />
       }
     ]
 
@@ -50,37 +49,37 @@ class AdminRoles extends React.Component {
     users = users.map(user => {
       let role = ''
       console.log(user)
-      if(user.permission && user.permission.admin) {
+      if (user.permission && user.permission.admin) {
         role += 'Admin'
       }
-      if(user.permission && user.permission.treso) {
+      if (user.permission && user.permission.treso) {
         role += ` Tréso`
       }
-      if(user.permission && user.permission.bureau) {
+      if (user.permission && user.permission.bureau) {
         role += ` Bureau`
       }
-      if(user.permission && user.permission.write){
+      if (user.permission && user.permission.write) {
         role += ' Rédacteur'
       }
 
       return {
         ...user,
-        role,
+        role
       }
     })
     if (!users) {
       return <Spin />
     }
-     let rows = users
-      console.log(rows)
-    return(
+    let rows = users
+    console.log(rows)
+    return (
       <React.Fragment>
-        <AdminBar/>
-        
+        <AdminBar />
+
         <Table
           columns={columns}
           dataSource={rows}
-          rowKey="id"
+          rowKey='id'
           locale={{ emptyText: 'Aucun utilisateur' }}
           style={{ marginTop: '20px' }}
         />
