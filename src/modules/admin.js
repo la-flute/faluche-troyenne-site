@@ -19,12 +19,13 @@ export const REMOVE_USER_WRITE = 'admin/REMOVE_USER_WRITE'
 
 export const SET_USER_PAID = 'admin/SET_USER_PAID'
 export const SET_USER_UNPAID = 'admin/SET_USER_UNPAID'
+export const SET_USER_CAUTION = 'admin/SET_USER_CAUTION'
+export const SET_USER_NO_CAUTION = 'admin/SET_USER_NO_CAUTION'
 export const SET_USER_PLACE = 'admin/SET_USER_PLACE'
 export const SET_USER_RESPO = 'admin/SET_USER_RESPO'
 export const SET_USER_PERMISSION = 'admin/SET_USER_PERMISSION'
 export const SET_USER_VALID = 'admin/SET_USER_VALID'
 export const SET_USER_UNVALID = 'admin/SET_USER_UNVALID'
-
 
 const initialState = {
   users: [],
@@ -143,6 +144,22 @@ export default (state = initialState, action) => {
         ...state,
         users
       }
+    case SET_USER_CAUTION:
+      userId = action.payload
+      index = users.findIndex(u => u.id === userId)
+      users[index].caution = true
+      return {
+        ...state,
+        users
+      }
+    case SET_USER_NO_CAUTION:
+      userId = action.payload
+      index = users.findIndex(u => u.id === userId)
+      users[index].caution = false
+      return {
+        ...state,
+        users
+      }
     case SET_USER_RESPO:
       index = users.findIndex(u => u.id === action.payload.id)
       users[index].permission.respo = action.payload.respo.toString()
@@ -165,7 +182,7 @@ export default (state = initialState, action) => {
         ...state,
         users
       }
-      case SET_USER_UNVALID:
+    case SET_USER_UNVALID:
       userId = action.payload
       index = users.findIndex(u => u.id === userId)
       users[index].validated = false
@@ -281,6 +298,75 @@ export const unvalidatePayment = userId => {
         dispatch(
           notifActions.notifSend({
             message: 'Paiement supprimé',
+            kind: 'warning',
+            dismissAfter: 2000
+          })
+        )
+      }
+    } catch (err) {
+      console.log(err)
+      dispatch(
+        notifActions.notifSend({
+          message: errorToString(err.response.data.error),
+          kind: 'danger',
+          dismissAfter: 2000
+        })
+      )
+    }
+  }
+}
+
+export const validateCaution = userId => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.post(
+        `admin/caution`,
+        { userId },
+        { headers: { 'X-Token': authToken } }
+      )
+      if (res.status === 200) {
+        dispatch({ type: SET_USER_CAUTION, payload: userId })
+        dispatch(
+          notifActions.notifSend({
+            message: 'Caution validé',
+            dismissAfter: 2000
+          })
+        )
+      }
+    } catch (err) {
+      console.log(err)
+      dispatch(
+        notifActions.notifSend({
+          message: errorToString(err.response.data.error),
+          kind: 'danger',
+          dismissAfter: 2000
+        })
+      )
+    }
+  }
+}
+
+export const unvalidateCaution = userId => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.delete(`admin/caution/${userId}`, {
+        headers: { 'X-Token': authToken }
+      })
+      if (res.status === 200) {
+        dispatch({ type: SET_USER_NO_CAUTION, payload: userId })
+        dispatch(
+          notifActions.notifSend({
+            message: 'Caution supprimé',
             kind: 'warning',
             dismissAfter: 2000
           })

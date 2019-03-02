@@ -26,7 +26,6 @@ class ValidUser extends React.Component {
     if (!user) {
       return <Spin />
     }
-    console.log(user)
     return (
       <React.Fragment>
         {/* USER PAS VALIDE MAIS DOSSIER COMPLET */}

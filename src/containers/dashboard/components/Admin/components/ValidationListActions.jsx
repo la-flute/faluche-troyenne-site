@@ -3,7 +3,9 @@ import { Icon, Tooltip, Modal, Radio, Divider } from 'antd'
 import { connect } from 'react-redux'
 import {
   validatePayment,
-  unvalidatePayment
+  unvalidatePayment,
+  validateCaution,
+  unvalidateCaution
 } from '../../../../../modules/admin'
 
 import '../admin.css'
@@ -101,6 +103,38 @@ class ValidationListActions extends React.Component {
             </a>
           </Tooltip>
         )}
+        {user.caution && (
+          <Tooltip placement='top' title='Annuler la caution'>
+            <a
+              onClick={() =>
+                this.showConfirm(
+                  'Voulez-vous vraiment annuler la caution ?',
+                  "N'utiliser qu'en cas d'erreur",
+                  () => this.props.unvalidateCaution(userId)
+                )
+              }
+              style={{ fontSize: '18px', color: 'red', marginLeft: '2px' }}
+            >
+              <Icon type='bank' />
+            </a>
+          </Tooltip>
+        )}
+        {!user.caution && (
+          <Tooltip placement='top' title='Valider la caution'>
+            <a
+              onClick={() =>
+                this.showConfirm(
+                  'Voulez-vous vraiment valider la caution ?',
+                  'Ne valider que si vous avez reçu le chèque de caution',
+                  () => this.props.validateCaution(userId)
+                )
+              }
+              style={{ fontSize: '18px', marginLeft: '2px' }}
+            >
+              <Icon type='bank' />
+            </a>
+          </Tooltip>
+        )}
       </React.Fragment>
     )
   }
@@ -109,7 +143,9 @@ class ValidationListActions extends React.Component {
 const mapDispatchToProps = dispatch => ({
   validatePayment: (id, alcool, bedroom) =>
     dispatch(validatePayment(id, alcool, bedroom)),
-  unvalidatePayment: id => dispatch(unvalidatePayment(id))
+  unvalidatePayment: id => dispatch(unvalidatePayment(id)),
+  validateCaution: id => dispatch(validateCaution(id)),
+  unvalidateCaution: id => dispatch(unvalidateCaution(id))
 })
 
 export default connect(

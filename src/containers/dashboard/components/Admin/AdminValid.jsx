@@ -1,10 +1,10 @@
 import React from 'react'
-import { Icon, Table, Spin, Checkbox, Card } from 'antd'
+import { Icon, Table, Spin, Checkbox, Card, Input } from 'antd'
 import { connect } from 'react-redux'
 
 import AdminBar from './AdminBar'
 import ValidationListActions from './components/ValidationListActions'
-import ValidUser from './components/ValidUser' 
+import ValidUser from './components/ValidUser'
 import { fetchUsers } from '../../../../modules/admin'
 
 class AdminValid extends React.Component {
@@ -13,7 +13,9 @@ class AdminValid extends React.Component {
 
     this.state = {
       showPaid: true,
-      showFiche: true
+      showFiche: true,
+      showAttestation: true,
+      search: ''
     }
 
     this.props.fetchUsers()
@@ -25,7 +27,13 @@ class AdminValid extends React.Component {
     if (!users) {
       return <Spin />
     }
-
+    users = users.filter(user => {
+      let fulltext = user.firstName + ' ' + user.lastName
+      if (user.town) fulltext += ' ' + user.town
+      if (user.nickName) fulltext += ' ' + user.nickName
+      if (user.studies) fulltext += ' ' + user.studies
+      return fulltext.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+    })
     // Apply filters
     let rows = users
     // Apply column filters
@@ -74,8 +82,21 @@ class AdminValid extends React.Component {
         }
       })
     }
+    if (this.state.showAttestation) {
+      columns.push({
+        title: 'Attestation',
+        dataIndex: 'attestation',
+        render: attestation => {
+          return attestation ? (
+            <Icon type='check' style={{ color: 'green' }} />
+          ) : (
+            <Icon type='close' style={{ color: 'red' }} />
+          )
+        }
+      })
+    }
     columns.push({
-      title: 'Forcer paiement',
+      title: 'Actions',
       dataIndex: 'id',
       render: id => <ValidationListActions userId={id} users={users} />
     })
@@ -101,6 +122,19 @@ class AdminValid extends React.Component {
           >
             Fiche
           </Checkbox>
+          <Checkbox
+            checked={this.state.showFiche}
+            onChange={() =>
+              this.setState({ showAttestation: !this.state.showAttestation })
+            }
+          >
+            Attestation
+          </Checkbox>
+          <Input
+            value={this.state.search}
+            onChange={e => this.setState({ search: e.target.value })}
+            placeholder='Rechercher un utilisateur par nom, prénom, surnom, fillière ou ville'
+          />
         </Card>
         <Table
           columns={columns}

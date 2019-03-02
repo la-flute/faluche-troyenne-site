@@ -38,6 +38,7 @@ class TopTinder extends React.Component {
               loading={loading}
               itemLayout='horizontal'
               dataSource={mostLiked}
+              locale={{ emptyText: 'Aucun like pour le moment' }}
               renderItem={item => (
                 <List.Item>
                   <List.Item.Meta
@@ -68,6 +69,7 @@ class TopTinder extends React.Component {
               loading={loading}
               itemLayout='horizontal'
               dataSource={mostTurboLiked}
+              locale={{ emptyText: 'Aucun like pour le moment' }}
               renderItem={item => (
                 <List.Item>
                   <List.Item.Meta
