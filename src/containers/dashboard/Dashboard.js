@@ -17,7 +17,12 @@ import Teams from './components/User/Teams'
 import TinderProfile from './components/Tinder/Profile'
 import TinderView from './components/Tinder/View'
 import TopTinder from './components/Tinder/TopTinder'
-import Match from './components/Tinder/Match'
+import TinderMatch from './components/Tinder/Match'
+
+import TargetProfile from './components/Target/Profile'
+import TargetView from './components/Target/View'
+import TopTarget from './components/Target/TopTarget'
+import TargetMatch from './components/Target/Match'
 
 import AdminBedrooms from './components/Admin/AdminBedrooms'
 import AdminTeams from './components/Admin/AdminTeams'
@@ -120,7 +125,33 @@ class Dashboard extends React.Component {
           <Route path={baseUrl + 'tinder/top'} exact component={TopTinder} />
         )}
         {this.state.render && (
-          <Route path={baseUrl + 'tinder/matchs'} exact component={Match} />
+          <Route
+            path={baseUrl + 'tinder/matchs'}
+            exact
+            component={TinderMatch}
+          />
+        )}
+
+        {/* target */}
+        {this.state.render && (
+          <Route
+            path={baseUrl + 'target/profile'}
+            exact
+            component={TargetProfile}
+          />
+        )}
+        {this.state.render && (
+          <Route path={baseUrl + 'target/view'} exact component={TargetView} />
+        )}
+        {this.state.render && (
+          <Route path={baseUrl + 'target/top'} exact component={TopTarget} />
+        )}
+        {this.state.render && (
+          <Route
+            path={baseUrl + 'target/matchs'}
+            exact
+            component={TargetMatch}
+          />
         )}
 
         {/* admin */}

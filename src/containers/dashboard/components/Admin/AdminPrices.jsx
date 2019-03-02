@@ -99,7 +99,7 @@ class AdminPrices extends React.Component {
         />
         <Divider />
         <h1>Réduction Bacchus Troué</h1>
-        <p>-5€</p>
+        <p>-7,33€</p>
         <Divider />
         <h1>Supplément Chambre</h1>
         <p>+7€</p>

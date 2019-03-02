@@ -150,6 +150,48 @@ class LeftBar extends React.Component {
             </SubMenu>
           )}
 
+           {/* MENU TARGET */}
+           {user && (
+            <SubMenu
+              key='target'
+              title={
+                <span>
+                  <Icon type='fire' />
+                  <span>Target</span>
+                </span>
+              }
+            >
+              {user.town && <Menu.Item key='target/profile'>
+                <Link to={'/dashboard/target/profile'}>
+                  <Icon type='edit' />
+                  <span className='nav-text'>Modifier ma photo</span>
+                </Link>
+              </Menu.Item>}
+              {user && (
+                <Menu.Item key='target/view'>
+                  <Link to={'/dashboard/target/view'}>
+                    <Icon type='stop' />
+                    <span className='nav-text'>Plier des gens</span>
+                  </Link>
+                </Menu.Item>
+              )}
+              {user && (
+                <Menu.Item key='target/matchs'>
+                  <Link to={'/dashboard/target/matchs'}>
+                    <Icon type='thunderbolt' />
+                    <span className='nav-text'>Qui veut ta mort ?</span>
+                  </Link>
+                </Menu.Item>
+              )}
+              <Menu.Item key='target/top'>
+                <Link to={'/dashboard/target/top'}>
+                  <Icon type='bars' />
+                  <span className='nav-text'>Classement</span>
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+          )}
+
           {/* MENU ORGA */}
           {/* {user && user.permission && <SubMenu
             key='orga'
