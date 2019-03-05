@@ -14,14 +14,17 @@ const _Countdown = props => {
           <h1>{days}</h1>
           <h2>Jours</h2>
         </div>
+        <span>:</span>
         <div>
           <h1>{hours}</h1>
           <h2>Heures</h2>
         </div>
+        <span>:</span>
         <div>
           <h1>{minutes}</h1>
           <h2>Minutes</h2>
         </div>
+        <span>:</span>
         <div>
           <h1>{seconds}</h1>
           <h2>Secondes</h2>

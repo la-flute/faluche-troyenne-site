@@ -1,6 +1,7 @@
 .a-category {
   position: relative;
   text-align: center;
+  font-family: 'solo';
 }
 
 .a-category:before {
@@ -10,7 +11,7 @@
   left: 20px;
   height: 2px;
   width: calc(100% - 40px);
-  background-color: #fff;
+  background-color: white;
 }
 
 .a-category > h1 {
@@ -19,7 +20,7 @@
   margin: 0 auto;
   padding: 40px 20px;
   color: white;
-  background-color: #365DA8;
+  background-color: #2C2C2C;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 2px;

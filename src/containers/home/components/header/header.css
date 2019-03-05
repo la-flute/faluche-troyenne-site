@@ -3,14 +3,6 @@
   height: 50px;
   border-color: transparent;
 }
-@font-face {
-  font-family: 'Starjedi';
-  src: url('../../../../assets/Starjedi.ttf');
-}
-@font-face {
-  font-family: 'Starjhol';
-  src: url('../../../../assets/Starjhol.ttf');
-}
 .a-intro-header {
   position: fixed;
   height: 60px;
