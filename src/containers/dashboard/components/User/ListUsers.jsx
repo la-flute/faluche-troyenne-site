@@ -28,7 +28,7 @@ const columns = [
     dataIndex: 'town'
   },
   {
-    title: 'Type',
+    title: 'Folklore',
     dataIndex: 'folklore'
   }
 ]

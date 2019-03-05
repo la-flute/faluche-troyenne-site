@@ -10,7 +10,7 @@ import Countdown from './components/countdown'
 import Informations from './components/informations'
 import Category from './components/category'
 import Footer from './components/footer'
-import LoginModal from './components/loginModal'
+import LoginModal from './components/loginModal/LoginModal'
 import ForgotModal from './components/forgotModal'
 
 import { fetchCanLogin } from '../../modules/canLogin'

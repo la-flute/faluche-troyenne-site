@@ -1,51 +1,61 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import {
-  Form, Icon, Input, Button,
-} from 'antd';
+import { Form, Icon, Input, Button, Spin } from 'antd'
 
 import { sendResetMail } from '../../../../modules/forgot'
 
-class ForgotPassword extends React.Component{
-  constructor(props){
+class ForgotPassword extends React.Component {
+  constructor(props) {
     super(props)
-    this.state={
-      loading: false,
+    this.state = {
+      loading: false
     }
   }
 
-  handleSubmit = (e) =>{
-    this.setState({loading: true,})
-    e.preventDefault();
+  handleSubmit = e => {
+    this.setState({ loading: true })
+    e.preventDefault()
     this.props.form.validateFields((err, values) => {
-      if(!err){
+      if (!err) {
         console.log(values)
+        this.props
+          .sendMail(values)
+          .then(() => this.setState({ loading: false }))
       }
     })
   }
 
-  render(){
-    const {getFieldDecorator} = this.props.form
+  render() {
+    const { getFieldDecorator } = this.props.form
 
-    return(
-      <Form onSubmit={this.handleSubmit} classname='login-form'>
-        <Form.Item>
-          {getFieldDecorator('email', {
-            rules: [{required: true, message: 'Déjà tu perds ton mot de passe mais en plus tu mets pas ton email'}],
-          })(
-            <Input prefix={<Icon type='mail'/>} type='email' placeholder='E-Mail' />
-          )}
-        </Form.Item>
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-          >
-            Envoyer le mail
-          </Button>
-        </Form.Item>
-      </Form>
+    return (
+      <Spin spinning={this.state.loading}>
+        <Form onSubmit={this.handleSubmit} className='login-form'>
+          <Form.Item>
+            {getFieldDecorator('email', {
+              rules: [
+                {
+                  required: true,
+                  message:
+                    'Déjà tu perds ton mot de passe mais en plus tu mets pas ton email...'
+                }
+              ]
+            })(
+              <Input
+                prefix={<Icon type='mail' />}
+                type='email'
+                placeholder='E-Mail'
+              />
+            )}
+          </Form.Item>
+          <Form.Item>
+            <Button type='primary' htmlType='submit'>
+              Envoyer le mail
+            </Button>
+          </Form.Item>
+        </Form>
+      </Spin>
     )
   }
 }
