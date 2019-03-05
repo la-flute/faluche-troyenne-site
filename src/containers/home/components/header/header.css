@@ -1,22 +1,51 @@
-.ant-btn-primary.button_header{
+.ant-btn-primary.button_header {
   background-color: transparent;
   height: 50px;
   border-color: transparent;
 }
-
+@font-face {
+  font-family: 'Starjedi';
+  src: url('../../../../assets/Starjedi.ttf');
+}
+@font-face {
+  font-family: 'Starjhol';
+  src: url('../../../../assets/Starjhol.ttf');
+}
 .a-intro-header {
   position: fixed;
   height: 60px;
   width: 100vw;
   max-width: 100%;
   top: 0;
-  background-color: #365DA8;
-  border-bottom: 3px solid #fff;
+  background-image: linear-gradient(
+    rgb(21, 189, 255),
+    rgb(255, 255, 255),
+    rgb(21, 189, 255)
+  );
   z-index: 10;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
+.a-intro__main-text {
+  font-family: 'Starjedi', sans-serif;
+  color: black;
+  font-size: 40px;
+  padding-bottom: 5px;
+  letter-spacing: 3px;
+  margin-left: 20px;
+}
+.button_header {
+  font-family: 'Starjhol', sans-serif;
+  color: white;
+  font-size: 30px;
+  padding-bottom: 5px;
+  background-color: black;
+  letter-spacing: 2px;
+  margin-left: 10px;
+  padding-left: 30px;
+}
 
 @media screen and (max-width: 350px) {
   .a-intro-header__nav__mobile .a-intro-header__mainButton {

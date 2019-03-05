@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import SmoothScroll from 'smooth-scroll'
-
-import {Button} from 'antd'
+import saber from '../../../../assets/saber.png'
+import { Button } from 'antd'
 
 import './header.css'
 
@@ -36,11 +36,8 @@ class Header extends React.Component {
 
   mainButton() {
     if (this.props.isLoggedIn) {
-      console.log('not open')
       this.props.gotoDashboard()
     } else {
-      console.log('open')
-
       this.props.openLoginModal()
     }
   }
@@ -49,10 +46,20 @@ class Header extends React.Component {
     let mainButtonText = this.props.isLoggedIn ? 'Dashboard' : 'Connexion'
 
     return (
-      <header className="a-intro-header">
-        <div className="a-intro-header__mainButton">
-          <Button onClick={this.mainButton} className='button_header' type="primary" size='large'>{mainButtonText}</Button>
+      <header className='a-intro-header'>
+        <span className='a-intro__main-text'>WET3</span>
+        <div className='a-intro-header__mainButton'>
+          <Button
+            onClick={this.mainButton}
+            className='button_header'
+            type='danger'
+            size='large'
+            shape='round'
+          >
+            {mainButtonText}
+          </Button>
         </div>
+        <img src={saber} height='85px' />
       </header>
     )
   }

@@ -94,7 +94,7 @@
   }
   .a-intro__images__image:nth-child(2) {
     clip-path: polygon(0 100%, 70% 100%, 50% 50%, 0 30%);
-    background-position: -250px 200px;
+    background-position: -450px 200px;
   }
   .a-intro__images__image:nth-child(3) {
     clip-path: polygon(0 0, 60% 0, 50% 50%, 0 30%);

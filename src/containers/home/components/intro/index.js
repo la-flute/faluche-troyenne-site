@@ -3,13 +3,13 @@ import React from 'react'
 import './intro.css'
 
 import flute from '../../../../assets/flute.png'
-import luke from '../../../../assets/luke.jpg'
+import yoda from '../../../../assets/yoda.jpg'
 import kylo from '../../../../assets/kylo.jpg'
 import finn from '../../../../assets/finn.jpg'
 import vador from '../../../../assets/vader.jpg'
 
 const Intro = props => {
-  const imgs = [vador, luke, finn, kylo].map(img => ({
+  const imgs = [vador, yoda, finn, kylo].map(img => ({
     backgroundImage: `url(${img})`
   }))
 
