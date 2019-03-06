@@ -21,7 +21,7 @@ class Edit extends React.Component {
       if (err) {
         return
       }
-      if (values.nbr !== 10) this.props.errorNotif(Math.abs(values.nbr - 10))
+      if (values.nbr !== 5) this.props.errorNotif(Math.abs(values.nbr - 5))
       else this.props.sendAttestation()
       form.resetFields()
       this.setState({ visible: false })
@@ -37,10 +37,6 @@ class Edit extends React.Component {
       this.props.fetchUser()
       return <Spin />
     }
-    const now = new Date()
-    const day = now.getDate()
-    const month = now.getMonth() + 1
-    const year = now.getFullYear()
     return (
       <React.Fragment>
         <AttestationModal
@@ -53,14 +49,14 @@ class Edit extends React.Component {
         <p>
           Je soussigné{' '}
           <strong>
-            {user.lastName} {user.firstName}
+            {user.firstName} {user.lastName}
           </strong>
           , certifie sur l'honneur participer au Weekend Troyen qui se déroulera
           à l'Auberge de jeunesse de Rosières-près-Troyes du 3 au 5 mai 2019,
-          pour me prendre ma pétée de l'année en respectant l'intégralité des
-          personnes présentes : congressistes, organisateurs, personnels
-          présents; ainsi que les locaux et différents agencements mis à ma
-          disposition.{' '}
+          pour me prendre ma plus grosse pétée de l'année en respectant
+          l'intégralité des personnes présentes : congressistes, organisateurs,
+          personnels présents; ainsi que les locaux et différents agencements
+          mis à ma disposition.
         </p>
         <p>
           De plus je déclare sur l'honneur respecter les biens publics et privés
@@ -70,9 +66,9 @@ class Edit extends React.Component {
           à celui dans lequel ils m'ont été confiés.
         </p>
         <p>
-          Je suis informé(e) que la responsabilité de La Flute ne pourra être
-          engagée en cas de vol par le participant ou à l'encontre des affaires
-          personnelles de celui-ci.
+          Je suis informé(e) que la responsabilité de <strong>La Flute </strong>
+          ne pourra être engagée en cas de vol par le participant ou à
+          l'encontre des affaires personnelles de celui-ci.
         </p>
         <p>
           Je suis informé(e) que La Flute se réserve le droit de faire appliquer
@@ -91,7 +87,7 @@ class Edit extends React.Component {
         <p>Lu et approuvé</p>
         <p>
           <strong>
-            {user.firstName} {user.lastName} le {day}/{month}/{year}
+            {user.firstName} {user.lastName}
           </strong>
         </p>
         {!user.attestation ? (
