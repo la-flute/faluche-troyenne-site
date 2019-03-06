@@ -1,0 +1,29 @@
+.a-mentions {
+  background-color: rgb(29, 29, 29);
+  background-size: 100% 100%;
+}
+
+.a-mentions__content {
+  background-color: #2c2c2c;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .a-mentions__content {
+    width: 600px;
+  }
+}
+
+@media (min-width: 992px) {
+  .a-mentions__content {
+    width: 750px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .a-mentions__content {
+    width: 970px;
+  }
+}
