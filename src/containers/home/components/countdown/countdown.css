@@ -5,7 +5,7 @@
   position: relative;
   text-align: center;
   width: 100%;
-  font-family: 'Deathstar', sans-serif;
+  font-family: 'Starjedi', sans-serif;
   background-color: #2C2C2C;
   padding: 20px 5px 20px 5px;
 }
@@ -21,7 +21,6 @@
 .a-countdown h1,
 .a-countdown h2 {
   margin: 0;
-  text-transform: uppercase;
   letter-spacing: 2px;
 }
 
