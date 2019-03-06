@@ -29,7 +29,7 @@ class LoginModal extends React.Component {
   render() {
     return (
       <Modal
-        title='Connexion'
+        title={this.state.tabIndex === 0 ? 'connexion' : 'inscription'}
         visible={this.props.isOpen}
         onCancel={this.props.onClose}
         footer={null}

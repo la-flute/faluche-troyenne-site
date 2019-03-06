@@ -35,53 +35,58 @@ class RegisterForm extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form
     return (
-      <Spin spinning={this.state.loading}>
-        <Form onSubmit={this.submit}>
-          <FormItem label='Nom'>
-            {getFieldDecorator('lastName', {
-              rules: [
-                {
-                  required: true,
-                  message: 'Mets ton nom mamene'
-                }
-              ]
-            })(<Input placeholder='Nom' autoFocus={true} />)}
-          </FormItem>
-          <FormItem label='Prénom'>
-            {getFieldDecorator('firstName', {
-              rules: [{ required: true, message: 'Mets ton prénom mamene' }]
-            })(<Input placeholder='Prénom' />)}
-          </FormItem>
-          <FormItem label='E-Mail'>
-            {getFieldDecorator('email', {
-              rules: [{ required: true, message: 'Mets ton email mamene' }]
-            })(<Input placeholder='E-mail' />)}
-          </FormItem>
-          <FormItem label='Mot de passe'>
-            {getFieldDecorator('password', {
-              rules: [
-                { required: true, message: 'Mets ton mot de passe mamene' }
-              ]
-            })(<Input type='password' placeholder='*******' />)}
-          </FormItem>
-          <FormItem label='Confirmer le mot de passe'>
-            {getFieldDecorator('password2', {
-              rules: [
-                { required: true, message: 'Confirme ton mot de passe mamene' }
-              ]
-            })(<Input type='password' placeholder='*******' />)}
-          </FormItem>
-          <FormItem>
-            <Button
-              type='primary'
-              htmlType='submit'
-              className='login-form-button'
-            >
-              S'inscrire
-            </Button>
-          </FormItem>
-        </Form>
-      </Spin>
+      <div>
+        <Spin spinning={this.state.loading}>
+          <Form onSubmit={this.submit}>
+            <FormItem label='Nom'>
+              {getFieldDecorator('lastName', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Mets ton nom mamene'
+                  }
+                ]
+              })(<Input placeholder='Nom' autoFocus={true} />)}
+            </FormItem>
+            <FormItem label='Prénom'>
+              {getFieldDecorator('firstName', {
+                rules: [{ required: true, message: 'Mets ton prénom mamene' }]
+              })(<Input placeholder='Prénom' />)}
+            </FormItem>
+            <FormItem label='E-Mail'>
+              {getFieldDecorator('email', {
+                rules: [{ required: true, message: 'Mets ton email mamene' }]
+              })(<Input placeholder='E-mail' />)}
+            </FormItem>
+            <FormItem label='Mot de passe'>
+              {getFieldDecorator('password', {
+                rules: [
+                  { required: true, message: 'Mets ton mot de passe mamene' }
+                ]
+              })(<Input type='password' placeholder='*******' />)}
+            </FormItem>
+            <FormItem label='Confirmer le mot de passe'>
+              {getFieldDecorator('password2', {
+                rules: [
+                  {
+                    required: true,
+                    message: 'Confirme ton mot de passe mamene'
+                  }
+                ]
+              })(<Input type='password' placeholder='*******' />)}
+            </FormItem>
+            <FormItem>
+              <Button
+                type='primary'
+                htmlType='submit'
+                className='login-form-button'
+              >
+                S'inscrire
+              </Button>
+            </FormItem>
+          </Form>
+        </Spin>
+      </div>
     )
   }
 }
