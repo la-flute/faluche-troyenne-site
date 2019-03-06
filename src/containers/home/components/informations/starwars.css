@@ -32,9 +32,11 @@
   position: relative;
   top: 9999px;
   transform-origin: 50% 100%;
-  animation: crawl 90s linear;
 }
 
+.animate {
+  animation: crawl 90s linear;
+}
 
 .crawl > .title {
   text-align: center;
@@ -43,10 +45,10 @@
   font-size: 200%;
   letter-spacing: 10px;
 }
-.crawl >.title > p {
+.crawl > .title > p {
   margin-bottom: 20px;
 }
-.crawl >.title > .long {
+.crawl > .title > .long {
   margin-top: 10px;
   font-size: 70% !important;
 }

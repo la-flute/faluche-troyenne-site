@@ -59,7 +59,7 @@ class Header extends React.Component {
             {mainButtonText}
           </Button>
         </div>
-        <img src={saber} height='85px' />
+        <img src={saber} height='85px' alt='' />
       </header>
     )
   }

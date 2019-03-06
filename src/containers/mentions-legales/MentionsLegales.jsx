@@ -25,7 +25,7 @@ class MentionsLegales extends React.Component {
               Retour
             </Button>
           </div>
-          <img src={saber} height='85px' />
+          <img src={saber} height='85px' alt='' />
         </header>
         <main className='a-mentions'>
           <div className='a-mentions__content'>
