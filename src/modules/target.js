@@ -161,7 +161,7 @@ export const target = userId => {
     }
 
     try {
-      const res = await axios.post(
+      await axios.post(
         'targets',
         { userId, type: 'target' },
         {

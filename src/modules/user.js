@@ -8,11 +8,13 @@ export const REMOVE_IMAGE = 'user/REMOVE_IMAGE'
 export const ADD_IMAGE = 'user/ADD_IMAGE'
 export const SET_ATTESTATION = 'user/SET_ATTESTATION'
 export const SET_USERS = 'users/SET_USERS'
+export const SET_REFERENTS = 'users/SET_REFERENTS'
 export const SET_CATCHPHRASE = 'user/SET_CATCHPHRASE'
 
 const initialState = {
   user: null,
-  users: []
+  users: [],
+  referents: []
 }
 
 export default (state = initialState, action) => {
@@ -56,6 +58,11 @@ export default (state = initialState, action) => {
         ...state,
         users: action.payload
       }
+      case SET_REFERENTS:
+      return {
+        ...state,
+        referents: action.payload
+      }
     default:
       return state
   }
@@ -76,17 +83,40 @@ export const fetchUser = () => {
   }
 }
 
-export const listUsers = () => {
+export const fetchUsers = () => {
   return async (dispatch, getState) => {
     const authToken = getState().login.token
     if (!authToken || authToken.length === 0) {
       return
     }
     try {
-      const req = await axios.get('user/list', {
+      const res = await axios.get('users', {
         headers: { 'X-Token': authToken }
       })
-      if (req.status === 200) dispatch({ type: SET_USERS, payload: req.data })
+      if (res.status === 200) dispatch({ type: SET_USERS, payload: res.data })
+    } catch (err) {
+      dispatch(
+        notifActions.notifSend({
+          message: errorToString(err.response.data.error),
+          kind: 'danger',
+          dismissAfter: 2000
+        })
+      )
+    }
+  }
+}
+
+export const fetchReferents = () => {
+  return async (dispatch, getState) => {
+    const authToken = getState().login.token
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+    try {
+      const res = await axios.get('users/referents', {
+        headers: { 'X-Token': authToken }
+      })
+      if (res.status === 200) dispatch({ type: SET_REFERENTS, payload: res.data })
     } catch (err) {
       dispatch(
         notifActions.notifSend({

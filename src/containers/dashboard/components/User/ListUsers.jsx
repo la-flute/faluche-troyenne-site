@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Spin } from 'antd'
-import { listUsers } from '../../../../modules/user'
+import { fetchUsers } from '../../../../modules/user'
 
 import { Table } from 'antd'
 
@@ -39,7 +39,7 @@ class ListUsers extends React.Component {
     this.state = {
       matches: []
     }
-    this.props.listUsers()
+    this.props.fetchUsers()
   }
 
   render() {
@@ -67,7 +67,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  listUsers: () => dispatch(listUsers())
+  fetchUsers: () => dispatch(fetchUsers())
 })
 
 export default connect(

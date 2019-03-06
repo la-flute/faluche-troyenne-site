@@ -11,7 +11,7 @@ import {
   DatePicker,
   Select
 } from 'antd'
-import { fetchUser, sendInfos, listUsers } from '../../../../modules/user'
+import { fetchUser, sendInfos, fetchReferents } from '../../../../modules/user'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
@@ -24,8 +24,8 @@ class Edit extends React.Component {
     this.state = {
       folklore: ''
     }
-    this.props.listUsers()
     this.props.fetchUser()
+    this.props.fetchReferents()
   }
   handleSubmit = e => {
     e.preventDefault()
@@ -53,11 +53,10 @@ class Edit extends React.Component {
   }
 
   render() {
-    const { user, users } = this.props
-    if (!user || !users) {
+    const { user, referents } = this.props
+    if (!user || !referents) {
       return <Spin />
     }
-    let referents = users.filter(u => u.folklore && u.folklore === 'faluchard')
     const { getFieldDecorator } = this.props.form
 
     const formItemLayout = {
@@ -267,7 +266,7 @@ class Edit extends React.Component {
                 placeholder='Sélectionnez un Faluchard'
                 optionFilterProp='children'
                 filterOption={(input, option) => {
-                  const us = users.find(u => u.id === option.props.value)
+                  const us = referents.find(u => u.id === option.props.value)
                   if (!us) return false
                   let test = `${us.lastName}${us.firstName}${
                     us.nickName ? us.nickName : ''
@@ -277,7 +276,7 @@ class Edit extends React.Component {
               >
                 {referents.map(ref => (
                   <Option key={ref.id} value={ref.id}>
-                    {ref.lastName}. {ref.firstName} "{ref.nickName}" ({ref.town}
+                    {ref.firstName} "{ref.nickName}" ({ref.town}
                     )
                   </Option>
                 ))}
@@ -429,13 +428,13 @@ const WrappedEdit = Form.create({ name: 'register' })(Edit)
 
 const mapStateToProps = state => ({
   user: state.user.user,
-  users: state.user.users
+  referents: state.user.referents
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchUser: () => dispatch(fetchUser()),
   sendInfos: data => dispatch(sendInfos(data)),
-  listUsers: () => dispatch(listUsers())
+  fetchReferents: () => dispatch(fetchReferents())
 })
 
 export default connect(

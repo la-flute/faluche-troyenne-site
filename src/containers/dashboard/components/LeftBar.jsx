@@ -70,7 +70,9 @@ class LeftBar extends React.Component {
               <Menu.Item key='user/infos'>
                 <Link to={'/dashboard/user/infos'}>
                   <Icon type='file' />
-                  <span className='nav-text'>La fiche</span>
+                  <span className='nav-text'>
+                    {user.town ? 'Mes informations' : 'La fiche'}
+                  </span>
                 </Link>
               </Menu.Item>
               <Menu.Item key='user/attestation'>
@@ -119,12 +121,14 @@ class LeftBar extends React.Component {
                 </span>
               }
             >
-              {user.town && <Menu.Item key='tinder/profile'>
-                <Link to={'/dashboard/tinder/profile'}>
-                  <Icon type='edit' />
-                  <span className='nav-text'>Modifier mon profile</span>
-                </Link>
-              </Menu.Item>}
+              {user.town && (
+                <Menu.Item key='tinder/profile'>
+                  <Link to={'/dashboard/tinder/profile'}>
+                    <Icon type='edit' />
+                    <span className='nav-text'>Modifier mon profile</span>
+                  </Link>
+                </Menu.Item>
+              )}
               {user && user.image && (
                 <Menu.Item key='tinder/view'>
                   <Link to={'/dashboard/tinder/view'}>
@@ -150,8 +154,8 @@ class LeftBar extends React.Component {
             </SubMenu>
           )}
 
-           {/* MENU TARGET */}
-           {user && (
+          {/* MENU TARGET */}
+          {user && (
             <SubMenu
               key='target'
               title={
@@ -161,12 +165,14 @@ class LeftBar extends React.Component {
                 </span>
               }
             >
-              {user.town && <Menu.Item key='target/profile'>
-                <Link to={'/dashboard/target/profile'}>
-                  <Icon type='edit' />
-                  <span className='nav-text'>Modifier ma photo</span>
-                </Link>
-              </Menu.Item>}
+              {user.town && (
+                <Menu.Item key='target/profile'>
+                  <Link to={'/dashboard/target/profile'}>
+                    <Icon type='edit' />
+                    <span className='nav-text'>Modifier ma photo</span>
+                  </Link>
+                </Menu.Item>
+              )}
               {user && (
                 <Menu.Item key='target/view'>
                   <Link to={'/dashboard/target/view'}>

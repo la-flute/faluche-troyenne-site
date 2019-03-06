@@ -52,12 +52,16 @@ class Infos extends React.Component {
         return 'Voiture'
       case 'train':
         return 'Train'
+      case 'catchphrase':
+        return "Phrase d'accroche"
       case 'vege':
         return 'Végétarien'
       case 'vegan':
         return 'Végan'
       case 'omni':
         return 'Omnivore'
+      case 'attestation':
+        return "Attestation sur l'honneur"
       default:
         return word
     }
@@ -73,6 +77,8 @@ class Infos extends React.Component {
       .filter(
         i =>
           i !== 'id' &&
+          i !== 'order' &&
+          i !== 'image' &&
           i !== 'permission' &&
           i !== 'bedroomId' &&
           i !== 'teamId' &&
@@ -90,7 +96,7 @@ class Infos extends React.Component {
 
     const columns = [
       {
-        title: 'Informations',
+        title: 'Mes informations',
         dataIndex: 'field',
         key: 'field'
       },
