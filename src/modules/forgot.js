@@ -51,6 +51,7 @@ export const resetPassword = resetInfos => {
         })
       )
     } catch (err) {
+      console.log(err)
       dispatch(
         notifActions.notifSend({
           message: errorToString(err.response.data.error),
@@ -59,5 +60,6 @@ export const resetPassword = resetInfos => {
         })
       )
     }
+    return
   }
 }

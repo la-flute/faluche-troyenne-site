@@ -1,34 +1,21 @@
-.a-reset {
-  max-width: 400px;
-  margin: 20px auto;
-  background-color: #fff;
-  border-radius: 3px;
-  box-shadow: 0 3px 6px rgba(0,0,0,.24);
-  padding: 20px;
+.reset {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-image: url('../../assets/maul.jpg');
+  background-position: center;
 }
 
-.a-reset > h2 {
-  margin-top: 0;
-  color: #000;
-  text-transform: uppercase;
-  text-align: center;
+.reset-form {
+  width: 90%;
+  max-width: 300px;
+  padding: 20px 20px 20px 20px;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
-.a-reset > input {
-  display: block;
-  margin: 12px 0;
-}
-
-.a-reset > input:last-of-type {
-  margin-top: 0;
-}
-
-@media (min-width: 996px) {
-  .a-reset {
-    margin: 40px auto;
-    max-width: 660px;
-    padding: 40px;
-  }
+.reset-title {
+  font-size: 100%;
+  font-family: 'Starjedi';
+  color: black;
 }
