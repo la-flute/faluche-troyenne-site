@@ -11,7 +11,6 @@ import Informations from './components/informations/informations'
 import Category from './components/category'
 import Footer from './components/footer'
 import LoginModal from './components/loginModal/LoginModal'
-import ForgotModal from './components/forgotModal'
 
 import { fetchCanLogin } from '../../modules/canLogin'
 import { autoLogin } from '../../modules/login'
@@ -105,12 +104,6 @@ class Home extends React.Component {
           onClose={this.closeLoginModal}
           onForgot={this.openForgotModal}
         />
-        {/* <ContactModal
-          isOpen={this.state.contactModalOpened}
-          onClose={this.closeContactModal}
-        /> */}
-        <ForgotModal isOpen={this.state.forgotModalOpened} onClose={this.closeForgotModal} />
-
         <main className="a-home">
           <div className="a-home__content">
             <Countdown date={new Date('May 3, 2019 18:00:00')}/>
@@ -120,7 +113,6 @@ class Home extends React.Component {
           <Footer openContactModal={this.openContactModal} />
         </main>
 
-        {/* <Social /> */}
       </div>
     )
   }

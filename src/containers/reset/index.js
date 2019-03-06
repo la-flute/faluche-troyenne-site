@@ -5,13 +5,13 @@ import { push } from 'react-router-redux'
 
 import './reset.css'
 
-import Button from '../../components/button'
+//import Button from '../../components/button'
 
 import { resetPassword } from '../../modules/forgot'
 
 const Reset = props => (
   <div>
-    <Form
+    {/*<Form
       defaultValues={{
         token: props.match.params.token
       }}
@@ -27,7 +27,7 @@ const Reset = props => (
           </Button>
         </form>
       )}
-    />
+      />*/}
   </div>
 )
 
