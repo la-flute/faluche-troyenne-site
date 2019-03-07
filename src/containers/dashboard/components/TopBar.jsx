@@ -39,7 +39,7 @@ class TopBar extends React.Component {
         <Header className='header'>
           <div className='logo'>
             <img src={flute} alt='' />
-            <span>WET 3</span>
+            <span style={{ fontFamily: 'Starjedi', fontSize: '30px' }}>WET 3</span>
           </div>
 
           <Menu
@@ -79,8 +79,7 @@ const mapDispatchToProps = dispatch => ({
   fetchUser: () => dispatch(fetchUser()),
   disconnect: () => dispatch(logout()),
   changePassword: (p, t) =>
-    dispatch(changePassword(p))
-      .then(() => t.setState({ modal: false }))
+    dispatch(changePassword(p)).then(() => t.setState({ modal: false }))
 })
 
 export default connect(
