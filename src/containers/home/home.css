@@ -42,7 +42,7 @@
 .a-home__content.a-home__footer {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   height: 150px;
   padding: 20px;
   color: #fff;
@@ -53,7 +53,7 @@
 .a-home__content.a-home__footer > div {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .a-home__footer a {
@@ -78,4 +78,28 @@
   .a-home__content {
     width: 970px;
   }
+}
+.place,
+.palier,
+.bk,
+.remboursement {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Starjedi';
+  letter-spacing: 3px;
+  text-align: center;
+}
+.palier-title-1 {
+  color: rgb(0, 183, 255);
+}
+.palier-title-2 {
+  color: rgb(0, 255, 0);
+}
+.palier-title-3 {
+  color: rgb(138, 0, 0);
+}
+.Deathstar {
+  font-family: 'Deathstar';
 }

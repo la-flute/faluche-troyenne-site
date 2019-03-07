@@ -21,22 +21,37 @@ const Scroll = props => (
           nouvelle arme, la Koekoe blue de la mort, menace la France entière.
           Han Doblo est remis à l'immonde Jabba le GrandSud par l'ignoble
           chasseur de prime, l'asso Fett.
+        <br />
+        <br />
         </p>
         <p>
           Luke SkyPoutré, entraîné par Maître Coma, doit savoir user de son foie
           afin de sauver son ami.
+        <br />
+        <br />
         </p>
         <p>
           Après un Troyes 133ème pliage des extés, également sous la menace de
           Jabba le GrandSud, Luke SkyPoutré et Less Beto parviennent à
           s'échapper de la poutre...
+        <br />
+        <br />
         </p>
         <p>
           Mais ils ne sont pas encore sortis d'affaire, il leur faut affronter
           les Stormpoutreurs, connus pour être la force de pliage de l'Empire...
+        <br />
+        <br />
         </p>
-        <p>Emmène ton sabre laser, et choisis ton côté de la force</p>
-        <p>Que le foie soit avec toi !</p>
+        <p>
+          Emmène ton sabre laser, et choisis ton côté de la force
+        <br />
+        </p>
+        <p>
+          Que le foie soit avec toi !
+        <br />
+        <br />
+        </p>
       </div>
     </section>
   </div>

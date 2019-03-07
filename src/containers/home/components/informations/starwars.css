@@ -35,7 +35,7 @@
 }
 
 .animate {
-  animation: crawl 90s linear;
+  animation: crawl 110s linear;
 }
 
 .crawl > .title {
