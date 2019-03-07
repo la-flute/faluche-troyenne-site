@@ -1,8 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
-import errorToString from '../../../lib/errorToString'
-import { actions as notifActions } from 'redux-notifications'
 import { Layout, Menu, Icon } from 'antd'
 import { fetchUser, changePassword } from '../../../modules/user'
 import { logout } from '../../../modules/login'
@@ -39,7 +36,9 @@ class TopBar extends React.Component {
         <Header className='header'>
           <div className='logo'>
             <img src={flute} alt='' />
-            <span style={{ fontFamily: 'Starjedi', fontSize: '30px' }}>WET 3</span>
+            <span style={{ fontFamily: 'Starjedi', fontSize: '30px' }}>
+              WET 3
+            </span>
           </div>
 
           <Menu
@@ -48,9 +47,7 @@ class TopBar extends React.Component {
             style={{ lineHeight: '64px', float: 'right' }}
           >
             <Menu.Item key='2' onClick={() => this.setState({ modal: true })}>
-              <div>
-                <Icon type='lock' />
-              </div>
+              <Icon type='lock' />
             </Menu.Item>
             <Menu.Item key='1' onClick={this.props.disconnect}>
               <div>
