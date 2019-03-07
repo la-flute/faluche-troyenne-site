@@ -1,5 +1,6 @@
 import axios from '../lib/axios'
 import errorToString from '../lib/errorToString'
+import fail from '../lib/store.fail'
 import { actions as notifActions } from 'redux-notifications'
 import { logout } from './login'
 
@@ -58,7 +59,7 @@ export default (state = initialState, action) => {
         ...state,
         users: action.payload
       }
-      case SET_REFERENTS:
+    case SET_REFERENTS:
       return {
         ...state,
         referents: action.payload
@@ -116,7 +117,8 @@ export const fetchReferents = () => {
       const res = await axios.get('users/referents', {
         headers: { 'X-Token': authToken }
       })
-      if (res.status === 200) dispatch({ type: SET_REFERENTS, payload: res.data })
+      if (res.status === 200)
+        dispatch({ type: SET_REFERENTS, payload: res.data })
     } catch (err) {
       dispatch(
         notifActions.notifSend({
@@ -293,5 +295,50 @@ export const sendCatchPhrase = catchphrase => {
         })
       )
     }
+  }
+}
+export const changePassword = p => {
+  return async (dispatch, getState) => {
+    if (p.password !== p.password2) {
+      dispatch(
+        notifActions.notifSend({
+          message: errorToString('PASSWORD_MISMATCH'),
+          kind: 'danger',
+          dismissAfter: 2000
+        })
+      )
+      return fail(dispatch, 'PASSWORD_MISMATCH')
+    }
+
+    const authToken = getState().login.token
+
+    if (!authToken || authToken.length === 0) {
+      return
+    }
+
+    try {
+      await axios.put('user/password', p, {
+        headers: { 'X-Token': authToken }
+      })
+
+      dispatch(
+        notifActions.notifSend({
+          message: 'Mot de passe changé',
+          dismissAfter: 2000
+        })
+      )
+    } catch (err) {
+      console.log(err)
+      dispatch(
+        notifActions.notifSend({
+          message: errorToString(err.response.data.error),
+          kind: 'danger',
+          dismissAfter: 2000
+        })
+      )
+
+      return fail(dispatch, err.response.data.error)
+    }
+    return
   }
 }
