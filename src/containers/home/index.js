@@ -162,7 +162,9 @@ class Home extends React.Component {
                 <strong className='palier-title-3'>53.00€</strong>
               </span>
               <br />
-              <span>(+7€ si couchage en dur)</span>
+              <span>
+                (<span className='Deathstar'>+</span>7€ si couchage en dur)
+              </span>
             </div>
             <Category id='bk'>burger king</Category>
             <div className='bk'>
@@ -173,10 +175,10 @@ class Home extends React.Component {
             <Category id='remboursement'>remboursement</Category>
             <div className='remboursement'>
               <span>
-                envoie du RIB dans un petit mail a{' '}
-                <strong>laflute.troyes@gmail.com</strong> avant le 22/04/2019
-                (deadline pour se faire rembourser, aucuns remboursements
-                acceptes apres cette date)
+                envoie du RIB dans un petit mail à{' '}
+                <strong className='Deathstar'>laflute.troyes@gmail.com</strong>{' '}
+                avant le 22/04/2019 (deadline pour se faire rembourser, aucuns
+                remboursements acceptés après cette date)
               </span>
             </div>
           </div>

@@ -87,7 +87,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Deathstar';
+  font-family: 'Starjedi';
   letter-spacing: 3px;
   text-align: center;
 }
@@ -99,4 +99,7 @@
 }
 .palier-title-3 {
   color: rgb(138, 0, 0);
+}
+.Deathstar {
+  font-family: 'Deathstar';
 }
