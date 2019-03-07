@@ -79,3 +79,21 @@
     width: 970px;
   }
 }
+.place,
+.palier, .bk {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Starjedi';
+  letter-spacing: 2px;
+}
+.palier-title-1 {
+  color: rgb(0, 183, 255);
+}
+.palier-title-2 {
+  color: rgb(0, 255, 0);
+}
+.palier-title-3 {
+  color: rgb(138, 0, 0);
+}
