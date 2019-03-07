@@ -61,7 +61,11 @@ class RegisterForm extends React.Component {
             <FormItem label='Mot de passe'>
               {getFieldDecorator('password', {
                 rules: [
-                  { required: true, message: 'Mets ton mot de passe mamene' }
+                  { required: true, message: 'Mets ton mot de passe mamene' },
+                  {
+                    min: 6,
+                    message: 'Le mot de passe doit faire au moins 6 caractères'
+                  }
                 ]
               })(<Input type='password' placeholder='*******' />)}
             </FormItem>
@@ -71,6 +75,10 @@ class RegisterForm extends React.Component {
                   {
                     required: true,
                     message: 'Confirme ton mot de passe mamene'
+                  },
+                  {
+                    min: 6,
+                    message: 'Le mot de passe doit faire au moins 6 caractères'
                   }
                 ]
               })(<Input type='password' placeholder='*******' />)}

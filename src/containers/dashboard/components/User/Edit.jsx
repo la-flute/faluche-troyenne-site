@@ -229,13 +229,13 @@ class Edit extends React.Component {
             label={
               <span>
                 Surnom&nbsp;
-                <Tooltip title='Surnom de fal'>
+                <Tooltip title='Surnom (de faluche)'>
                   <Icon type='question-circle-o' />
                 </Tooltip>
               </span>
             }
           >
-            {getFieldDecorator('nickName')(<Input />)}
+            {getFieldDecorator('nickName')(<Input placeholder="Votre surnom (de faluche)" />)}
           </Form.Item>
         )}
         {(this.state.folklore === 'impetrant' ||
@@ -412,7 +412,7 @@ class Edit extends React.Component {
           }
         >
           {getFieldDecorator('trajet_commentaire')(
-            <Input.TextArea placeholder="N'oubliez pas de préciser les informations utiles : heure, lieu,..." />
+            <Input.TextArea placeholder="Si vous avez besoin que l'orga vienne vous chercher à la gare... N'oubliez pas de préciser les informations utiles : heure, lieu,..." />
           )}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
