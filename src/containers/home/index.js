@@ -150,7 +150,7 @@ class Home extends React.Component {
               </span>
               <br />
               <span className='palier-title'>
-                <strong className='palier-title-3'>Troyesième palier</strong>{' '}
+                <strong className='palier-title-3'>Troyesieme palier</strong>{' '}
                 (du 22/04/2019 au 03/05/2019)
               </span>
               <span>
@@ -166,9 +166,18 @@ class Home extends React.Component {
             </div>
             <Category id='bk'>burger king</Category>
             <div className='bk'>
-              <span>4 boulevard De L'Ouest</span>
-              <span>La Voix Des Pois - Centre Commercial L'Escapade</span>
-              <span>10600 La Chapelle-Saint-Luc</span>
+              <span>4 boulevard de l'ouest</span>
+              <span>la voix des pois - centre commercial l'escapade</span>
+              <span>10600 la chapelle-saint-luc</span>
+            </div>
+            <Category id='remboursement'>remboursement</Category>
+            <div className='remboursement'>
+              <span>
+                envoie du RIB dans un petit mail a{' '}
+                <strong>laflute.troyes@gmail.com</strong> avant le 22/04/2019
+                (deadline pour se faire rembourser, aucuns remboursements
+                acceptes apres cette date)
+              </span>
             </div>
           </div>
           <Footer openContactModal={this.openContactModal} />
