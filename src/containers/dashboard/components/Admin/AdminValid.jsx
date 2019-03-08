@@ -32,10 +32,14 @@ class AdminValid extends React.Component {
       if (user.town) fulltext += ' ' + user.town
       if (user.nickName) fulltext += ' ' + user.nickName
       if (user.studies) fulltext += ' ' + user.studies
-      return fulltext.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+      return (
+        fulltext.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+      )
     })
     // Apply filters
-    let rows = users
+    let rows = users.map(user => {
+      return { ...user, id2: user.id }
+    })
     // Apply column filters
     let columns = [
       {
@@ -102,12 +106,12 @@ class AdminValid extends React.Component {
     })
     columns.push({
       title: 'Valider le dossier',
-      dataIndex: 'id',
+      dataIndex: 'id2',
       render: id => <ValidUser userId={id} users={users} />
     })
     return (
       <React.Fragment>
-        <AdminBar title={`Validation des inscriptions`}/>
+        <AdminBar title={`Validation des inscriptions`} />
 
         <Card title='Affichage' style={{ marginTop: '20px' }}>
           <Checkbox

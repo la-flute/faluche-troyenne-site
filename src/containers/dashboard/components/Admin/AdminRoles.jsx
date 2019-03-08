@@ -48,7 +48,6 @@ class AdminRoles extends React.Component {
     //Get users froles
     users = users.map(user => {
       let role = ''
-      console.log(user)
       if (user.permission && user.permission.admin) {
         role += 'Admin'
       }
@@ -71,7 +70,6 @@ class AdminRoles extends React.Component {
       return <Spin />
     }
     let rows = users
-    console.log(rows)
     return (
       <React.Fragment>
         <AdminBar title={`Gestion des droits`}/>

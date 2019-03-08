@@ -12,7 +12,6 @@ class TopTarget extends React.Component {
     let { mostTargeted, users } = this.props
     let loading = false
     if (!mostTargeted || !users) loading = true
-    console.log(mostTargeted)
     if (mostTargeted)
       mostTargeted = mostTargeted.map(target => {
         let user = users.find(u => u.id === target.id)

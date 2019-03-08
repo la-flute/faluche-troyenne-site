@@ -12,7 +12,6 @@ class View extends React.Component {
 
   render() {
     const { targets } = this.props
-    console.log(targets)
     const loaded = targets.length > 0
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>

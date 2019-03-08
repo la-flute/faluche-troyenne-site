@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchUsers } from '../../../../modules/admin'
 
-import { Table, Spin, Divider, Button } from 'antd'
 import AdminBar from './AdminBar'
 
 class AdminConfig extends React.Component {

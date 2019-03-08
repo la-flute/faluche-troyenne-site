@@ -1,5 +1,4 @@
 export default opts => {
-  console.log(opts)
 
   if (opts.mutationSuccess) {
     opts.dispatch({

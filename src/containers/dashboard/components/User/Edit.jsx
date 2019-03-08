@@ -45,7 +45,6 @@ class Edit extends React.Component {
       content:
         "En cas d'erreur, vous ne pourrez pas modifier ce formulaire, et vous devrez contacter l'orga",
       onOk: () => {
-        console.log(values)
         this.props.sendInfos(values)
       },
       onCancel() {}

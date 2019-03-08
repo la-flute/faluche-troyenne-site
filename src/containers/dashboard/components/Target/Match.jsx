@@ -11,13 +11,11 @@ class Match extends React.Component {
   render() {
     let { matchs, users } = this.props
     let loading = false
-    console.log(matchs, users)
     if (!matchs || !users) loading = true
     matchs = matchs.map(match => {
       let user = users.find(u => u.id === match)
       return { ...user }
     })
-    console.log(matchs)
     return (
       <React.Fragment>
         <h1 style={{ textAlign: 'center' }}>

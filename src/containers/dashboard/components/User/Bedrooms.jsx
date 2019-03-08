@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Button, Collapse, Spin, Divider } from 'antd'
+import { Table, Button, Collapse, Spin, Divider } from 'antd'
 import { connect } from 'react-redux'
 import {
   fetchBedrooms,
@@ -43,15 +43,37 @@ class Bedrooms extends React.Component {
                   }
                   key={bedroom.id}
                 >
-                  <List
-                    itemLayout='horizontal'
+                  <Table
                     dataSource={bedroom.users}
+                    rowKey='id'
                     locale={{ emptyText: 'Cette chambre est vide' }}
-                    renderItem={item => (
-                      <span>{`${item.lastName}. ${item.firstName} ${
-                        item.nickName ? item.nickName : ''
-                      }`}</span>
-                    )}
+                    columns={[
+                      {
+                        title: 'Nom',
+                        dataIndex: 'lastName',
+                        key: 'lastName'
+                      },
+                      {
+                        title: 'Prénom',
+                        dataIndex: 'firstName',
+                        key: 'firstName'
+                      },
+                      {
+                        title: 'Surnom',
+                        dataIndex: 'nickName',
+                        key: 'nickName'
+                      },
+                      {
+                        title: 'Ville',
+                        dataIndex: 'town',
+                        key: 'town'
+                      },
+                      {
+                        title: 'Fillière',
+                        dataIndex: 'studies',
+                        key: 'studies'
+                      }
+                    ]}
                   />
                   {!full &&
                     !user.bedroomId &&

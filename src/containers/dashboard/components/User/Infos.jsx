@@ -72,7 +72,6 @@ class Infos extends React.Component {
       this.props.fetchUser()
       return <Spin />
     }
-    console.log(user)
     const dataSource = Object.keys(user)
       .filter(
         i =>

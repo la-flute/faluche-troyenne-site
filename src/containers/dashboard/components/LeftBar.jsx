@@ -38,7 +38,6 @@ class LeftBar extends React.Component {
   }
   render() {
     const { user } = this.props
-    console.log(user)
     return (
       <Sider breakpoint='lg' collapsedWidth='0' width={250}>
         <div className='logo' />

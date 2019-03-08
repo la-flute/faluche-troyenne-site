@@ -70,7 +70,6 @@ class UserListActions extends React.Component {
   render() {
     const { users, userId } = this.props
     const user = users.find(u => u.id === userId)
-    console.log('USER : ', user)
     if (!user) {
       return <Spin />
     }
@@ -78,10 +77,6 @@ class UserListActions extends React.Component {
     let userIsOrga = user.permission && user.permission.bureau
     let userIsTreso = user.permission && user.permission.treso
     let userIsRedac = user.permission && user.permission.write
-    console.log('Admin : ', userIsAdmin)
-    console.log('Orga : ', userIsOrga)
-    console.log('Treso : ', userIsTreso)
-    console.log('Redac : ', userIsRedac)
 
     return (
       <React.Fragment>

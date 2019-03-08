@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Button, Collapse, Spin, Divider } from 'antd'
+import { Table, Button, Collapse, Spin, Divider } from 'antd'
 import { connect } from 'react-redux'
 import { fetchTeams, joinTeam, leaveTeam } from '../../../../modules/teams'
 
@@ -37,15 +37,37 @@ class Teams extends React.Component {
                   </Button>
                 )}
                 {user.teamId && team.id === user.teamId && <Divider />}
-                <List
-                  itemLayout='horizontal'
+                <Table
                   dataSource={team.users}
                   locale={{ emptyText: 'Cette équipe est vide' }}
-                  renderItem={user => (
-                    <span>{`${user.lastName}. ${user.firstName} ${
-                      user.nickName ? user.nickName : ''
-                    }`}</span>
-                  )}
+                  rowKey='id'
+                  columns={[
+                    {
+                      title: 'Nom',
+                      dataIndex: 'lastName',
+                      key: 'lastName'
+                    },
+                    {
+                      title: 'Prénom',
+                      dataIndex: 'firstName',
+                      key: 'firstName'
+                    },
+                    {
+                      title: 'Surnom',
+                      dataIndex: 'nickName',
+                      key: 'nickName'
+                    },
+                    {
+                      title: 'Ville',
+                      dataIndex: 'town',
+                      key: 'town'
+                    },
+                    {
+                      title: 'Fillière',
+                      dataIndex: 'studies',
+                      key: 'studies'
+                    }
+                  ]}
                 />
               </Panel>
             ))}
