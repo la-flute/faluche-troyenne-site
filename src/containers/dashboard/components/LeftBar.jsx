@@ -105,7 +105,7 @@ class LeftBar extends React.Component {
               <Menu.Item key='user/teams'>
                 <Link to={'/dashboard/user/teams'}>
                   <Icon type='team' />
-                  <span className='nav-text'>Équipe</span>
+                  <span className='nav-text'>Équipes</span>
                 </Link>
               </Menu.Item>
             </SubMenu>
@@ -126,7 +126,7 @@ class LeftBar extends React.Component {
                 <Menu.Item key='tinder/profile'>
                   <Link to={'/dashboard/tinder/profile'}>
                     <Icon type='edit' />
-                    <span className='nav-text'>Modifier mon profile</span>
+                    <span className='nav-text'>Modifier mon profil</span>
                   </Link>
                 </Menu.Item>
               )}
@@ -134,7 +134,7 @@ class LeftBar extends React.Component {
                 <Menu.Item key='tinder/view'>
                   <Link to={'/dashboard/tinder/view'}>
                     <Icon type='contacts' />
-                    <span className='nav-text'>Voir les profiles</span>
+                    <span className='nav-text'>Voir les profils</span>
                   </Link>
                 </Menu.Item>
               )}

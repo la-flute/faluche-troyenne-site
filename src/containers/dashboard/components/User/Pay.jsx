@@ -115,7 +115,7 @@ class Pay extends React.Component {
             onClick={this.toggleBedroom}
           >
             <h3>Chambre</h3>
-            <span>Place en dure dans une chambre, pour les plus fragiles</span>
+            <span>Place en dur dans une chambre, pour les plus fragiles</span>
           </ListItem>
           <Divider />
 

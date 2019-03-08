@@ -31,10 +31,15 @@ import AdminValid from './components/Admin/AdminValid'
 import AdminRoles from './components/Admin/AdminRoles'
 import AdminConfig from './components/Admin/AdminConfig'
 
+
+import asyncComponent from '../../components/async'
+
+
 import DashboardLayout from './layout'
 
 import { autoLogin } from '../../modules/login'
 import './dashboard.css'
+const Mouche = asyncComponent(() => import('./components/Easter/Mouche'))
 
 const baseUrl = process.env.REACT_APP_BASEURL + 'dashboard/'
 
@@ -58,6 +63,8 @@ class Dashboard extends React.Component {
   render() {
     const { user } = this.props
     const component = (
+      <React.Fragment>
+      <Mouche/>
       <Switch>
         {this.state.render && (
           <Route path={baseUrl + 'home'} exact component={DashboardHome} />
@@ -221,6 +228,7 @@ class Dashboard extends React.Component {
         {this.state.render && <Redirect from='*' to='/dashboard/home' />}
         {!this.state.render && <DashboardLoading />}
       </Switch>
+      </React.Fragment>
     )
     return (
       <DashboardLayout

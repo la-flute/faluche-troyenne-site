@@ -5,8 +5,6 @@ import { fetchUser } from '../../../modules/user'
 import notPrepared from '../assets/notprepared.jpg'
 
 class Accueil extends React.Component {
-
-  
   constructor(props) {
     super(props)
 
@@ -16,29 +14,38 @@ class Accueil extends React.Component {
 
     props.fetchUser()
   }
-  
+
   render() {
     const { user } = this.props
-    if(!user) {
+    if (!user) {
       return <Spin />
     }
 
     return (
-      <div style={{ height: '100%'}}>
+      <div
+        style={{
+          height: '100%',
+          fontFamily: 'solo',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column'
+        }}
+      >
         <h1>Bienvenue sur le site du WET3 !</h1>
 
-        <img src={notPrepared} alt="" />
+        <img src={notPrepared} alt='' style={{ width: '100%', maxWidth: '700px' }} />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  user: state.user.user,
+  user: state.user.user
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchUser: () => dispatch(fetchUser()),
+  fetchUser: () => dispatch(fetchUser())
 })
 
 export default connect(
