@@ -74,7 +74,7 @@ class AdminRoles extends React.Component {
     console.log(rows)
     return (
       <React.Fragment>
-        <AdminBar />
+        <AdminBar title={`Gestion des droits`}/>
 
         <Table
           columns={columns}

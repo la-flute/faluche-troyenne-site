@@ -29,6 +29,7 @@ import AdminTeams from './components/Admin/AdminTeams'
 import AdminPrices from './components/Admin/AdminPrices'
 import AdminValid from './components/Admin/AdminValid'
 import AdminRoles from './components/Admin/AdminRoles'
+import AdminConfig from './components/Admin/AdminConfig'
 
 import DashboardLayout from './layout'
 
@@ -111,20 +112,20 @@ class Dashboard extends React.Component {
         )}
 
         {/* tinder */}
-        {this.state.render && (
+        {this.state.render && user.validated  && (
           <Route
             path={baseUrl + 'tinder/profile'}
             exact
             component={TinderProfile}
           />
         )}
-        {this.state.render && user.image && (
+        {this.state.render && user.image && user.validated && (
           <Route path={baseUrl + 'tinder/view'} exact component={TinderView} />
         )}
-        {this.state.render && (
+        {this.state.render && user.validated && (
           <Route path={baseUrl + 'tinder/top'} exact component={TopTinder} />
         )}
-        {this.state.render && (
+        {this.state.render && user.validated && (
           <Route
             path={baseUrl + 'tinder/matchs'}
             exact
@@ -133,20 +134,20 @@ class Dashboard extends React.Component {
         )}
 
         {/* target */}
-        {this.state.render && (
+        {this.state.render && user.validated && (
           <Route
             path={baseUrl + 'target/profile'}
             exact
             component={TargetProfile}
           />
         )}
-        {this.state.render && (
+        {this.state.render && user.validated && (
           <Route path={baseUrl + 'target/view'} exact component={TargetView} />
         )}
-        {this.state.render && (
+        {this.state.render && user.validated && (
           <Route path={baseUrl + 'target/top'} exact component={TopTarget} />
         )}
-        {this.state.render && (
+        {this.state.render && user.validated && (
           <Route
             path={baseUrl + 'target/matchs'}
             exact
@@ -200,11 +201,22 @@ class Dashboard extends React.Component {
           user.permission &&
           user.permission.admin && (
             <Route
+              path={baseUrl + 'admin/settings'}
+              exact
+              component={AdminConfig}
+            />
+          )} 
+        {this.state.render &&
+          user &&
+          user.permission &&
+          user.permission.admin && (
+            <Route
               path={baseUrl + 'admin/define'}
               exact
               component={AdminRoles}
             />
           )}
+
 
         {this.state.render && <Redirect from='*' to='/dashboard/home' />}
         {!this.state.render && <DashboardLoading />}

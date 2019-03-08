@@ -38,6 +38,7 @@ class LeftBar extends React.Component {
   }
   render() {
     const { user } = this.props
+    console.log(user)
     return (
       <Sider breakpoint='lg' collapsedWidth='0' width={250}>
         <div className='logo' />
@@ -111,7 +112,7 @@ class LeftBar extends React.Component {
           )}
 
           {/* MENU TINDER */}
-          {user && (
+          {(user && user.validated) && (
             <SubMenu
               key='tinder'
               title={
@@ -155,7 +156,7 @@ class LeftBar extends React.Component {
           )}
 
           {/* MENU TARGET */}
-          {user && (
+          {user && user.validated && (
             <SubMenu
               key='target'
               title={
@@ -248,11 +249,11 @@ class LeftBar extends React.Component {
               {/* <Menu.Item key='admin/mail'>
                 <Link to={'/dashboard/admin/mail'}>Envoyer un mail</Link>
               </Menu.Item> */}
-              {/* <Menu.Item key='admin/settings'>
+              <Menu.Item key='admin/settings'>
                 <Link to={'/dashboard/admin/settings'}>
                   Panneau d'administration
                 </Link>
-              </Menu.Item> */}
+              </Menu.Item>
               <Menu.Item key='admin/define'>
                 <Link to={'/dashboard/admin/define'}>
                   Gestion des administrateurs

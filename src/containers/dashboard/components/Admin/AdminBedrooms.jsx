@@ -76,7 +76,7 @@ class AdminBedrooms extends React.Component {
     })
     return (
       <React.Fragment>
-        <AdminBar />
+        <AdminBar title={`Gestion des chambres`}/>
         <Divider />
         <h1>Chambres</h1>
         <Button type='primary' onClick={this.openModal}>

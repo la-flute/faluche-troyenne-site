@@ -71,7 +71,7 @@ class AdminTeams extends React.Component {
     })
     return (
       <React.Fragment>
-        <AdminBar />
+        <AdminBar title={`Gestion des équipes`}/>
         <Divider />
         <h1>Équipes</h1>
         <Button type='primary' onClick={this.openModal}>

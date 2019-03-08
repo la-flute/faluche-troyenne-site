@@ -25,7 +25,7 @@ class TopBar extends React.Component {
         <Menu
           theme="dark"
           mode="horizontal"
-          style={{ lineHeight: '64px', float: 'right' }}
+          style={{ lineHeight: '64px', float: 'right',  }}
         >
           <Menu.Item key="1" onClick={this.props.disconnect}>
             <div>
