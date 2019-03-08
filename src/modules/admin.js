@@ -102,7 +102,6 @@ export default (state = initialState, action) => {
                 ...state,
                 users
             }
-
         case SET_USER_TRESO:
             userId = action.payload
             index = users.findIndex(u => u.id === userId)

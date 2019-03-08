@@ -107,7 +107,7 @@ class AdminValid extends React.Component {
     })
     return (
       <React.Fragment>
-        <AdminBar />
+        <AdminBar title={`Validation des inscriptions`}/>
 
         <Card title='Affichage' style={{ marginTop: '20px' }}>
           <Checkbox
