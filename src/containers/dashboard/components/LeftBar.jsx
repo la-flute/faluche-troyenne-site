@@ -111,7 +111,7 @@ class LeftBar extends React.Component {
           )}
 
           {/* MENU TINDER */}
-          {user && (
+          {user && user.validate && (
             <SubMenu
               key='tinder'
               title={
@@ -155,7 +155,7 @@ class LeftBar extends React.Component {
           )}
 
           {/* MENU TARGET */}
-          {user && (
+          {user && user.validate && (
             <SubMenu
               key='target'
               title={
