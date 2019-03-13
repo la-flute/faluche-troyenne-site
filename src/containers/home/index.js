@@ -175,10 +175,10 @@ class Home extends React.Component {
             <Category id='remboursement'>remboursement</Category>
             <div className='remboursement'>
               <span>
-                envoie du rib dans un petit mail à{' '}
+                envoi du rib dans un petit mail à{' '}
                 <strong className='Deathstar'>laflute.troyes@gmail.com</strong>{' '}
-                avant le 22/04/2019 (deadline pour se faire rembourser, aucuns
-                remboursements acceptés après cette date)
+                avant le 22/04/2019 (deadline pour se faire rembourser, aucun
+                remboursement accepté après cette date)
               </span>
             </div>
           </div>
