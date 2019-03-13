@@ -13,6 +13,7 @@ import PaymentValidate from './components/User/PaymentValidate'
 import PaymentError from './components/User/PaymentError'
 import Bedrooms from './components/User/Bedrooms'
 import Teams from './components/User/Teams'
+import Caution from './components/User/Caution'
 
 import TinderProfile from './components/Tinder/Profile'
 import TinderView from './components/Tinder/View'
@@ -92,6 +93,10 @@ class Dashboard extends React.Component {
 
         {this.state.render && user && !user.order && (
           <Route path={baseUrl + 'user/pay'} exact component={Pay} />
+        )}
+
+        {this.state.render && user && (
+          <Route path={baseUrl + 'user/caution'} exact component={Caution} />
         )}
 
         {this.state.render && (
