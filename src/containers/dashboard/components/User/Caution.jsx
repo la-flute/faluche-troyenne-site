@@ -33,7 +33,7 @@ class Caution extends React.Component {
             </p>
             <p>Merci d'envoyer un chèque de 133€ à :</p>
             <p>
-              Capucine Jager-Ba
+              Capucine Jager-Bah
               <br />
               7 rue Colbert
               <br />

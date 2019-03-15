@@ -79,7 +79,7 @@ class Pay extends React.Component {
             </strong>
           </p>
           <p>
-            Capucine Jager-Ba
+            Capucine Jager-Bah
             <br />
             7 rue Colbert
             <br />
