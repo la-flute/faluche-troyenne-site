@@ -7,17 +7,21 @@ class Home extends React.Component {
     super()
     this.state = {
       messages: [
-        "Tu croyais vraiment qu'on allait ouvrir maintenant ?",
+        "tu croyais vraiment qu'on allait ouvrir maintenant ?",
         'tu es bien naïf',
+        "jamais deux sans troyes s'applique aussi au troll",
         'signé les devs',
         'cheh'
       ],
       index: 0
     }
-    this.interval = setInterval(() => this.setState({ index: this.state.index + 1 }), 2000)
+    this.interval = setInterval(
+      () => this.setState({ index: this.state.index + 1 }),
+      2000
+    )
   }
   render() {
-    if(this.state.index > 3) {
+    if (this.state.index > 3) {
       clearInterval(this.interval)
       window.location = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
     }
@@ -28,6 +32,5 @@ class Home extends React.Component {
     )
   }
 }
-
 
 export default Home
