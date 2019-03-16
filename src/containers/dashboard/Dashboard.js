@@ -41,6 +41,7 @@ import DashboardLayout from './layout'
 import { autoLogin } from '../../modules/login'
 import './dashboard.css'
 const Mouche = asyncComponent(() => import('./components/Easter/Mouche'))
+const Beton = asyncComponent(() => import('./components/Easter/Beton'))
 
 const baseUrl = process.env.REACT_APP_BASEURL + 'dashboard/'
 
@@ -66,6 +67,7 @@ class Dashboard extends React.Component {
     const component = (
       <React.Fragment>
       <Mouche/>
+      <Beton/>
       <Switch>
         {this.state.render && (
           <Route path={baseUrl + 'home'} exact component={DashboardHome} />

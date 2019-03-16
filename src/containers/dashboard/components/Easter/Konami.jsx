@@ -62,6 +62,7 @@ class Konami extends React.Component {
           if (typeof action === 'function') {
             action()
           }
+          setTimeout(() => this.setState({ done: false }), 2000)
         })
 
         if (timeout) {
