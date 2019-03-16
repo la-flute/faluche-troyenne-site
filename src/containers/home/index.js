@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 
 import './home.css'
 
@@ -46,9 +47,14 @@ class Home extends React.Component {
   }
 
   openLoginModal() {
-    this.setState({
-      loginModalOpened: true
-    })
+    console.log(process.env.REACT_APP_TROLL_ENABLED)
+    if (process.env.REACT_APP_TROLL_ENABLED === '1') {
+      this.props.goToTroll()
+    } else {
+      this.setState({
+        loginModalOpened: true
+      })
+    }
   }
 
   closeLoginModal() {
@@ -190,6 +196,7 @@ class Home extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
+  goToTroll: () => dispatch(push('/mectesstupidtucroyaisvraimentquonallaitouvrirmaintenant')),
   fetchCanLogin: () => dispatch(fetchCanLogin()),
   autoLogin: () => dispatch(autoLogin())
 })

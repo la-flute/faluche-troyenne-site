@@ -11,6 +11,9 @@ const Dashboard = asyncComponent(() => import('../dashboard/Dashboard'))
 const MentionsLegales = asyncComponent(() =>
   import('../mentions-legales/MentionsLegales')
 )
+const Troll = asyncComponent(() =>
+  import('../troll')
+)
 const Validate = asyncComponent(() => import('../validate'))
 const Reset = asyncComponent(() => import('../reset'))
 
@@ -23,6 +26,11 @@ const App = props => (
         path={process.env.REACT_APP_BASEURL + 'mentions-legales'}
         exact
         component={MentionsLegales}
+      />
+      <Route
+        path={process.env.REACT_APP_BASEURL + 'mectesstupidtucroyaisvraimentquonallaitouvrirmaintenant'}
+        exact
+        component={Troll}
       />
       <Route
         path={process.env.REACT_APP_BASEURL + 'dashboard'}

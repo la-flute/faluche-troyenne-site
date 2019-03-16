@@ -1,0 +1,9 @@
+.troll-container {
+  display: flex;
+  height:100%;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Starjedi';
+  text-align: center;
+  background: linear-gradient(#ff0000, #006eff);
+}
