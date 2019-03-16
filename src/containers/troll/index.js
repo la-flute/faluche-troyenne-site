@@ -14,7 +14,7 @@ class Home extends React.Component {
       ],
       index: 0
     }
-    this.interval = setInterval(() => this.setState({ index: this.state.index + 1 }), 4000)
+    this.interval = setInterval(() => this.setState({ index: this.state.index + 1 }), 2000)
   }
   render() {
     if(this.state.index > 3) {
