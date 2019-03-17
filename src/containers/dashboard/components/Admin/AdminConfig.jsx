@@ -11,17 +11,7 @@ class AdminConfig extends React.Component {
         super(props)
         this.props.getDisplays()
     }
-
-    enableDisplay = code => {
-        console.log(code)
-    }
-
-    disableDisplay = () => {
-        console.log('ne plus afficher')
-    }
-
     render() {
-        console.log(this.props)
         return (
             <React.Fragment>
                 <AdminBar title={`Panneau d'administration`} />
