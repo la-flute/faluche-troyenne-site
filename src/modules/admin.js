@@ -30,7 +30,7 @@ export const SET_USER_UNVALID = 'admin/SET_USER_UNVALID'
 const initialState = {
     users: [],
     respo: [],
-    chartData: { daily: [], cumul: [] }
+    chartData: { daily: [], cumul: [] },
 }
 
 export default (state = initialState, action) => {
@@ -42,22 +42,22 @@ export default (state = initialState, action) => {
         case SET_USERS:
             return {
                 ...state,
-                users: action.payload
+                users: action.payload,
             }
         case SET_USERS_ROLES:
             return {
                 ...state,
-                users: action.payload
+                users: action.payload,
             }
         case SET_COUNTS:
             return {
                 ...state,
-                counts: action.payload
+                counts: action.payload,
             }
         case SET_CHARTDATA:
             return {
                 ...state,
-                chartData: action.payload
+                chartData: action.payload,
             }
 
         case SET_USER_ADMIN:
@@ -65,13 +65,13 @@ export default (state = initialState, action) => {
             index = users.findIndex(u => u.id === userId)
             console.log('userId', 'index', users[index])
             if (!users[index].permission) {
-                users[index].permission = {admin: true}
+                users[index].permission = { admin: true }
             } else {
-              users[index].permission.admin = true
+                users[index].permission.admin = true
             }
             return {
                 ...state,
-                users
+                users,
             }
         case REMOVE_USER_ADMIN:
             userId = action.payload
@@ -79,20 +79,20 @@ export default (state = initialState, action) => {
             users[index].permission.admin = false
             return {
                 ...state,
-                users
+                users,
             }
 
         case SET_USER_ORGA:
             userId = action.payload
             index = users.findIndex(u => u.id === userId)
             if (!users[index].permission) {
-              users[index].permission = {bureau: true}
-          } else {
-            users[index].permission.bureau = true
-          }
+                users[index].permission = { bureau: true }
+            } else {
+                users[index].permission.bureau = true
+            }
             return {
                 ...state,
-                users
+                users,
             }
         case REMOVE_USER_ORGA:
             userId = action.payload
@@ -100,19 +100,19 @@ export default (state = initialState, action) => {
             users[index].permission.bureau = false
             return {
                 ...state,
-                users
+                users,
             }
         case SET_USER_TRESO:
             userId = action.payload
             index = users.findIndex(u => u.id === userId)
             if (!users[index].permission) {
-              users[index].permission = {treso: true}
-          } else {
-            users[index].permission.treso = true
-          }
+                users[index].permission = { treso: true }
+            } else {
+                users[index].permission.treso = true
+            }
             return {
                 ...state,
-                users
+                users,
             }
         case REMOVE_USER_TRESO:
             userId = action.payload
@@ -120,20 +120,20 @@ export default (state = initialState, action) => {
             users[index].permission.treso = false
             return {
                 ...state,
-                users
+                users,
             }
 
         case SET_USER_WRITE:
             userId = action.payload
             index = users.findIndex(u => u.id === userId)
             if (!users[index].permission) {
-              users[index].permission = {write: true}
-          } else {
-            users[index].permission.write = true
-          }
+                users[index].permission = { write: true }
+            } else {
+                users[index].permission.write = true
+            }
             return {
                 ...state,
-                users
+                users,
             }
         case REMOVE_USER_WRITE:
             userId = action.payload
@@ -141,7 +141,7 @@ export default (state = initialState, action) => {
             users[index].permission.write = false
             return {
                 ...state,
-                users
+                users,
             }
 
         case SET_USER_PAID:
@@ -150,7 +150,7 @@ export default (state = initialState, action) => {
             users[index].paid = true
             return {
                 ...state,
-                users
+                users,
             }
         case SET_USER_UNPAID:
             userId = action.payload
@@ -158,7 +158,7 @@ export default (state = initialState, action) => {
             users[index].paid = false
             return {
                 ...state,
-                users
+                users,
             }
         case SET_USER_CAUTION:
             userId = action.payload
@@ -166,7 +166,7 @@ export default (state = initialState, action) => {
             users[index].caution = true
             return {
                 ...state,
-                users
+                users,
             }
         case SET_USER_NO_CAUTION:
             userId = action.payload
@@ -174,14 +174,14 @@ export default (state = initialState, action) => {
             users[index].caution = false
             return {
                 ...state,
-                users
+                users,
             }
         case SET_USER_RESPO:
             index = users.findIndex(u => u.id === action.payload.id)
             users[index].permission.respo = action.payload.respo.toString()
             return {
                 ...state,
-                users
+                users,
             }
         case SET_USER_PERMISSION:
             index = users.findIndex(u => u.id === action.payload.id)
@@ -190,7 +190,7 @@ export default (state = initialState, action) => {
             ].permission.permission = action.payload.permission.toString()
             return {
                 ...state,
-                users
+                users,
             }
         case SET_USER_VALID:
             userId = action.payload
@@ -198,7 +198,7 @@ export default (state = initialState, action) => {
             users[index].validated = true
             return {
                 ...state,
-                users
+                users,
             }
         case SET_USER_UNVALID:
             userId = action.payload
@@ -206,7 +206,7 @@ export default (state = initialState, action) => {
             users[index].validated = false
             return {
                 ...state,
-                users
+                users,
             }
         default:
             return state
@@ -223,7 +223,7 @@ export const fetchUsers = () => {
 
         try {
             const res = await axios.get('admin/list', {
-                headers: { 'X-Token': authToken }
+                headers: { 'X-Token': authToken },
             })
 
             dispatch({ type: SET_USERS_ROLES, payload: res.data })
@@ -233,7 +233,7 @@ export const fetchUsers = () => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -248,7 +248,7 @@ export const fetchUsersRoles = () => {
 
         try {
             const res = await axios.get('admin/listRoles', {
-                headers: { 'X-Token': authToken }
+                headers: { 'X-Token': authToken },
             })
 
             dispatch({ type: SET_USERS_ROLES, payload: res.data })
@@ -258,7 +258,7 @@ export const fetchUsersRoles = () => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -283,7 +283,7 @@ export const validatePayment = (userId, alcool, bedroom) => {
                 dispatch(
                     notifActions.notifSend({
                         message: 'Paiement validé',
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -293,7 +293,7 @@ export const validatePayment = (userId, alcool, bedroom) => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -309,7 +309,7 @@ export const unvalidatePayment = userId => {
         }
         try {
             const res = await axios.delete(`admin/forcepay/${userId}`, {
-                headers: { 'X-Token': authToken }
+                headers: { 'X-Token': authToken },
             })
             if (res.status === 200) {
                 dispatch({ type: SET_USER_UNPAID, payload: userId })
@@ -317,7 +317,7 @@ export const unvalidatePayment = userId => {
                     notifActions.notifSend({
                         message: 'Paiement supprimé',
                         kind: 'warning',
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -327,7 +327,7 @@ export const unvalidatePayment = userId => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -352,7 +352,7 @@ export const validateCaution = userId => {
                 dispatch(
                     notifActions.notifSend({
                         message: 'Caution validé',
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -362,7 +362,7 @@ export const validateCaution = userId => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -378,7 +378,7 @@ export const unvalidateCaution = userId => {
         }
         try {
             const res = await axios.delete(`admin/caution/${userId}`, {
-                headers: { 'X-Token': authToken }
+                headers: { 'X-Token': authToken },
             })
             if (res.status === 200) {
                 dispatch({ type: SET_USER_NO_CAUTION, payload: userId })
@@ -386,7 +386,7 @@ export const unvalidateCaution = userId => {
                     notifActions.notifSend({
                         message: 'Caution supprimé',
                         kind: 'warning',
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -396,7 +396,7 @@ export const unvalidateCaution = userId => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -421,7 +421,7 @@ export const validateUser = userId => {
                 dispatch(
                     notifActions.notifSend({
                         message: 'Participant validé',
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -431,7 +431,7 @@ export const validateUser = userId => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -456,7 +456,7 @@ export const unvalidateUser = userId => {
                     notifActions.notifSend({
                         message: 'Participant annulé',
                         kind: 'warning',
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -466,7 +466,7 @@ export const unvalidateUser = userId => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -492,7 +492,7 @@ export const setAdmin = id => {
                 dispatch(
                     notifActions.notifSend({
                         message: "L'utilisateur est maintenant administrateur",
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -502,7 +502,7 @@ export const setAdmin = id => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -529,7 +529,7 @@ export const removeAdmin = id => {
                     notifActions.notifSend({
                         message:
                             "L'utilisateur n'est maintenant plus administrateur",
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -539,7 +539,7 @@ export const removeAdmin = id => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -565,7 +565,7 @@ export const setOrga = id => {
                 dispatch(
                     notifActions.notifSend({
                         message: "L'utilisateur est maintenant organisateur",
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -575,7 +575,7 @@ export const setOrga = id => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -602,7 +602,7 @@ export const removeOrga = id => {
                     notifActions.notifSend({
                         message:
                             "L'utilisateur n'est maintenant plus organisateur",
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -612,7 +612,7 @@ export const removeOrga = id => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -638,7 +638,7 @@ export const setTreso = id => {
                 dispatch(
                     notifActions.notifSend({
                         message: "L'utilisateur est maintenant trésorier",
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -648,7 +648,7 @@ export const setTreso = id => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -675,7 +675,7 @@ export const removeTreso = id => {
                     notifActions.notifSend({
                         message:
                             "L'utilisateur n'est maintenant plus trésorier",
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -685,7 +685,7 @@ export const removeTreso = id => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -711,7 +711,7 @@ export const setRedac = id => {
                 dispatch(
                     notifActions.notifSend({
                         message: "L'utilisateur est maintenant rédacteur",
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -721,7 +721,7 @@ export const setRedac = id => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }
@@ -748,7 +748,7 @@ export const removeRedac = id => {
                     notifActions.notifSend({
                         message:
                             "L'utilisateur n'est maintenant plus rédacteur",
-                        dismissAfter: 2000
+                        dismissAfter: 2000,
                     })
                 )
             }
@@ -758,7 +758,7 @@ export const removeRedac = id => {
                 notifActions.notifSend({
                     message: errorToString(err.response.data.error),
                     kind: 'danger',
-                    dismissAfter: 2000
+                    dismissAfter: 2000,
                 })
             )
         }

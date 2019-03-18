@@ -14,21 +14,23 @@ import teams from './teams'
 import prices from './prices'
 import tinder from './tinder'
 import target from './target'
+import displays from './displays'
 
 export default combineReducers({
-  routing: routerReducer,
-  notifs: notificationsReducer,
-  canLogin,
-  login,
-  register,
-  user,
-  payment,
-  forgot,
-  admin,
-  validate,
-  bedrooms,
-  teams,
-  prices,
-  tinder,
-  target
+    routing: routerReducer,
+    notifs: notificationsReducer,
+    canLogin,
+    login,
+    register,
+    user,
+    payment,
+    forgot,
+    admin,
+    validate,
+    bedrooms,
+    teams,
+    prices,
+    tinder,
+    target,
+    displays,
 })
