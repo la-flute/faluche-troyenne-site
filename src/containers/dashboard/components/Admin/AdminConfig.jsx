@@ -1,26 +1,56 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { getDisplays, enableDisplay } from '../../../../modules/displays'
 
 import AdminBar from './AdminBar'
+import { List } from 'antd'
+import ValidDisplayRender from './components/ValidDisplayRender'
 
 class AdminConfig extends React.Component {
+    constructor(props) {
+        super(props)
+        this.props.getDisplays()
+    }
     render() {
         return (
             <React.Fragment>
                 <AdminBar title={`Panneau d'administration`} />
+                <List
+                    itemLayout='horizontal'
+                    dataSource={this.props.displays}
+                    renderItem={item => (
+                        <List.Item
+                            actions={[
+                                <ValidDisplayRender
+                                    code={item.code}
+                                    render={item.render}
+                                />,
+                            ]}
+                        >
+                            <List.Item.Meta
+                                title={`${item.code}`}
+                                description={`La seule et unique ${
+                                    item.name
+                                } créée par Fleuh et Arnaud pour amuser les trous du cul`}
+                            />
+                        </List.Item>
+                    )}
+                />
             </React.Fragment>
         )
     }
 }
 
-// const mapStateToProps = state => ({
-//     display: state.admin.display
-// })
+const mapStateToProps = state => ({
+    displays: state.displays.displays,
+})
 
-// const mapDispatchToProps = dispatch => ({
-//     fetchDisplays: () => dispatch(fetchDisplays())
-// })
+const mapDispatchToProps = dispatch => ({
+    getDisplays: () => dispatch(getDisplays()),
+    enableDisplay: code => dispatch(enableDisplay(code)),
+})
 
-export default connect()(AdminConfig)
-// mapStateToProps,
-// mapDispatchToProps
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AdminConfig)

@@ -38,6 +38,10 @@ class RegisterForm extends React.Component {
       <div>
         <Spin spinning={this.state.loading}>
           <Form onSubmit={this.submit}>
+            <p>
+              Attention, mettez votre vrai nom/prénom, cela est obligatoire pour
+              le paiement
+            </p>
             <FormItem label='Nom'>
               {getFieldDecorator('lastName', {
                 rules: [

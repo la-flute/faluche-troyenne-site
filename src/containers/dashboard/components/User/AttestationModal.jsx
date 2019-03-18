@@ -44,7 +44,7 @@ const AttestationModal = Form.create({ name: 'attestation_modal' })(
                   {
                     required: true,
                     message:
-                      'Il faut rentrer le nombre d\'occurence de "Troyes" dans le text !'
+                      'Il faut rentrer le nombre d\'occurence de "Troyes" dans le texte !'
                   }
                 ]
               })(<InputNumber min={0} />)}

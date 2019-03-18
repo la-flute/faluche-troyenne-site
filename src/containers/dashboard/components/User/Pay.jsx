@@ -68,7 +68,7 @@ class Pay extends React.Component {
     return (
       <React.Fragment>
         <form className='a-dashboard-page a-dashboard-payment'>
-          <h1>Payment</h1>
+          <h1>Paiement</h1>
           <p>
             C'est le moment de racker ! Nous vous offrons la possibilité de
             payer en ligne via la plateforme etupay. Le paiement est sécurisé.
@@ -79,7 +79,7 @@ class Pay extends React.Component {
             </strong>
           </p>
           <p>
-            Capucine Jager-Ba
+            Capucine Jager-Bah
             <br />
             7 rue Colbert
             <br />
