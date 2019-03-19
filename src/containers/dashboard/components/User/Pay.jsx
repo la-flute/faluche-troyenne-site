@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Divider, Spin, Button } from 'antd'
+import { Divider, Spin, Button, Checkbox } from 'antd'
+import { actions as notifActions } from 'redux-notifications'
 import { Link } from 'react-router-dom'
 import { fetchPrice } from '../../../../modules/prices'
 import { sendBasket } from '../../../../modules/payment'
@@ -11,7 +12,8 @@ class Pay extends React.Component {
     super(props)
     this.state = {
       alcool: true,
-      bedroom: false
+      bedroom: false,
+      accepted: false
     }
     this.props.fetchPrice()
   }
@@ -26,6 +28,10 @@ class Pay extends React.Component {
     this.setState({ bedroom: !this.state.bedroom })
   }
   payment = () => {
+    if (!this.state.accepted) {
+      this.props.sendError()
+      return
+    }
     const basket = {
       alcool: this.state.alcool,
       bedroom: this.state.bedroom
@@ -52,7 +58,9 @@ class Pay extends React.Component {
           <h1>Attestation non validée !</h1>
           <p>
             Vous devez valider{' '}
-            <Link to={{ pathname: `/dashboard/user/attestation` }}>l'attestation sur l'honneur</Link>{' '}
+            <Link to={{ pathname: `/dashboard/user/attestation` }}>
+              l'attestation sur l'honneur
+            </Link>{' '}
             pour pouvoir accéder au paiement.
           </p>
         </React.Fragment>
@@ -118,6 +126,15 @@ class Pay extends React.Component {
             <span>Place en dur dans une chambre, pour les plus fragiles</span>
           </ListItem>
           <Divider />
+          <Checkbox
+            onChange={e => this.setState({ accepted: e.target.checked })}
+          >
+            Accepter les
+          </Checkbox>
+          <Link to={{ pathname: `/dashboard/conditions` }}>
+            conditions générales de vente
+          </Link>
+          <Divider />
 
           <div style={{ display: 'flex' }}>
             <Button
@@ -141,7 +158,15 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchPrice: () => dispatch(fetchPrice()),
-  sendBasket: basket => dispatch(sendBasket(basket))
+  sendBasket: basket => dispatch(sendBasket(basket)),
+  sendError: () =>
+    dispatch(
+      notifActions.notifSend({
+        message: 'Vous devez accepter les conditions générales de vente !',
+        kind: 'danger',
+        dismissAfter: 2000
+      })
+    )
 })
 
 export default connect(
