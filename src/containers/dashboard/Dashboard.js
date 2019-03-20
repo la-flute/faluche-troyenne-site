@@ -45,12 +45,11 @@ const Beton = asyncComponent(() => import('./components/Easter/Beton'))
 const baseUrl = process.env.REACT_APP_BASEURL + 'dashboard/'
 
 class Dashboard extends React.Component {
-    constructor() {
-        super()
+  constructor() {
+    super()
 
-        this.state = {
-            render: false,
-        }
+    this.state = {
+      render: false
     }
   }
 
@@ -265,15 +264,15 @@ class Dashboard extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    location: state.routing.location.pathname,
-    user: state.user.user,
+  location: state.routing.location.pathname,
+  user: state.user.user
 })
 
 const mapDispatchToProps = dispatch => ({
-    autoLogin: () => dispatch(autoLogin()),
+  autoLogin: () => dispatch(autoLogin())
 })
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Dashboard)
