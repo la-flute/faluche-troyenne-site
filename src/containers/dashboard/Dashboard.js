@@ -228,8 +228,7 @@ class Dashboard extends React.Component {
                     {this.state.render &&
                         user &&
                         user.permission &&
-                        user.permission.admin &&
-                        user.permission.treso && (
+                        (user.permission.admin || user.permission.treso) && (
                             <Route
                                 path={baseUrl + 'admin/validate'}
                                 exact
@@ -239,8 +238,9 @@ class Dashboard extends React.Component {
                     {this.state.render &&
                         user &&
                         user.permission &&
-                        user.permission.admin &&
-                        user.permission.bureau && (
+                        (user.permission.admin ||
+                            user.permission.bureau ||
+                            user.permission.treso) && (
                             <Route
                                 path={baseUrl + 'admin/bedrooms'}
                                 exact
@@ -250,8 +250,9 @@ class Dashboard extends React.Component {
                     {this.state.render &&
                         user &&
                         user.permission &&
-                        user.permission.admin &&
-                        user.permission.bureau && (
+                        (user.permission.admin ||
+                            user.permission.bureau ||
+                            user.permission.treso) && (
                             <Route
                                 path={baseUrl + 'admin/teams'}
                                 exact
@@ -261,8 +262,9 @@ class Dashboard extends React.Component {
                     {this.state.render &&
                         user &&
                         user.permission &&
-                        user.permission.admin &&
-                        user.permission.bureau && (
+                        (user.permission.admin ||
+                            user.permission.bureau ||
+                            user.permission.treso) && (
                             <Route
                                 path={baseUrl + 'admin/prices'}
                                 exact
