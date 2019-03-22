@@ -47,7 +47,6 @@ class Home extends React.Component {
   }
 
   openLoginModal() {
-    console.log(process.env.REACT_APP_TROLL_ENABLED)
     if (process.env.REACT_APP_TROLL_ENABLED === '1') {
       this.props.goToTroll()
     } else {

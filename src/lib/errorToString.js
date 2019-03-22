@@ -1,5 +1,5 @@
 export default error => {
-  if(!error) return 'Une erreur est survenue'
+  if (!error) return 'Une erreur est survenue'
   switch (error) {
     case 'DISABLED_LOGIN':
       return 'Inscription désactivée'
@@ -22,11 +22,19 @@ export default error => {
     case 'NOT_PAID':
       return 'Vous devez avoir payé votre place.'
     case 'NO_MORE_TURBOLIKES':
-      return 'Vous n\'avez plus de turbolikes'
+      return "Vous n'avez plus de turbolikes"
+    case 'CONGRES_FULL':
+      return "Il n'y a plus de places disponibles..."
+    case 'NO_BEDROOM_LEFT':
+      return "Il n'y a plus de places en chambre, va falloir prendre une tente !"
     case 'UNKNOWN':
       return 'Une erreur est survenue'
     case '':
       return 'Une erreur est survenue'
+    case 'NOT_ADMIN':
+      return 'Vous devez avoir des droits administrateurs pour accéder à cette page'
+    case 'NOT_VALIDATED':
+      return "Votre compte doit être validé par l'orga afin de pouvoir effectuer cette action"
     default:
       return error
   }
