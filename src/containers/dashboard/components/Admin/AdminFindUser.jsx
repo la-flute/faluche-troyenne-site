@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Spin } from 'antd'
-import { fetchUsers } from '../../../../modules/user'
+import { fetchUsers } from '../../../../modules/admin'
 
-import { Table, Input, Icon } from 'antd'
+import { Spin, Input, Icon, Table } from 'antd'
+import AdminBar from './AdminBar'
 
-//DEFINE COLUMS
+// DEFINE COLUMS
 const columns = [
     {
         title: 'Nom',
@@ -63,7 +63,7 @@ const columns = [
     },
 ]
 
-class ListUsers extends React.Component {
+class AdminFindUser extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -90,9 +90,10 @@ class ListUsers extends React.Component {
                     .indexOf(this.state.search.toLowerCase()) !== -1
             )
         })
+
         return (
-            <div style={{ height: '100%' }}>
-                <h1>Liste des inscrits</h1>
+            <React.Fragment>
+                <AdminBar title={`Rechercher un utilisateur`} />
                 <Input
                     addonBefore={<Icon type='search' />}
                     onChange={this.search}
@@ -105,13 +106,13 @@ class ListUsers extends React.Component {
                     locale={{ emptyText: 'Aucun utilisateur' }}
                     style={{ marginTop: '20px' }}
                 />
-            </div>
+            </React.Fragment>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    users: state.user.users,
+    users: state.admin.users,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -121,4 +122,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ListUsers)
+)(AdminFindUser)

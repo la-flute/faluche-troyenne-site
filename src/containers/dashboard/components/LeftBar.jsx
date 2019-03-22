@@ -268,7 +268,11 @@ class LeftBar extends React.Component {
                                         </Link>
                                     </Menu.Item>
                                 ) : null}
-
+                                <Menu.Item key='admin/find'>
+                                    <Link to={'/dashboard/admin/find'}>
+                                        Rechercher un utilisateur
+                                    </Link>
+                                </Menu.Item>
                                 <Menu.Item key='admin/bedrooms'>
                                     <Link to={'/dashboard/admin/bedrooms'}>
                                         Gestion des chambres
@@ -284,11 +288,7 @@ class LeftBar extends React.Component {
                                         Gestion des paliers
                                     </Link>
                                 </Menu.Item>
-                                {/* <Menu.Item key='admin/finduser'>
-                <Link to={'/dashboard/admin/temp2'}>
-                  Rechercher un utilisateur
-                </Link>
-              </Menu.Item> */}
+
                                 {/* <Menu.Item key='admin/mail'>
                 <Link to={'/dashboard/admin/mail'}>Envoyer un mail</Link>
               </Menu.Item> */}

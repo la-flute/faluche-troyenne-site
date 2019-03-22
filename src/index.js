@@ -15,14 +15,14 @@ const target = document.querySelector('#root')
 const store = configureStore()
 
 const rerender = () =>
-  render(
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <Route component={App} />
-      </ConnectedRouter>
-    </Provider>,
-    target
-  )
+    render(
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
+                <Route component={App} />
+            </ConnectedRouter>
+        </Provider>,
+        target
+    )
 
 rerender()
 registerServiceWorker()
@@ -30,5 +30,5 @@ registerServiceWorker()
 window.store = store
 
 if (module.hot) {
-  module.hot.accept('./containers/app', rerender)
+    module.hot.accept('./containers/app', rerender)
 }

@@ -39,6 +39,7 @@ import DashboardLayout from './layout'
 
 import { autoLogin } from '../../modules/login'
 import './dashboard.css'
+import AdminFindUser from './components/Admin/AdminFindUser'
 const Mouche = asyncComponent(() => import('./components/Easter/Mouche'))
 const Beton = asyncComponent(() => import('./components/Easter/Beton'))
 
@@ -233,6 +234,18 @@ class Dashboard extends React.Component {
                                 path={baseUrl + 'admin/validate'}
                                 exact
                                 component={AdminValid}
+                            />
+                        )}
+                    {this.state.render &&
+                        user &&
+                        user.permission &&
+                        (user.permission.admin ||
+                            user.permission.bureau ||
+                            user.permission.treso) && (
+                            <Route
+                                path={baseUrl + 'admin/find'}
+                                exact
+                                component={AdminFindUser}
                             />
                         )}
                     {this.state.render &&
