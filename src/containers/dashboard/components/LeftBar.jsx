@@ -245,56 +245,68 @@ class LeftBar extends React.Component {
           </SubMenu>} */}
 
                     {/* MENU ADMIN */}
-                    {user && user.permission && user.permission.admin && (
-                        <SubMenu
-                            key='admin'
-                            title={
-                                <span>
-                                    <Icon type='setting' />
-                                    <span>Admin</span>
-                                </span>
-                            }
-                        >
-                            <Menu.Item key='admin/validate'>
-                                <Link to={'/dashboard/admin/validate'}>
-                                    Validation des inscriptions
-                                </Link>
-                            </Menu.Item>
-                            <Menu.Item key='admin/bedrooms'>
-                                <Link to={'/dashboard/admin/bedrooms'}>
-                                    Gestion des chambres
-                                </Link>
-                            </Menu.Item>
-                            <Menu.Item key='admin/teams'>
-                                <Link to={'/dashboard/admin/teams'}>
-                                    Gestion des équipes
-                                </Link>
-                            </Menu.Item>
-                            <Menu.Item key='admin/prices'>
-                                <Link to={'/dashboard/admin/prices'}>
-                                    Gestion des paliers
-                                </Link>
-                            </Menu.Item>
-                            {/* <Menu.Item key='admin/finduser'>
-                <Link to={'/dashboard/admin/temp2'}>
-                  Rechercher un utilisateur
-                </Link>
-              </Menu.Item> */}
-                            {/* <Menu.Item key='admin/mail'>
+                    {user &&
+                        user.permission &&
+                        (user.permission.admin ||
+                            user.permission.treso ||
+                            user.permission.bureau) && (
+                            <SubMenu
+                                key='admin'
+                                title={
+                                    <span>
+                                        <Icon type='setting' />
+                                        <span>Admin</span>
+                                    </span>
+                                }
+                            >
+                                {user.permission.admin ||
+                                user.permission.treso ? (
+                                    <Menu.Item key='admin/validate'>
+                                        <Link to={'/dashboard/admin/validate'}>
+                                            Validation des inscriptions
+                                        </Link>
+                                    </Menu.Item>
+                                ) : null}
+                                <Menu.Item key='admin/find'>
+                                    <Link to={'/dashboard/admin/find'}>
+                                        Rechercher un utilisateur
+                                    </Link>
+                                </Menu.Item>
+                                <Menu.Item key='admin/bedrooms'>
+                                    <Link to={'/dashboard/admin/bedrooms'}>
+                                        Gestion des chambres
+                                    </Link>
+                                </Menu.Item>
+                                <Menu.Item key='admin/teams'>
+                                    <Link to={'/dashboard/admin/teams'}>
+                                        Gestion des équipes
+                                    </Link>
+                                </Menu.Item>
+                                <Menu.Item key='admin/prices'>
+                                    <Link to={'/dashboard/admin/prices'}>
+                                        Gestion des paliers
+                                    </Link>
+                                </Menu.Item>
+
+                                {/* <Menu.Item key='admin/mail'>
                 <Link to={'/dashboard/admin/mail'}>Envoyer un mail</Link>
               </Menu.Item> */}
-                            <Menu.Item key='admin/settings'>
-                                <Link to={'/dashboard/admin/settings'}>
-                                    Panneau d'administration
-                                </Link>
-                            </Menu.Item>
-                            <Menu.Item key='admin/define'>
-                                <Link to={'/dashboard/admin/define'}>
-                                    Gestion des administrateurs
-                                </Link>
-                            </Menu.Item>
-                        </SubMenu>
-                    )}
+                                {user.permission.admin && (
+                                    <Menu.Item key='admin/settings'>
+                                        <Link to={'/dashboard/admin/settings'}>
+                                            Panneau d'administration
+                                        </Link>
+                                    </Menu.Item>
+                                )}
+                                {user.permission.admin && (
+                                    <Menu.Item key='admin/define'>
+                                        <Link to={'/dashboard/admin/define'}>
+                                            Gestion des administrateurs
+                                        </Link>
+                                    </Menu.Item>
+                                )}
+                            </SubMenu>
+                        )}
                 </Menu>
             </Sider>
         )
