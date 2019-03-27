@@ -38,7 +38,7 @@ class LeftBar extends React.Component {
         })
     }
     render() {
-        const { user, render } = this.props
+        const { user } = this.props
         return (
             <Sider breakpoint='lg' collapsedWidth='0' width={250}>
                 <div className='logo' />
@@ -125,10 +125,7 @@ class LeftBar extends React.Component {
 
                     {/* MENU TINDER */}
                     {user &&
-                        user.validated &&
-                        render &&
-                        render[0] &&
-                        render[0].render && (
+                        user.validated && (
                             <SubMenu
                                 key='tinder'
                                 title={
@@ -180,7 +177,7 @@ class LeftBar extends React.Component {
                         )}
 
                     {/* MENU TARGET */}
-                    {user && user.validated && render[1] && render[1].render && (
+                    {user && user.validated && (
                         <SubMenu
                             key='target'
                             title={
