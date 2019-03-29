@@ -101,6 +101,7 @@ class ListUsers extends React.Component {
                 <Table
                     columns={columns}
                     dataSource={users}
+                    pagination={false}
                     rowKey='id'
                     locale={{ emptyText: 'Aucun utilisateur' }}
                     style={{ marginTop: '20px' }}
