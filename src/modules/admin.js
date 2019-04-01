@@ -31,6 +31,7 @@ const initialState = {
     users: [],
     respo: [],
     chartData: { daily: [], cumul: [] },
+    counts: null
 }
 
 export default (state = initialState, action) => {
@@ -238,6 +239,33 @@ export const fetchUsers = () => {
             )
         }
     }
+}
+
+export const fetchCounts = () => {
+  return async (dispatch, getState) => {
+      const authToken = getState().login.token
+
+      if (!authToken || authToken.length === 0) {
+          return
+      }
+
+      try {
+          const res = await axios.get('admin/counts', {
+              headers: { 'X-Token': authToken },
+          })
+
+          dispatch({ type: SET_COUNTS, payload: res.data })
+      } catch (err) {
+          console.log(err)
+          dispatch(
+              notifActions.notifSend({
+                  message: errorToString(err.response.data.error),
+                  kind: 'danger',
+                  dismissAfter: 2000,
+              })
+          )
+      }
+  }
 }
 
 export const fetchUsersRoles = () => {
