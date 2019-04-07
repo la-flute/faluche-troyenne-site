@@ -23,7 +23,7 @@ class View extends React.Component {
             <img
               alt='example'
               src={
-                loaded && targets[0].image
+                loaded
                   ? `${process.env.REACT_APP_API}/tinders/${
                       targets[0].id
                     }/image`
