@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Spin } from 'antd'
+import { Spin } from 'antd'
 import { fetchUser } from '../../../../modules/user'
 import { connect } from 'react-redux'
 
