@@ -52,7 +52,7 @@ class LeftBar extends React.Component {
                 >
                     <Menu.Item key='home'>
                         <Link to={'/dashboard/home'}>
-                            <Icon type='user' />
+                            <Icon type='home' />
                             <span className='nav-text'>Accueil</span>
                         </Link>
                     </Menu.Item>

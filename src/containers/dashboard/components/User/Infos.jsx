@@ -62,6 +62,8 @@ class Infos extends React.Component {
         return 'Omnivore'
       case 'attestation':
         return "Attestation sur l'honneur"
+      case 'validated':
+        return 'Validé ?'
       default:
         return word
     }
