@@ -1,4 +1,4 @@
-export const handleError = (error) => {
+export const handleAPIerror = (error) => {
     console.log(error)
             dispatch(
                 notifActions.notifSend({
