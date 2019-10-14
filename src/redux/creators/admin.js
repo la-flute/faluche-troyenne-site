@@ -1,21 +1,39 @@
 import axios from '../lib/axios'
 import errorToString from '../lib/errorToString'
 import { actions as notifActions } from 'redux-notifications'
-import { getAdmins, getCounts } from '../apiCalls/admin'
-import { handleError } from '../../lib/utils'
+import {
+    getAdmins,
+    getCounts,
+    getUsersRoles,
+    acceptPayment,
+    refusePayment,
+    acceptCaution,
+    refuseCaution,
+    refuseUser,
+    grantAdmin,
+    flushAdmin,
+    grantOrga,
+    flushOrga,
+    grantTreas,
+    flushTreas,
+    grantRedac,
+    flushRedac,
+} from '../apiCalls/admin'
+import { handleAPIerror, notification } from '../../lib/utils'
 
 export const fetchAdmins = () => {
     return async (dispatch, getState) => {
         const authToken = getState().login.token
+
         if (!authToken || authToken.length === 0) {
             return
         }
 
         try {
             const res = await getAdmins(authToken)
-            dispatch({ type: SET_USERS_ROLES, users: res.data })
+            dispatch({ type: SET_USERS_ROLES, admins: res.data })
         } catch (err) {
-            handleError(err)
+            handleAPIerror(dispatch, err)
         }
     }
 }
@@ -30,9 +48,9 @@ export const fetchCounts = () => {
 
         try {
             const res = await getCounts(authToken)
-            dispatch({ type: SET_COUNTS, payload: res.data })
+            dispatch({ type: SET_COUNTS, counts: res.data })
         } catch (err) {
-            handleError(err)
+            handleAPIerror(dispatch, err)
         }
     }
 }
@@ -41,16 +59,15 @@ export const fetchUsersRoles = () => {
     return async (dispatch, getState) => {
         const authToken = getState().login.token
 
-        if (!authToken || authToken.length === 0) return
+        if (!authToken || authToken.length === 0) {
+            return
+        }
 
         try {
-            const res = await axios.get('admin/listRoles', {
-                headers: { 'X-Token': authToken },
-            })
-
-            dispatch({ type: SET_USERS_ROLES, payload: res.data })
+            const res = await getUsersRoles(authToken)
+            dispatch({ type: SET_USERS_ROLES, usersRoles: res.data })
         } catch (err) {
-            handleAPIerror(err)
+            handleAPIerror(dispatch, err)
         }
     }
 }
@@ -62,27 +79,13 @@ export const validatePayment = (userId, alcool, bedroom) => {
         if (!authToken || authToken.length === 0) {
             return
         }
+
         try {
-            const res = await axios.post(
-                `admin/forcepay`,
-                { userId, alcool, bedroom },
-                { headers: { 'X-Token': authToken } }
-            )
-            if (res.status === 200) {
-                dispatch({ type: SET_USER_PAID, payload: userId })
-                dispatch(
-                    notification('Paiement validé')
-                )
-            }
+            const res = await acceptPayment(authToken, userId, alcool, bedroom)
+            dispatch({ type: SET_USER_PAID, userId })
+            dispatch(notification('Paiement validé'))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
@@ -94,29 +97,13 @@ export const unvalidatePayment = (userId) => {
         if (!authToken || authToken.length === 0) {
             return
         }
+
         try {
-            const res = await axios.delete(`admin/forcepay/${userId}`, {
-                headers: { 'X-Token': authToken },
-            })
-            if (res.status === 200) {
-                dispatch({ type: SET_USER_UNPAID, payload: userId })
-                dispatch(
-                    notifActions.notifSend({
-                        message: 'Paiement supprimé',
-                        kind: 'warning',
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+            await refusePayment(authToken, userId)
+            dispatch({ type: SET_USER_UNPAID, userId })
+            dispatch(notification('Paiement supprimé', 'warning'))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
@@ -128,26 +115,13 @@ export const validateCaution = (userId) => {
         if (!authToken || authToken.length === 0) {
             return
         }
+
         try {
-            const res = await axios.post(`admin/caution`, { userId }, { headers: { 'X-Token': authToken } })
-            if (res.status === 200) {
-                dispatch({ type: SET_USER_CAUTION, payload: userId })
-                dispatch(
-                    notifActions.notifSend({
-                        message: 'Caution validé',
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+            await acceptCaution(authToken, userId)
+            dispatch({ type: SET_USER_CAUTION, userId })
+            dispatch(notification('Caution validée'))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
@@ -159,29 +133,13 @@ export const unvalidateCaution = (userId) => {
         if (!authToken || authToken.length === 0) {
             return
         }
+
         try {
-            const res = await axios.delete(`admin/caution/${userId}`, {
-                headers: { 'X-Token': authToken },
-            })
-            if (res.status === 200) {
-                dispatch({ type: SET_USER_NO_CAUTION, payload: userId })
-                dispatch(
-                    notifActions.notifSend({
-                        message: 'Caution supprimé',
-                        kind: 'warning',
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+            await refuseCaution(authToken, userId)
+            dispatch({ type: SET_USER_NO_CAUTION, userId })
+            dispatch(notification('Caution supprimée', 'warning'))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
@@ -193,29 +151,17 @@ export const validateUser = (userId) => {
         if (!authToken || authToken.length === 0) {
             return
         }
+
         try {
-            const res = await axios.post(`admin/validate`, { userId }, { headers: { 'X-Token': authToken } })
-            if (res.status === 200) {
-                dispatch({ type: SET_USER_VALID, payload: userId })
-                dispatch(
-                    notifActions.notifSend({
-                        message: 'Participant validé',
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+            await axios.post(`admin/validate`, { userId }, { headers: { 'X-Token': authToken } })
+            dispatch({ type: SET_USER_VALID, userId })
+            dispatch(notification('Participant validé'))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
+
 export const unvalidateUser = (userId) => {
     return async (dispatch, getState) => {
         const authToken = getState().login.token
@@ -224,258 +170,137 @@ export const unvalidateUser = (userId) => {
             return
         }
         try {
-            const res = await axios.post(`admin/unvalidate`, { userId }, { headers: { 'X-Token': authToken } })
-            if (res.status === 200) {
-                dispatch({ type: SET_USER_UNVALID, payload: userId })
-                dispatch(
-                    notifActions.notifSend({
-                        message: 'Participant annulé',
-                        kind: 'warning',
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+            await refuseUser(authToken, userId)
+            dispatch({ type: SET_USER_UNVALID, userId })
+            dispatch(notification('Participant supprimé', 'warning'))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
 
-export const setAdmin = (id) => {
+export const setAdmin = (userId) => {
     return async (dispatch, getState) => {
         const authToken = getState().login.token
 
         if (!authToken || authToken.length === 0) {
             return
         }
-        try {
-            const res = await axios.put(`/admin/setAdmin/${id}`, { admin: true }, { headers: { 'X-Token': authToken } })
 
-            if (res.status === 200) {
-                dispatch({ type: SET_USER_ADMIN, payload: id })
-                dispatch(
-                    notifActions.notifSend({
-                        message: "L'utilisateur est maintenant administrateur",
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+        try {
+            await grantAdmin(authToken, userId)
+            dispatch({ type: SET_USER_ADMIN, userId })
+            dispatch(notification(`L'utilisateur est maintenant administrateur`))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
 
-export const removeAdmin = (id) => {
+export const removeAdmin = (userId) => {
     return async (dispatch, getState) => {
         const authToken = getState().login.token
 
         if (!authToken || authToken.length === 0) {
             return
         }
-        try {
-            const res = await axios.put(
-                `/admin/setAdmin/${id}`,
-                { admin: false },
-                { headers: { 'X-Token': authToken } }
-            )
 
-            if (res.status === 200) {
-                dispatch({ type: REMOVE_USER_ADMIN, payload: id })
-                dispatch(
-                    notifActions.notifSend({
-                        message: "L'utilisateur n'est maintenant plus administrateur",
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+        try {
+            await flushAdmin(authToken, userId)
+            dispatch({ type: REMOVE_USER_ADMIN, userId })
+            dispatch(notification(`L'utilisateur n'est maintenant plus administrateur`, 'warning'))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
 
-export const setOrga = (id) => {
+export const setOrga = (userId) => {
     return async (dispatch, getState) => {
         const authToken = getState().login.token
 
         if (!authToken || authToken.length === 0) {
             return
         }
+
         try {
-            const res = await axios.put(`/admin/setOrga/${id}`, { orga: true }, { headers: { 'X-Token': authToken } })
-            console.log(res)
-            if (res.status === 200) {
-                dispatch({ type: SET_USER_ORGA, payload: id })
-                dispatch(
-                    notifActions.notifSend({
-                        message: "L'utilisateur est maintenant organisateur",
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+            await grantOrga(authToken, userId)
+            dispatch({ type: SET_USER_ORGA, userId })
+            dispatch(notification(`L'utilisateur est maintenant organisateur`))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
 
-export const removeOrga = (id) => {
+export const removeOrga = (userId) => {
     return async (dispatch, getState) => {
         const authToken = getState().login.token
 
         if (!authToken || authToken.length === 0) {
             return
         }
-        try {
-            const res = await axios.put(`/admin/setOrga/${id}`, { orga: false }, { headers: { 'X-Token': authToken } })
 
-            if (res.status === 200) {
-                dispatch({ type: REMOVE_USER_ORGA, payload: id })
-                dispatch(
-                    notifActions.notifSend({
-                        message: "L'utilisateur n'est maintenant plus organisateur",
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+        try {
+            await flushOrga(authToken, userId)
+            dispatch({ type: REMOVE_USER_ORGA, userId })
+            dispatch(notification(`L'utilisateur n'est maintenant plus organisateur`, 'warning"'))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
 
-export const setTreso = (id) => {
+export const setTreso = (userId) => {
     return async (dispatch, getState) => {
         const authToken = getState().login.token
 
         if (!authToken || authToken.length === 0) {
             return
         }
-        try {
-            const res = await axios.put(`/admin/setTreso/${id}`, { treso: true }, { headers: { 'X-Token': authToken } })
 
-            if (res.status === 200) {
-                dispatch({ type: SET_USER_TRESO, payload: id })
-                dispatch(
-                    notifActions.notifSend({
-                        message: "L'utilisateur est maintenant trésorier",
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+        try {
+            await grantTreas(authToken, userId)
+            dispatch({ type: SET_USER_TRESO, payload: id })
+            dispatch(notification(`L'utilisateur est maintenant trésorier`))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
 
-export const removeTreso = (id) => {
+export const removeTreso = (userId) => {
     return async (dispatch, getState) => {
         const authToken = getState().login.token
 
         if (!authToken || authToken.length === 0) {
             return
         }
-        try {
-            const res = await axios.put(
-                `/admin/setTreso/${id}`,
-                { treso: false },
-                { headers: { 'X-Token': authToken } }
-            )
 
-            if (res.status === 200) {
-                dispatch({ type: REMOVE_USER_TRESO, payload: id })
-                dispatch(
-                    notifActions.notifSend({
-                        message: "L'utilisateur n'est maintenant plus trésorier",
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+        try {
+            await flushTreas(authToken, userId)
+            dispatch({ type: REMOVE_USER_TRESO, payload: id })
+            dispatch(notification(`L'utilisateur n'est maintenant plus trésorier`, 'warning'))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
 
-export const setRedac = (id) => {
+export const setRedac = (userId) => {
     return async (dispatch, getState) => {
         const authToken = getState().login.token
 
         if (!authToken || authToken.length === 0) {
             return
         }
+        
         try {
-            const res = await axios.put(`/admin/setRedac/${id}`, { write: true }, { headers: { 'X-Token': authToken } })
-
-            if (res.status === 200) {
-                dispatch({ type: SET_USER_WRITE, payload: id })
-                dispatch(
-                    notifActions.notifSend({
-                        message: "L'utilisateur est maintenant rédacteur",
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+            await grantRedac(authToken, userId)
+            dispatch({ type: SET_USER_WRITE, userId })
+            dispatch(notification(`L'utilisateur est maintenant rédacteur`))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, error)
         }
     }
 }
@@ -487,31 +312,13 @@ export const removeRedac = (id) => {
         if (!authToken || authToken.length === 0) {
             return
         }
-        try {
-            const res = await axios.put(
-                `/admin/setRedac/${id}`,
-                { write: false },
-                { headers: { 'X-Token': authToken } }
-            )
 
-            if (res.status === 200) {
-                dispatch({ type: REMOVE_USER_WRITE, payload: id })
-                dispatch(
-                    notifActions.notifSend({
-                        message: "L'utilisateur n'est maintenant plus rédacteur",
-                        dismissAfter: 2000,
-                    })
-                )
-            }
+        try {
+            await flushRedac(authToken, userId)
+            dispatch({ type: REMOVE_USER_WRITE, userId })
+            dispatch(notification(`L'utilisateur n'est maintenant plus rédacteur`, 'warning'))
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(dispatch, err)
         }
     }
 }
