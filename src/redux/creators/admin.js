@@ -71,10 +71,7 @@ export const validatePayment = (userId, alcool, bedroom) => {
             if (res.status === 200) {
                 dispatch({ type: SET_USER_PAID, payload: userId })
                 dispatch(
-                    notifActions.notifSend({
-                        message: 'Paiement validé',
-                        dismissAfter: 2000,
-                    })
+                    notification('Paiement validé')
                 )
             }
         } catch (err) {
