@@ -1,19 +1,14 @@
 import { actions as notifActions } from 'redux-notifications'
 
-export const handleAPIerror = (error, kind) => {
+export const handleAPIerror = (dispatch, error, kind) => {
     console.log(error)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(error.response.data.error),
-                    kind: kind,
-                    dismissAfter: 2000,
-                })
-            )
+    dispatch(notification(error.response.data.error, kind))
 }
 
-export const notification = (message) => {
+export const notification = (message, kind) => {
     notifActions.notifSend({
         message,
+        kind,
         dismissAfter: 2000,
     })
 }
