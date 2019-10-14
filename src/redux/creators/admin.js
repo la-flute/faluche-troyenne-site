@@ -50,14 +50,7 @@ export const fetchUsersRoles = () => {
 
             dispatch({ type: SET_USERS_ROLES, payload: res.data })
         } catch (err) {
-            console.log(err)
-            dispatch(
-                notifActions.notifSend({
-                    message: errorToString(err.response.data.error),
-                    kind: 'danger',
-                    dismissAfter: 2000,
-                })
-            )
+            handleAPIerror(err)
         }
     }
 }
