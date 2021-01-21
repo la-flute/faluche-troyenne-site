@@ -34,7 +34,7 @@
     "redux-notifications": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "smooth-scroll": "^14.2.1",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.4.0"
   },
   "scripts": {
     "dev": "react-scripts start",
