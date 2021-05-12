@@ -5,7 +5,7 @@
   "dependencies": {
     "antd": "^3.13.5",
     "axios": "^0.18.1",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.9.4",
     "chat-template": "^0.0.26",
     "classnames": "^2.2.6",
     "deckstrings": "^2.1.0",
