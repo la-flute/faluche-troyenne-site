@@ -11,7 +11,7 @@
     "deckstrings": "^2.1.0",
     "history": "^4.7.2",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node-static": "^0.7.11",
     "openid-client": "^2.4.5",
     "pm2": "^2.10.4",
